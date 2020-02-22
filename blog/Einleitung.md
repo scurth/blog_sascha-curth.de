@@ -3,6 +3,7 @@ title: Einführung in den Themenbereich IoT
 description: Was soll das Ganze?
 author: Sascha Curth
 type: article
+lang: de-DE
 published: 22.02.2020
 modified: 22.02.2020
 ---
@@ -17,6 +18,8 @@ Das ganze soll keine Angst vor dem Thema erzeugen, sondern auf die Gefahren hinw
 ## Ziel des Blogs
 
 In diesem Blog geht es darum, wie man IoT Geräte von der Zwangsnutzung der Cloud und Hersteller Portalen befreien kann, ohne dabei die Möglichkeiten der Datennutzung und Gerätekommunikation zu verlieren. Hierbei werden die verschiedensten Bereiche beleuchtet, von der Umstellung auf open-source-firmware über den Betrieb einer eigenen Infrastruktur bis hin zum Monitoring und der gezielten Interaktion zwischen den Geräten.
+
+Im Detail wird ideser Blog eher eine Art Kompendium werden, da die einzelnen Artikel den neuen technischen Gegebenheiten angepasst werden.
 
 ## Wie kann man hier mitmachen
 

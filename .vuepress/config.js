@@ -9,12 +9,13 @@ module.exports = {
     ],
    sidebar: [
       '/blog/Einleitung',
+      '/blog/Miflora',
+      '/blog/Tasmota',
     ]
   },
-  plugins: [
-      'social-share',
-      {
-         networks: ['twitter', 'facebook', 'reddit', 'telegram']
-      },
+  plugins: [ 
+     'social-share', { networks: ['twitter', 'facebook', 'reddit', 'telegram'] },
+     '@vuepress/last-updated',
+     'vuepress-plugin-table-of-contents',
   ],
 }

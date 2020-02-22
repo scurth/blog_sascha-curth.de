@@ -5,6 +5,7 @@ author: Sascha Curth
 meta:
  - name: IoT Blog
  - content: opensource tasmota influxdb grafana raspberry linux mqtt
+lang: de-DE
 ---
 # Der IoT Blog
 <posts />

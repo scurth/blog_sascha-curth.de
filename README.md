@@ -15,4 +15,5 @@ features:
   details: Die erfassten Daten und Einstellungen müssen langfristig überwacht werden um Störungen aktiv gemeldet zu bekommen und da sich die Erde weiter dreht und persönliche Präferenzen und Anforderungen kontinuierlich weiterenwickeln, muss auch das persönliche IoT Ökosystem diesen Anforderungsänderungen folgen.
 footer: MIT Licensed | Copyright © 2020-present Sascha Curth
 author: Sascha Curth
+lang: de-DE
 ---
