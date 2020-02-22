@@ -74,9 +74,12 @@ Da der Sensor alle Daten stündlich intern abspeichert, reicht es theoretisch au
 3 * * * * <pfad zum miflora>/miflora-influxdb/poll-insert.py 2>&1 >> /var/log/miflora-influxdb.log
 ```
 
-Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visualisiert werden. Im Grafana können Schwellwerte und Alarme zu verschiedensten Systemen eingrichtet werden. Alternativ dazu bietet es sich an die Daten nicht direkt in die InfluxDB zu schreiben, sondern via MQTT zur Verfügung zu stellen und somit dedizierte Überwacher einzurichten.
+Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visualisiert werden. Im Grafana können Schwellwerte und Alarme zu verschiedensten Systemen eingrichtet werden. 
+
+![miflora-grafana](/images/miflora-grafana.png)
 
 ## Daten via MQTT zur Verfügung stellen
+Alternativ zur direkten Speicherung in der InfluxDB bietet es sich an, die Daten via MQTT zur Verfügung zu stellen und dedizierte Überwacher bzw Aktoren einzurichten.
 
 ## Alarme einrichten
 ### Batterie
