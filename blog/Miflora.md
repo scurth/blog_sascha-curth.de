@@ -13,6 +13,8 @@ modified: 22.02.2020
 ## Überblick
 Der "Flower Care Xiaomi Mi Flora" ist ein 4 in 1 Bluetooth Sensor, welcher Bodenfeuchtigkeit, Helligkeit, Bodenleitfähigkeit aka Dünger und Temperatur messen kann. Man wird hierrüber keine Information bekommen, ob man die richtige Nährstoffzusammensetzung hat, aber um eine grobe Übersicht zu bekommen, sind diese Sensoren sehr gut zu gebrauchen. In folgende wird gezeigt, wie man die Geräte via bluetooth findet, wie das interne Daten Layout aussieht und wie man die Daten kontinuierlich speichert um diese dann mittels Grafana zu visualiseren.
 
+![miflora-sensor](/images/miflora-sensor.jpg)
+
 ## Quick & Dirty
 Auf dem raspberry pi 3 können wir den eingebauten bluetooth chip verwenden, auf anderen System ist ggfls. ein bluetooth stick notwendig.
 
