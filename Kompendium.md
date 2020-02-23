@@ -1,12 +1,11 @@
 ---
-title: IoT Blog
+title: IoT Kompendium
 description: Gewinne die Kontrolle über deine IoT Geräte und Daten zurück
 author: Sascha Curth
-lang: de-DE
 meta:
- - name: IoT Blog
+ - name: IoT Kompendium
  - content: opensource tasmota influxdb grafana raspberry linux mqtt
+lang: de-DE
 ---
-
-# Alle Blog Artikel
+# Das IoT Kompendium
 <posts />

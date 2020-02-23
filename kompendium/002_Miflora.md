@@ -1,6 +1,7 @@
 ---
 title: Miflora Pflanzensensor
 description: Daten abgreifen und sinnvoll speichern
+introimage: "/images/miflora-sensor.jpg"
 author: Sascha Curth
 type: article
 lang: de-DE
@@ -70,6 +71,11 @@ to_scan = ["Heizung","GrowBed","Fenster"]
 
 influx_args=('localhost', 8086, 'root', 'pass', 'plant_monitors')
 ```
+
+>**ACHTUNG**
+>
+>Beim folgenden Schritt werden alle historischen Daten vom Gerät geladen und anschliessend gelöscht. 
+
 Da der Sensor alle Daten stündlich intern abspeichert, reicht es theoretisch aus alle paar Tage die Daten abzufragen. Wenn man die Daten jedoch zeitnah im Grafana sehen möchte, empfiehlt sich ein stündlicher cronjob, kurz nach der vollen Stunde.
 
 ```shell

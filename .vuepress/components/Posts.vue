@@ -2,7 +2,7 @@
   <div class="post-container">
     <router-link v-for="page in pages" :to="page.path">
       <div class="post-card">
-        <img class="article-image" src="../public/images/blackboard-4085238_1920.jpg" />
+        <img class="article-image" :src="page.frontmatter.introimage" />
         <div class="page-detail">
           <div class="page-title">{{ page.title }}</div>
           <div class="page-author">Author: {{ page.frontmatter.author }}</div>
@@ -46,7 +46,7 @@ export default {
   align-items: center;
 }
 .article-image {
-  height: 90%;
+  width: 150px;
   margin: 10px;
 }
 .page-title {

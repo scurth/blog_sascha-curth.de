@@ -5,12 +5,13 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'IoT Blog', link: '/blog' },
+      { text: 'IoT Kompendium', link: '/kompendium' },
+      { text: 'IoT Projekte', link: '/projekte' },
     ],
    sidebar: [
-      '/blog/Einleitung',
-      '/blog/Miflora',
-      '/blog/Tasmota',
+      '/kompendium/001_Einleitung',
+      '/kompendium/002_Miflora',
+      '/kompendium/003_Tasmota',
     ]
   },
   plugins: [ 

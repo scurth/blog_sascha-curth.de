@@ -5,7 +5,7 @@ heroImage: /iot.jpg
 heroText: Der IoT Rebell
 tagline: Internet of Things - So, wie es sein sollte
 actionText: Los geht's →
-actionLink: /blog
+actionLink: /kompendium
 features:
 - title: Informieren
   details: Der erste Schritt, dem Anwender die Sichtbarkeit darüber zu geben, welche Art von Geräten und Steuerungen es überhaupt gibt, bildet die Entscheidungsgrundlage, wie man mit den anfallenden Daten umgehen möchte. Hierbei geht es nicht um blinden Dogmatismus, sondern darum eine Balance zu finden zwischen Datensicherheit und Benutzbarkeit in Verbindung mit der selbst gewählten Höhe der Abhängigkeit von Drittanbietern.

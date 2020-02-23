@@ -1,6 +1,7 @@
 ---
 title: Tasmota Firmware Installation
 description: Installation der OpenSource Firmware
+introimage: "/images/tasmota.png"
 author: Sascha Curth
 type: article
 lang: de-DE
@@ -15,5 +16,5 @@ https://templates.blakadder.com/
 
 
 ## Tasmota OTA - Over The Air - Flash
-efg
+https://github.com/ct-Open-Source/tuya-convert
 
