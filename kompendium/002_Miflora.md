@@ -6,7 +6,7 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 22.02.2020
-modified: 23.02.2020
+modified: 26.02.2020
 ---
 # Inhalt
 <TOC />
@@ -91,13 +91,6 @@ Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visu
 ## Daten via MQTT zur Verfügung stellen
 Alternativ zur direkten Speicherung in der InfluxDB bietet es sich an, die Daten via MQTT zur Verfügung zu stellen und dedizierte Überwacher bzw Aktoren einzurichten.
 
-## Alarme einrichten
-### Batterie
-### Wassermangel
-### Düngung
-### Licht
-### Firmware
-
 ## Firmware aktualisieren
-
+Derzeit nur mittels "Flowr Care" App möglich.
 
