@@ -6,7 +6,7 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 22.02.2020
-modified: 22.02.2020
+modified: 23.02.2020
 ---
 # Inhalt
 <TOC />
@@ -22,6 +22,8 @@ Auf dem raspberry pi 3 können wir den eingebauten bluetooth chip verwenden, auf
 ```shell
 sudo apt-get install bluetooth bluez bluez-tools rfkill rfcomm
 ```
+
+Da der Sensor "low energy (le)" bluetooth verwendet, müssen wir entsprechend einen "lescan" durchführen
 
 ```shell
 sudo hcitool lescan

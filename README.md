@@ -16,4 +16,9 @@ features:
 footer: MIT Licensed | Copyright © 2020-present Sascha Curth
 author: Sascha Curth
 lang: de-DE
+meta:
+  -  http-equiv: cache-control
+     content: no-cache
+  -  http-equiv: expires
+     content: 0
 ---
