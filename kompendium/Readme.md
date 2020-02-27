@@ -8,5 +8,5 @@ meta:
  - content: opensource tasmota influxdb grafana raspberry linux mqtt
 ---
 
-# Alle Blog Artikel
+# Alle Kompendium Einheiten
 <posts />

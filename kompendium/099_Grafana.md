@@ -10,6 +10,28 @@ modified: 26.02.2020
 ---
 # Inhalt
 <TOC />
+## Überblick
+Mit Grafana können Zeitreihen von Zahlenwerten graphisch dargestellt werden. Hierbei greift Grafana auf externe Datenquellen zu und ist darauf angewiesen, das andere Prozesse die Daten aktuell halten.
+
+### InfluxDB
+Diese Datenbank ist speziell für Zeitreihen optimiert und erfordert wenig Kenntnissie für eine erste inbetriebnahme für ein privates IoT Monitoring Projekt. Einige Hersteller bieten eine native InfluxDB Integration an, so dass diese Geräte die Daten direkt dort abspeichern und Grafana diese dann auswerten kann.
+
+### Telegraf
+Telegraf ist ein Daten Kollektor, der mittels verschiedener Plugins die Daten periodisch holen, aufbereiten und in die InfluxDB speichern kann.
+
+### MQTT
+Grafana kann nicht direkt Daten via MQTT holen, da es selbst keine Daten speichert. Hier kommt Telegraf ins Spiel, welcher sich via MQTT an die entsprechenden Topics registireren kann und dann wiederum die InfluxDB befüllt.
+
+### Andere Alternativen
+Neben InfluxDB & Telegraf kann zum Beispiel auch Prometheus und Tanos verwendet werden. Eine Liste von Datenquellen findet man auf der <a href="https://grafana.com/grafana/plugins?orderBy=weight&direction=asc&type=datasource" target=_grafana>Grafana Plugin Seite</a>. Auch einfache scripte die mittels cron ausgeführt werden können zum gewünschten Ergebnis führen.
+
+## Quick & Dirty
+```shell
+sudo apt-get install grafana
+sudo /bin/systemctl enable grafana-server
+sudo service grafana-server restart
+```
+Danach läuft Grafana auf dem Port 3000 und ist mittels browser erreichbar.
 
 ## Grafana Installation mittels Docker
 
