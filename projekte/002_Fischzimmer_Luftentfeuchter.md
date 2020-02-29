@@ -5,8 +5,8 @@ introimage: "/images/projekte/luftfeuchter-optimierung.jpg"
 author: Sascha Curth
 type: projekte
 lang: de-DE
-published: 28.02.2020
-modified: 28.02.2020
+published: 27.02.2020
+modified: 29.02.2020
 ---
 # Inhalt
 <TOC />
@@ -37,16 +37,16 @@ Den Stromverbrauch wird mittels <a id="Blitzwolf" title="Dies ist keine Kaufempf
 Im 7-Tages Rückblick erkennt man sehr gut die gesamte Reduktion, welche sich rein rechnerisch bei 0,2kwh * ca. 14h = 2.8kwh bewegen müsste. Abzüglich eines Mehrverbrauchs um die nächtliche Pause auszugleichen.
 ![Luftfeuchtigkeit-strom7tage](/images/projekte/luftfeuchtigkeit-strom7tage.png)
 
-| Tag | Stromverbrauch dieses Stromkreises | Kommentar |
-| --- | :---: | --- |
-| 21.02.2020 | 6.7 kwh | Referenz |
-| 22.02.2020 | 6.9 kwh | Referenz |
-| 23.02.2020 | 7.1 kwh | Referenz |
-| 24.02.2020 | 7.1 kwh | Referenz |
-| 25.02.2020 | 7.2 kwh | Referenz |
-| 26.02.2020 | 6.6 kwh | Luftentfeuchter-Abschaltung um 20:30 |
-| 27.02.2020 | <b>4.7 kwh</b> | erster vollständiger Tag |
-| 28.02.2020 | | zweiter vollständiger Tag |
+| Tag | Stromverbrauch dieses Stromkreises | Laufzeit | Kommentar |
+| --- | :---: | --- | --- |
+| 21.02.2020 | 6.7 kWh | 24h |Referenz |
+| 22.02.2020 | 6.9 kWh | 24h | Referenz |
+| 23.02.2020 | 7.1 kWh | 24h | Referenz |
+| 24.02.2020 | 7.1 kWh | 24h | Referenz |
+| 25.02.2020 | 7.2 kWh | 24h | Referenz |
+| 26.02.2020 | 6.6 kWh | Auto Abschaltung um 20:30 | Beginn des Tests |
+| 27.02.2020 | <b>5.2 kWh</b> | 10:00 bis 20:30 | erster vollständiger Tag |
+| 28.02.2020 | <b>4.8 kWh</b> | 9:00 bis 19:00 | zweiter vollständiger Tag |
 
 ## Ergebnis
 Die langfristige Auswirkung der nächtlichen Luftfeuchtigkeit muss weiter beoabachtet werden, aber die Reduktion der Temperatur wird besonders in den Sommermonaten hilfreich sein und die Reduzierung des Stromverbrauchs von >2kwh pro Tag ergeben einen jährliche Ersparnis von 2kwh * 30 cent * 365 Tage = 216 €. Ab März wird hoffentlich wieder die Sonne scheinen und dementsprechend der Eigenverbrauch entsprechend steigen.
