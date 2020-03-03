@@ -8,22 +8,30 @@ lang: de-DE
 published: 22.02.2020
 modified: 26.02.2020
 ---
-# Inhalt
+# Miflora Pflanzensensor
 <TOC />
 
+# In einem Satz
+Der "Flower Care Xiaomi Mi Flora" ist ein 4 in 1 Bluetooth Sensor zur kontinuierlichen Bestimmung der Pflanzenwachstumsumgebung und kann sehr einfach mit Linux und einem RaspberryPi 3 oder RaspberryPi 4 abgefragt werden.
+
 ## Überblick
-Der "Flower Care Xiaomi Mi Flora" ist ein 4 in 1 Bluetooth Sensor, welcher Bodenfeuchtigkeit, Helligkeit, Bodenleitfähigkeit aka Dünger und Temperatur messen kann. Man wird hierrüber keine Information bekommen, ob man die richtige Nährstoffzusammensetzung hat, aber um eine grobe Übersicht zu bekommen, sind diese Sensoren sehr gut zu gebrauchen. In folgende wird gezeigt, wie man die Geräte via bluetooth findet, wie das interne Daten Layout aussieht und wie man die Daten kontinuierlich speichert um diese dann mittels Grafana zu visualiseren.
+Mittels Bluetooth stellt der Pflanzensensor Informationen zur aktuellen Bodenfeuchtigkeit und -leitfähigkeit zur Verfügung, mit deren Hilfe man die Düngung und Wassergabe anpassen kann. Zusätzlich wir die Umgebungstemperatur und Lichtmenge protokolliert. Diese Information geben keinen Aufschluss darüber, ob Nährstoffzusammensetzung korrekt ist, aber für eine grobe Übersicht und eine Trendanalyse sind diese Sensoren sehr gut zu gebrauchen. 
+
+Im Folgende wird gezeigt
+- wie man die Geräte via bluetooth findet
+- wie das interne Daten Layout aussieht
+- wie man die Daten kontinuierlich speichert, um diese mittels Grafana zu visualiseren.
 
 ![miflora-sensor](/images/miflora-sensor.jpg)
 
 ## Quick & Dirty
-Auf dem raspberry pi 3 können wir den eingebauten bluetooth chip verwenden, auf anderen System ist ggfls. ein bluetooth stick notwendig.
+RaspberryPi 3 und RaspberryPi 4 verfügen über einen eingebauten Bluetooth Chip, welcher unter Linux/Raspbian ohne weitere Konfiguration benutzt werden kann.
 
 ```shell
 sudo apt-get install bluetooth bluez bluez-tools rfkill rfcomm
 ```
 
-Da der Sensor "low energy (le)" bluetooth verwendet, müssen wir entsprechend einen "lescan" durchführen
+Da der Pflanzensensor "low energy (le)" Bluetooth verwendet, müssen wir entsprechend einen "<b>le</b>scan" statt des normalen "scan" durchführen. Hier sollten nun alle Pflanzensensoren gelistet werden. Die Hardware Adressen benötigen wir für die nächsten Schritte.
 
 ```shell
 sudo hcitool lescan
@@ -34,7 +42,7 @@ C4:7C:8D:66:A7:44 Flower care
 C4:7C:8D:66:A6:98 Flower care
 C4:7C:8D:66:AA:05 Flower care
 ```
-
+Als nächsten Schritt clonen wir das miflora repository und testen den Zugriff auf einen der Pflanzensensoren.
 ```shell
 git clone https://github.com/open-homeautomation/miflora.git
 cd miflora
@@ -51,15 +59,14 @@ Battery: 98
 ```
 
 ## Daten in die InfluxDB schreiben
-Hierzu nutzen wir ein anderes bestehendes open-source project, welche auf dem miflora Projekt basiert.
-
+Um die Daten visualisieren zu können, müssen diese gespeichert. Hierzu nutzen wir ein anderes open-source project, welches auf dem vorher verwendeten miflora Projekt basiert, und lassen die Daten in eine InfluxDB schreiben.
 
 ```shell
 git clone  https://github.com/sergem155/miflora-influxdb.git
 cd miflora-influxdb
 ```
 
-In der config.py werden die Bluetooth Hardware Adressen einem sinnvollen Namen zugeordnet und unter "to_scan" aufgelistet. Die InfluxDB Zugangsdaten müssen natürlich ebenfalls angepasst werden. Wie man die InfluxDB installiert und verwaltet ist hier beschrieben "TBD".
+In der config.py werden die Bluetooth Hardware Adressen einem sinnvollen Namen zugeordnet und unter "to_scan" aufgelistet. Die InfluxDB Zugangsdaten müssen natürlich ebenfalls angepasst werden. Wie man die InfluxDB installiert und verwaltet ist hier beschrieben: "Platzhalter".
 
 ```shell
 cat config.py 
@@ -76,7 +83,7 @@ influx_args=('localhost', 8086, 'root', 'pass', 'plant_monitors')
 
 >**ACHTUNG**
 >
->Beim folgenden Schritt werden alle historischen Daten vom Gerät geladen und anschliessend gelöscht. 
+>Im nun Folgendem Schritt werden alle historischen Daten vom Gerät geladen und anschliessend gelöscht. Sollte es hierbei Probleme geben, können die Daten nicht wieder hergestellt werden.
 
 Da der Sensor alle Daten stündlich intern abspeichert, reicht es theoretisch aus alle paar Tage die Daten abzufragen. Wenn man die Daten jedoch zeitnah im Grafana sehen möchte, empfiehlt sich ein stündlicher cronjob, kurz nach der vollen Stunde.
 
@@ -84,7 +91,7 @@ Da der Sensor alle Daten stündlich intern abspeichert, reicht es theoretisch au
 3 * * * * <pfad zum miflora>/miflora-influxdb/poll-insert.py 2>&1 >> /var/log/miflora-influxdb.log
 ```
 
-Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visualisiert werden. Im Grafana können Schwellwerte und Alarme zu verschiedensten Systemen eingrichtet werden. 
+Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visualisiert werden. Im Grafana muss nun eine neue Data Source für InfluxDB eingerichtet werden und wie hier im Beispiel auf die Datenbank "plant_monitors" konfiguriert werden. Die einzelnen Werte können auch mit einem Grafana Schwellwert und Alarm, zb. via email, Slack oder Telegram, versehen werden.
 
 ![miflora-grafana](/images/miflora-grafana.png)
 

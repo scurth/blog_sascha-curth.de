@@ -14,6 +14,7 @@ module.exports = {
         '/kompendium/001_Einleitung',
         '/kompendium/002_Miflora',
         '/kompendium/003_Tasmota',
+        '/kompendium/004_Raspberry_WIFI_Access_Point',
         '/kompendium/099_Grafana',
       ],
       '/projekte/': [
@@ -25,12 +26,10 @@ module.exports = {
   plugins: [ 
      'social-share', { networks: ['twitter', 'facebook', 'reddit', 'telegram'] },
      '@vuepress/last-updated',
-     '@vuepress/sitemap',
      'vuepress-plugin-table-of-contents',
      '@vuepress/back-to-top',
   ],
   head: [
-    ['link', { rel: 'manifest', href: '/favicon/manifest.json' }],
     ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],
     ['link', { rel: 'shortcut icon', href: '/favicon/favicon.ico' }],
     ['link', { rel: 'apple-touch-icon', href: '/favicon/apple-icon-' }],

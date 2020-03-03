@@ -1,6 +1,6 @@
 ---
 title: Grafana
-description: Monitoring der gesammelten Daten
+description: Grafana in Verbindung mit InfluxDB und Telegraf/MQTT bildet die Ausgangsbasis für die eigene IoT Landschaft, losgelöst von den diversen Gerätehersteller Portalen.
 introimage: "/images/grafana-logo.png"
 author: Sascha Curth
 type: article
@@ -10,8 +10,11 @@ modified: 26.02.2020
 ---
 # Inhalt
 <TOC />
+# In einem Satz
+Grafana in Verbindung mit InfluxDB und Telegraf/MQTT bilden die Ausgangsbasis für die eigene IoT Landschaft, losgelöst von den diversen Gerätehersteller Portalen.
+
 ## Überblick
-Mit Grafana können Zeitreihen von Zahlenwerten graphisch dargestellt werden. Hierbei greift Grafana auf externe Datenquellen zu und ist darauf angewiesen, das andere Prozesse die Daten aktuell halten.
+Mit Grafana können Zeitreihen von Zahlenwerten graphisch dargestellt werden und ermöglichen es Trends zu erkennen und bei erreichen von Schwellwerten zu alarmieren. Grafana verfügt über viele Möglichkeiten auf externe Datenquellen zuzugreifen und die Daten entsprechend zu visualisieren. Grafana bietet keine Möglichkeit die Daten aktuell zu halten und ist hierfür auf andere Prozesse angewiesen, wie beispielsweise Telegraf oder cronjobs.
 
 ### InfluxDB
 Diese Datenbank ist speziell für Zeitreihen optimiert und erfordert wenig Kenntnissie für eine erste inbetriebnahme für ein privates IoT Monitoring Projekt. Einige Hersteller bieten eine native InfluxDB Integration an, so dass diese Geräte die Daten direkt dort abspeichern und Grafana diese dann auswerten kann.
