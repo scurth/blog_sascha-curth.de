@@ -15,7 +15,7 @@ modified: 04.03.2020
 Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
 
 ## Überblick
-Für die Konfigurations einen WLAN Accespoints werden <b>hostapd</b> als Accesspoint verwendet und <b>dnsmasq</b> als einfacher DHCP server. Das WLAN wird ausschliesslich als Accesspoint genutzt und er RaspberryPi entsprechend via Netzwerkkabel angeschlossen.
+Für die Konfiguration werden <b>hostapd</b> als Accesspoint verwendet und <b>dnsmasq</b> als einfacher DHCP server. Das WLAN wird ausschliesslich als Accesspoint genutzt und der RaspberryPi entsprechend via Netzwerkkabel angeschlossen.
 
 ## Quick & Dirty
 ```shell
@@ -40,6 +40,12 @@ interface=wlan0
 driver=nl80211
 # 2.4GHz verwenden
 hw_mode=g
+# Country code (ISO/IEC 3166-1). Used to set regulatory domain.
+# Set as needed to indicate country in which device is operating.
+# This can limit available channels and transmit power.
+# These two octets are used as the first two octets of the Country String
+# (dot11CountryString)
+country_code=DE
 # Channel einstellen z.B. 6 (1-13)
 channel=2
 # 802.11n aktivieren
@@ -82,7 +88,7 @@ Jetzt kann man sich mit dem neuen WLAN verbinden und sollte eine IP Adresse zuge
 >Nach der erfolgreichen Änderung von Netzwerkeinstellungen ist es empfehlenswert das System neuzustarten, um sicher zu stellen das alle Komponenten automatisch starten.
 
 ## RaspberryPi 2
-Da diese Hardware Revision noch nicht über eine eingebaute WIFI Schnittstelle muss ein USB WLAN Adapter verwendet werden. Es wird ein USB Wifi Stick benötigt, welcher unter Linux unterstützt wird und WLAN-AP Modus anbietet. Mit dem aktuellen Raspbian OS funktionieren folgende Adapter:
+Da diese Hardware Revision noch nicht über eine eingebaute WIFI Schnittstelle verfügt, muss ein USB WLAN Adapter verwendet werden, welcher den WLAN-AP Modus anbietet. Mit dem aktuellen Raspbian OS funktionieren folgende Adapter ohne weitere Anpassungen:
 - Ralink RT5370 Chipsatz (unter 10€)
 
 Mit diesem Chip muss hostapd mit einem Patch neu kompiliert werden:
@@ -103,7 +109,7 @@ Um zu prüfen ob der AP Mode unterstützt wird is das <b>iw</b> tool hilfreich.
 ```
 
 ## WLAN Reichweite einstellen
-Die aktuellen Eintellungen kann man mittels iwconfig auslesen und werden in diesem Beispiel von 31 dBm auf 1 dBm gesetzt um das WLAN nicht unnötig weit sichtbar zu machen. Das deaktivieren des SSID Broadcast kann auch eine hilfreiche Maßnahme sein, jedoch wird dadurch weiterhin mit voller Sendeleistung gearbeitet und die Kommunikation kann theoretisch wetier entfertn belauscht werden.
+Die aktuellen Eintellungen kann man mittels iwconfig auslesen und werden in diesem Beispiel von 31 dBm auf 1 dBm gesetzt um das WLAN nicht unnötig weit sichtbar zu machen. Das Deaktivieren des SSID Broadcast kann auch eine hilfreiche Maßnahme sein, jedoch wird dadurch weiterhin mit voller Sendeleistung gearbeitet und die Kommunikation kann theoretisch weiter entfernt belauscht werden.
 ```shell
 # iwconfig wlan0 
 wlan0     IEEE 802.11  Mode:Master  Tx-Power=31 dBm   
