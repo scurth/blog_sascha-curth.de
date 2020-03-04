@@ -5,7 +5,7 @@ introimage: "/images/wifi.png"
 author: Sascha Curth
 type: article
 lang: de-DE
-published: 04.03.2020
+published: 03.03.2020
 modified: 04.03.2020
 ---
 #  Raspberry Pi 2/3/4 als WLAN AccessPoint
@@ -106,6 +106,48 @@ Um zu prüfen ob der AP Mode unterstützt wird is das <b>iw</b> tool hilfreich.
 		 * P2P-GO
 		 * P2P-device
 ...
+```
+## WLAN Kanal optimieren
+Das WLAN Spektrum besteht aus mehreren Frequenzen zur Reduktion von Funküberlagerungen. Die meisten IoT Geräte unterstützen nur 2.4GHz Kanäle, während moderne Handys und Notebooks überlicherweise zusätzlich die 5GHz Kanäle zusätzlich unterstützen. 
+>**TIPP**
+>
+>Normales Datennetz auf einen 5GHz Kanal konfigurieren und die IoT Geräte / IoT WLAN Accesspoint auf einen 2.4GHz Kanal einstellen.
+
+```shell
+# iwlist wlan0 scan | grep 'Frequency:2.462 GHz' | sort | uniq -c
+      2                     Frequency:2.462 GHz (Channel 11)
+```
+Die konfigurierbaren Kanäle werden mit dem <b>iw</b> Tool dargestellt.
+```shell
+# iw list| grep '* 24[0-9]\{2\} MHz'
+			* 2412 MHz [1] (20.0 dBm)
+			* 2417 MHz [2] (20.0 dBm)
+			* 2422 MHz [3] (20.0 dBm)
+			* 2427 MHz [4] (20.0 dBm)
+			* 2432 MHz [5] (20.0 dBm)
+			* 2437 MHz [6] (20.0 dBm)
+			* 2442 MHz [7] (20.0 dBm)
+			* 2447 MHz [8] (20.0 dBm)
+			* 2452 MHz [9] (20.0 dBm)
+			* 2457 MHz [10] (20.0 dBm)
+			* 2462 MHz [11] (20.0 dBm)
+			* 2467 MHz [12] (disabled)
+			* 2472 MHz [13] (disabled)
+			* 2484 MHz [14] (disabled)
+```
+In dem Beispiel sind 
+- 2 SSIDs/WLAN Netze auf dem Kanal 11 sichtbar
+- die Kanäle 1 bis 14 technisch verfügbar
+- die Kanäle 1 bis 11 aufgrund der gewählten "country_code" Einstellung verwendbar
+
+Da in einem anderen Teil des Hauses der Kanal 1 von diversen Nachbar WLANs benutzt ist, habe ich mich für den Kanal 2 entschieden.
+
+Die reine Anzahl der bestehenden WLAN Accesspoints gibt noch keine Auskunft über die aktuelle Nutzung in bezug auf den Datendurchsatz, aber komplett freie Kanäle sind immer einge gute Wahl. Den gewünschten Kanal konfiguriert man dann in der <b>/etc/hostapd/hostapd.conf</b> unter <b>channel</b>.
+
+Da neue Netze durch Nachbarn hinzukommen können, empfiehlt es sich die aktuelle Auslastung zu überwachen, z.b. durch einen cronjob/mail oder kontinuierlich via MQTT und Visualisierung und Alarmierung durch Grafana.
+```shell
+iwlist wlan0 scan | grep 'Frequency:2.462 GHz (Channel 11)'|uniq -c
+      2   Frequency:2.462 GHz (Channel 11)
 ```
 
 ## WLAN Reichweite einstellen
