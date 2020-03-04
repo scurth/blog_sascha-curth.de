@@ -87,7 +87,7 @@ Jetzt kann man sich mit dem neuen WLAN verbinden und sollte eine IP Adresse zuge
 >
 >Nach der erfolgreichen Änderung von Netzwerkeinstellungen ist es empfehlenswert das System neuzustarten, um sicher zu stellen das alle Komponenten automatisch starten.
 
-## RaspberryPi 2
+### RaspberryPi 2
 Da diese Hardware Revision noch nicht über eine eingebaute WIFI Schnittstelle verfügt, muss ein USB WLAN Adapter verwendet werden, welcher den WLAN-AP Modus anbietet. Mit dem aktuellen Raspbian OS funktionieren folgende Adapter ohne weitere Anpassungen:
 - Ralink RT5370 Chipsatz (unter 10€)
 
