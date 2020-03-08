@@ -12,7 +12,7 @@ modified: 09.03.2020
 <TOC />
 
 ##  In einem Satz
-Die Hue Bridge Version 1 verliert nach dem 30. April 2020 die Unterstützung bei der Verwendung mit der Hpilips Hue Cloud und App und wird keine weiteren Sicherheitspatches erhalten.
+Die Hue Bridge Version 1 verliert nach dem 30. April 2020 die Unterstützung bei der Verwendung mit der Philips Hue Cloud und App und wird keine weiteren Sicherheitspatches erhalten.
 
 ## Kontext
 Diese Nachricht geht derzeit durch viele Medien, mit den entsprechenden Übertreibungen. Im Sinne des "IoT Rebell", bei dem die Abhängigkeit von der Roadmap des Herstellers und die Wahl wo und wie die Datenverwendet werden eine reine Kundenentscheidung sein soll, könnte man auf den Zug aufspringen und auf der Entrüstungswelle surfen. Ende April 2020 wird der Support für die Philips Hue Bridge v1 eingestellt. Für Besitzer des veralteten Modell sicher ärgerlich und zwingt sie eine Entscheidung zu treffen, entweder die v2 Bridge zu kaufen oder entsprechend einen kompletten Systemwechsel durchzuführen.
