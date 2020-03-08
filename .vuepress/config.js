@@ -5,8 +5,9 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'IoT Kompendium', link: '/kompendium/index.html' },
+      { text: 'IoT News', link: '/news/index.html' },
       { text: 'IoT Projekte', link: '/projekte/index.html' },
+      { text: 'IoT Kompendium', link: '/kompendium/index.html' },
     ],
     sidebar: {
       '/kompendium/': [
@@ -21,6 +22,9 @@ module.exports = {
         '/projekte/',
 	'/projekte/002_Fischzimmer_Luftentfeuchter',
       ],
+      '/news/': [
+        '/news/',
+      ],
     },
   },
   plugins: [ 
@@ -28,11 +32,13 @@ module.exports = {
      '@vuepress/last-updated',
      'vuepress-plugin-table-of-contents',
      '@vuepress/back-to-top',
+     'axios',
+     'sitemap', { hostname: 'https://www.sascha-curth.de' },
   ],
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],
     ['link', { rel: 'shortcut icon', href: '/favicon/favicon.ico' }],
-    ['link', { rel: 'apple-touch-icon', href: '/favicon/apple-icon-' }],
+    ['link', { rel: 'apple-touch-icon', href: '/favicon/apple-icon.png' }],
     ['link', { rel: 'apple-touch-icon', sizes: '57x57', href: '/favicon/apple-icon-57x57.png' }],
     ['link', { rel: 'apple-touch-icon', sizes: '60x60', href: '/favicon/apple-icon-60x60.png' }],
     ['link', { rel: 'apple-touch-icon', sizes: '72x72', href: '/favicon/apple-icon-72x72.png' }],

@@ -99,5 +99,5 @@ Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visu
 Alternativ zur direkten Speicherung in der InfluxDB bietet es sich an, die Daten via MQTT zur Verfügung zu stellen und dedizierte Überwacher bzw Aktoren einzurichten.
 
 ## Firmware aktualisieren
-Derzeit nur mittels "Flowr Care" App möglich.
+Derzeit nur mittels "Flower Care" App möglich.
 

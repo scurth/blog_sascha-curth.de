@@ -21,4 +21,7 @@ meta:
      content: no-cache
   -  http-equiv: expires
      content: 0
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---

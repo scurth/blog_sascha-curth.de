@@ -1,6 +1,6 @@
 ---
-title: Raspberry Pi 2/3/4 als WLAN AccessPoint 
-description: Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
+title: Raspberry Pi 2/3/4 als WLAN/WiFi AccessPoint 
+description: Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN/WiFi und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
 introimage: "/images/wifi.png"
 author: Sascha Curth
 type: article
@@ -8,14 +8,14 @@ lang: de-DE
 published: 03.03.2020
 modified: 04.03.2020
 ---
-#  Raspberry Pi 2/3/4 als WLAN AccessPoint
+#  Raspberry Pi 2/3/4 als WLAN/WiFi AccessPoint
 <TOC />
 
 ## In einem Satz
-Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
+Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN/WiFi und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
 
 ## Überblick
-Für die Konfiguration werden <b>hostapd</b> als Accesspoint verwendet und <b>dnsmasq</b> als einfacher DHCP server. Das WLAN wird ausschliesslich als Accesspoint genutzt und der RaspberryPi entsprechend via Netzwerkkabel angeschlossen.
+Für die Konfiguration werden <b>hostapd</b> als Accesspoint verwendet und <b>dnsmasq</b> als einfacher DHCP server. Das WLAN/WiFi wird ausschliesslich als Accesspoint genutzt und der RaspberryPi entsprechend via Netzwerkkabel angeschlossen.
 
 ## Quick & Dirty
 ```shell
@@ -81,14 +81,14 @@ sudo service networking restart
 sudo service hostapd restart
 ```
 
-Jetzt kann man sich mit dem neuen WLAN verbinden und sollte eine IP Adresse zugewiesen bekommen.
+Jetzt kann man sich mit dem neuen WLAN/WiFi verbinden und sollte eine IP Adresse zugewiesen bekommen.
 
 >**TIPP**
 >
 >Nach der erfolgreichen Änderung von Netzwerkeinstellungen ist es empfehlenswert das System neuzustarten, um sicher zu stellen das alle Komponenten automatisch starten.
 
 ### RaspberryPi 2
-Da diese Hardware Revision noch nicht über eine eingebaute WIFI Schnittstelle verfügt, muss ein USB WLAN Adapter verwendet werden, welcher den WLAN-AP Modus anbietet. Mit dem aktuellen Raspbian OS funktionieren folgende Adapter ohne weitere Anpassungen:
+Da diese Hardware Revision noch nicht über eine eingebaute WIFI Schnittstelle verfügt, muss ein USB WLAN/WiFi Adapter verwendet werden, welcher den WLAN-AP Modus anbietet. Mit dem aktuellen Raspbian OS funktionieren folgende Adapter ohne weitere Anpassungen:
 - Ralink RT5370 Chipsatz (unter 10€)
 
 Mit diesem Chip muss hostapd mit einem Patch neu kompiliert werden:
@@ -107,11 +107,11 @@ Um zu prüfen ob der AP Mode unterstützt wird is das <b>iw</b> tool hilfreich.
 		 * P2P-device
 ...
 ```
-## WLAN Kanal optimieren
-Das WLAN Spektrum besteht aus mehreren Frequenzen zur Reduktion von Funküberlagerungen. Die meisten IoT Geräte unterstützen nur 2.4GHz Kanäle, während moderne Handys und Notebooks überlicherweise zusätzlich die 5GHz Kanäle zusätzlich unterstützen. 
+## WLAN/WiFi Kanal optimieren
+Das WLAN/WiFi Spektrum besteht aus mehreren Frequenzen zur Reduktion von Funküberlagerungen. Die meisten IoT Geräte unterstützen nur 2.4GHz Kanäle, während moderne Handys und Notebooks überlicherweise zusätzlich die 5GHz Kanäle zusätzlich unterstützen. 
 >**TIPP**
 >
->Normales Datennetz auf einen 5GHz Kanal konfigurieren und die IoT Geräte / IoT WLAN Accesspoint auf einen 2.4GHz Kanal einstellen.
+>Normales Datennetz auf einen 5GHz Kanal konfigurieren und die IoT Geräte / IoT WLAN/WiFi Accesspoint auf einen 2.4GHz Kanal einstellen.
 
 ```shell
 # iwlist wlan0 scan | grep 'Frequency:2.462 GHz' | sort | uniq -c
@@ -140,9 +140,9 @@ In dem Beispiel sind
 - die Kanäle 1 bis 14 technisch verfügbar
 - die Kanäle 1 bis 11 aufgrund der gewählten "country_code" Einstellung verwendbar
 
-Da in einem anderen Teil des Hauses der Kanal 1 von diversen Nachbar WLANs benutzt ist, habe ich mich für den Kanal 2 entschieden.
+Da in einem anderen Teil des Hauses der Kanal 1 von diversen Nachbar WLAN/WiFi Netzen benutzt ist, habe ich mich für den Kanal 2 entschieden.
 
-Die reine Anzahl der bestehenden WLAN Accesspoints gibt noch keine Auskunft über die aktuelle Nutzung in bezug auf den Datendurchsatz, aber komplett freie Kanäle sind immer einge gute Wahl. Den gewünschten Kanal konfiguriert man dann in der <b>/etc/hostapd/hostapd.conf</b> unter <b>channel</b>.
+Die reine Anzahl der bestehenden WLAN/WiFi Accesspoints gibt noch keine Auskunft über die aktuelle Nutzung in bezug auf den Datendurchsatz, aber komplett freie Kanäle sind immer einge gute Wahl. Den gewünschten Kanal konfiguriert man dann in der <b>/etc/hostapd/hostapd.conf</b> unter <b>channel</b>.
 
 Da neue Netze durch Nachbarn hinzukommen können, empfiehlt es sich die aktuelle Auslastung zu überwachen, z.b. durch einen cronjob/mail oder kontinuierlich via MQTT und Visualisierung und Alarmierung durch Grafana.
 ```shell
@@ -150,8 +150,8 @@ iwlist wlan0 scan | grep 'Frequency:2.462 GHz (Channel 11)'|uniq -c
       2   Frequency:2.462 GHz (Channel 11)
 ```
 
-## WLAN Reichweite einstellen
-Die aktuellen Eintellungen kann man mittels iwconfig auslesen und werden in diesem Beispiel von 31 dBm auf 1 dBm gesetzt um das WLAN nicht unnötig weit sichtbar zu machen. Das Deaktivieren des SSID Broadcast kann auch eine hilfreiche Maßnahme sein, jedoch wird dadurch weiterhin mit voller Sendeleistung gearbeitet und die Kommunikation kann theoretisch weiter entfernt belauscht werden.
+## WLAN/WiFi Reichweite einstellen
+Die aktuellen Eintellungen kann man mittels iwconfig auslesen und werden in diesem Beispiel von 31 dBm auf 1 dBm gesetzt um das WLAN/WiFi nicht unnötig weit sichtbar zu machen. Das Deaktivieren des SSID Broadcast kann auch eine hilfreiche Maßnahme sein, jedoch wird dadurch weiterhin mit voller Sendeleistung gearbeitet und die Kommunikation kann theoretisch weiter entfernt belauscht werden.
 ```shell
 # iwconfig wlan0 
 wlan0     IEEE 802.11  Mode:Master  Tx-Power=31 dBm   
@@ -176,5 +176,5 @@ iface wlan0 inet static
 ```
 
 ## Lokale Services und Internet Zugang
-Ohne IP Forwarding und NAT Konfiguration können die WLAN Teilnehmer sich nicht ins Internet verbinden, aber auf Dienste zugreifen, welche am wlan0 des RaspberryPi konfiguriert sind. 
+Ohne IP Forwarding und NAT Konfiguration können die WLAN/WiFi Teilnehmer sich nicht ins Internet verbinden, aber auf Dienste zugreifen, welche am wlan0 des RaspberryPi konfiguriert sind. 
 

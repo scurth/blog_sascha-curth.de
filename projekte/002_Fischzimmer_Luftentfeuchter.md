@@ -6,9 +6,9 @@ author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 27.02.2020
-modified: 29.02.2020
+modified: 08.03.2020
 ---
-# Inhalt
+# Luftentfeuchter Optimierung
 <TOC />
 
 ## Problemstellung
