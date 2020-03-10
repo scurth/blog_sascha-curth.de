@@ -20,6 +20,7 @@ module.exports = {
       ],
       '/projekte/': [
         '/projekte/',
+	'/projekte/003_IoT_Backup',
 	'/projekte/002_Fischzimmer_Luftentfeuchter',
       ],
       '/news/': [
