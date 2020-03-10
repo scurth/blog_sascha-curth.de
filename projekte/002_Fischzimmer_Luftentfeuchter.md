@@ -6,7 +6,7 @@ author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 27.02.2020
-modified: 08.03.2020
+modified: 10.03.2020
 ---
 # Luftentfeuchter Optimierung
 <TOC />
@@ -52,3 +52,8 @@ Im 7-Tages Rückblick erkennt man sehr gut die gesamte Reduktion, welche sich re
 Die langfristige Auswirkung der nächtlichen Luftfeuchtigkeit muss weiter beoabachtet werden, aber die Reduktion der Temperatur wird besonders in den Sommermonaten hilfreich sein und die Reduzierung des Stromverbrauchs von >2kwh pro Tag ergeben einen jährliche Ersparnis von 2kwh * 30 cent * 365 Tage = 216 €. Ab März wird hoffentlich wieder die Sonne scheinen und dementsprechend der Eigenverbrauch entsprechend steigen.
 
 Hätte man das ganze auch ohne Sensoren, Grafana und Nerdigkeit erreichen können? Vermutlich ja - aber wo bleibt da der Spass und die Wissenschaft.
+
+## Nachtrag - 10.03.2020
+Zwei Wochen später sind weiterhin keine Luftfeuchtigkeitsprobleme zusehen, d.h. kein Schimmel oder Mehltau auf den Pflanzen. Zusätzlich ist gut zu erkennen, das der Luftentfeuchter nach ca 1.5h Laufzeit die gewünschte Feuchtigkeit erreicht hat und dann in den automatischen an/aus Modus wechselt, um das Niveau zu halten. In dem Zeitfenster wurden 16.3 kWh verbraucht, was den Durchschnitt auf 5.4 kWh setzt.
+
+![Luftfeuchtigkeit-nachtrag](/images/projekte/luftfeuchtigkeit-nachtrag.png)
