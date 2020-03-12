@@ -36,7 +36,7 @@ export default {
   width: 100%;
 }
 .news-card {
-  width: 600px;
+  width: 700px;
   height: 150px;
   margin: 10px;
   border: 1px solid #ccc;

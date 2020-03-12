@@ -20,7 +20,7 @@ Um sich der Thematik zu nähern, werden folgende Fragenschwerpunkte als roter Fa
 - Welche Geräte habe ich überhaupt
 - Wie kann ich die Konfiguration auslesen / zurückschreiben
 - Wo speichere ich das Backup
-- Ergbit eine Versionierung Sinn
+- Ergibt eine Versionierung Sinn
 
 ### Manuelle Inventarisierung
 In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponik berichtet. Dieser Raum war mein erster Versuch vollständig auf Cloudanbindung zu verzichten und alle Komponenten auf OpenSource umzustellen. Derzeit habe ich dort folgende Geräte mit individueller Konfiguration:
@@ -73,6 +73,11 @@ Alternativ zum arp könnte man auch /var/lib/misc/dnsmasq.leases nach aktuellen 
 ### Backup Verschlüsselung und Entschlüsseln
 Insbersondere wenn man das Backup ausserhalb der eigenen 4 Wände lagert, sollte es immer vorher verschlüsselt werden. Lösungsmöglichkeiten gibt es viele, die einfachste und trotzdem sichere Variante ist die Verwendung von **openssl**.
 
+<cite>
+Only wimps use tape backup: real men just upload their important stuff on ftp, and let the rest of the world mirror it ;)
+Torvalds, Linus (1996-07-20).
+</cite>
+
 ```shell
 # Verschlüsseln
 openssl enc -aes-256-cbc -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516-Tasmota-8.1.0.2.json -out Config-tasmota-0516-Tasmota-8.1.0.2.json.enc
@@ -82,13 +87,15 @@ openssl aes-256-cbc -d -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516-T
 ```
 
 ### Speicherung im AWS S3
+Mit dem folgendem Script und einem cronjob können regelmäßig, automatisch Datensicherungen erstellt werden.
+
 ```shell
 #!/bin/bash
 ##########
 # Config #
 ##########
 MYPASSS="TollEsPAsswort"
-S3BUCKET="S3 Bucket Name"
+S3BUCKET="S3BucketName"
 DECODECONFIG="/home/pi/sandbox/decode-config/decode-config.py"
 AWSCLIPROFILE="s3backups"
 
@@ -125,10 +132,66 @@ done
 aws s3 --profile ${AWSCLIPROFILE} sync tasmota s3://${S3BUCKET}/tasmota
 ```
 
+Die AWS IAM Policy kann beispielsweise so aussehen.
+```shell
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1582386410000",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:ListObjects",
+        "s3:PutObject"
+      ],
+      "Resource": [
+        "arn:aws:s3:::S3BucketName",
+        "arn:aws:s3:::S3BucketName/*"
+      ]
+    }
+  ]
+}
+```
+
 ## InfluxDB Daten
+```shell
+#!/bin/bash
+##########
+# Config #
+##########
+MYPASSS="TollEsPAsswort"
+AWSCLIPROFILE="s3backups"
+S3BUCKET="S3BucketName"
+
+#############
+# Variables #
+#############
+today=$(date +%F)
+
+##########
+# Backup #
+##########
+mkdir -p influxdb/${today}
+influxd backup -portable influxdb/${today}
+
+tar -cpf influxdb/${today}.tar influxdb/${today}
+openssl enc -aes-256-cbc -pbkdf2 -salt -k ${MYPASSS} -in influxdb/${today}.tar  -out influxdb/${today}.tar.enc
+#
+# Decrypt: openssl aes-256-cbc -d -pbkdf2 -salt -k ${MYPASSS} -in encryptedfile -out Restore.json
+#
+rm -rf influxdb/${today}
+rm influxdb/${today}.tar
+
+#############
+# S3 Upload #
+#############
+aws s3 --profile ${AWSCLIPROFILE} sync influxdb s3://${S3BUCKET}/influxdb
+```
 
 ## Grafana Dashboards und Konfiguration
 
-## Raspberry Konfiguration
+## Raspbian Konfiguration
 
 ## Zusammenfassung
