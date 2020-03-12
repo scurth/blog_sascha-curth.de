@@ -6,7 +6,7 @@ author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 10.03.2020
-modified: 10.03.2020
+modified: 12.03.2020
 ---
 # Backup der IoT Geräte
 <TOC />
@@ -14,16 +14,16 @@ modified: 10.03.2020
 ## Problemstellung
 Mit der steigenden Anzahl an IoT Geräten, steigt auch das Risiko das einzelne Geräte kaputt gehen und ersetzt werden müssen. Dies kann durch Fehlbedienung, fehler beim Firmware Upgrade oder simpler Bugs in den dazu gehörigen Apps passieren. Je nach Aufgabe des Gerätes ist eine schnelle Wiederherstellung wünschenswert und besonders wenn man über einen gewissen Zeitraum die Einstellungen Stück für Stück an die eigenen Bedürfnisse angepasst hat, will man nicht wieder von vorne anfangen.
 
-Oft stellt sich die Frage, investiere ich meine Zeit lieber in ein ordentliches Konfigurationsmanagent oder in Backup? Ich persönlich versuche den goldenene Mittelweg, bei dem alle Konfigurationen als Backup gesichert werden und dort wo es sich anbietet setzt ich auf Konfigurationsmangement.
+Oft stellt sich die Frage, investiere ich meine Zeit lieber in ein ordentliches Konfigurationsmanagent oder in Backup? Ich persönlich versuche den goldenene Mittelweg, bei dem alle Konfigurationen als Backup gesichert werden und dort wo es sich anbietet setzt ich auf Konfigurationsmanagement.
 
 Um sich der Thematik zu nähern, werden folgende Fragenschwerpunkte als roter Faden verwendet
 - Welche Geräte habe ich überhaupt
-- Wie kann ich die Konfigurations auslesen / zurückschreiben
+- Wie kann ich die Konfiguration auslesen / zurückschreiben
 - Wo speichere ich das Backup
 - Ergbit eine Versionierung Sinn
 
 ## Manuelle Inventarisierung
-In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponik berichtet. Dieser Raum war mein erster Versuch vollständig auf Cloudanbindung zu verzichten und alle Komponenten auf OpenSource umzustellen. Derzeit habe ich dort folgende Geräte mit individueller Konfigurtion:
+In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponik berichtet. Dieser Raum war mein erster Versuch vollständig auf Cloudanbindung zu verzichten und alle Komponenten auf OpenSource umzustellen. Derzeit habe ich dort folgende Geräte mit individueller Konfiguration:
 - RasperryPi 3B+ (Raspbian Linux)
 - 4 BlitzWolf SHP6 Steckodosen mit Powermeter (Tasmota Firmware)
 - 3 AOFO PowerStrip mit 4 x 230V und 4 USB Ports (Tasmota Firmware)
@@ -68,8 +68,20 @@ Config-tasmota-7658-Tasmota-8.1.0.2.json  Config-tasmota-BAFBCD-7117-BlitzWolf-S
 ```
 Alternativ zum arp könnte man auch /var/lib/misc/dnsmasq.leases nach aktuellen DHCP leases durchsuchen oder eine statische Liste mit IP Adressen verwenden.
 >**TIPP**
-> Jede Tasmota Steckdose hat eine 4-stellige ID, welche ich mittels permanent Marker auf das Gerät schreib, um diese einfacher identifizieren zu können. Bsp. Config-tasmota-0516-Tasmota-8.1.0.2.json -> 0516
+> Jede Tasmota Steckdose hat eine 4-stellige ID, welche ich mittels permanent Marker auf das Gerät schreibe, um diese einfacher identifizieren zu können. Bsp. Config-tasmota-0516-Tasmota-8.1.0.2.json -> 0516
 
-## Verschlüsselung und Speicherung im AWS S3
+## Backup Verschlüsselung und Entschlüsseln
+Insbersondere wenn man das Backup ausserhalb der eigenen 4 Wände lagert, sollte es immer vorher verschlüsselt werden. Lösungsmöglichkeiten gibt es viele, die einfachste und trotzdem sichere Variante ist die Verwendung von **openssl**.
+
+```shell
+# Verschlüsseln
+openssl enc -aes-256-cbc -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516-Tasmota-8.1.0.2.json -out Config-tasmota-0516-Tasmota-8.1.0.2.json.enc
+
+# Entschlüsseln
+openssl aes-256-cbc -d -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516-Tasmota-8.1.0.2.json.enc -out Restore.json
+```
+
+## Speicherung im AWS S3
 ... kommt als nächstes ...
 
+## Zusammenfassung
