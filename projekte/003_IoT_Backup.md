@@ -22,7 +22,7 @@ Um sich der Thematik zu nähern, werden folgende Fragenschwerpunkte als roter Fa
 - Wo speichere ich das Backup
 - Ergbit eine Versionierung Sinn
 
-## Manuelle Inventarisierung
+### Manuelle Inventarisierung
 In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponik berichtet. Dieser Raum war mein erster Versuch vollständig auf Cloudanbindung zu verzichten und alle Komponenten auf OpenSource umzustellen. Derzeit habe ich dort folgende Geräte mit individueller Konfiguration:
 - RasperryPi 3B+ (Raspbian Linux)
 - 4 BlitzWolf SHP6 Steckodosen mit Powermeter (Tasmota Firmware)
@@ -31,7 +31,7 @@ In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponi
 - Yoctopuce Hub + Sensoren
 - 4 Flower Care Sensoren
 
-## Grobplanung
+### Grobplanung
 Bei den Tasmota basierten Geräten erfolgt ein Auslesen der Konfiguration und eine anschliessende Speicherung. Da sich in der Sicherung meine WLAN/WIFI und MQTT Zugangsdaten befinden, sind die Backups schützenswert. Die Daten könnten vor einer Speicherung im GIT verschlüsselt werden, allerdings ist GIT nicht unbedingt für binär Daten ausgelegt. Als andere Option bietet sich Amazon S3 an, natürlich ebenfalls vorher verschlüsselt.
 
 Der Luftentfeuchter het als einzige Konfiguration die Timer Eintstellung von 09:00 bis 19:00 und Zielfeuchtigkeit von 65%. Das kann ich gerne der ganzen Welt mitteilen und somit meine Backup Notwendigkeit in diese Dokumentation auslagern. Allerdings ist dieses Gerät tatsächlich das einzige, welches noch direkt mit dem Internet verbunden ist und somit meinem Ziel der 100% Entkopplung im Wege steht. Beim deaktivieren der Cloudanbindung funktioniert der Timer leider nicht mehr und somit werde ich das Problem wohl später nochmal gezielt angehen müssen.
@@ -70,7 +70,7 @@ Alternativ zum arp könnte man auch /var/lib/misc/dnsmasq.leases nach aktuellen 
 >**TIPP**
 > Jede Tasmota Steckdose hat eine 4-stellige ID, welche ich mittels permanent Marker auf das Gerät schreibe, um diese einfacher identifizieren zu können. Bsp. Config-tasmota-0516-Tasmota-8.1.0.2.json -> 0516
 
-## Backup Verschlüsselung und Entschlüsseln
+### Backup Verschlüsselung und Entschlüsseln
 Insbersondere wenn man das Backup ausserhalb der eigenen 4 Wände lagert, sollte es immer vorher verschlüsselt werden. Lösungsmöglichkeiten gibt es viele, die einfachste und trotzdem sichere Variante ist die Verwendung von **openssl**.
 
 ```shell
@@ -81,7 +81,54 @@ openssl enc -aes-256-cbc -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516
 openssl aes-256-cbc -d -pbkdf2 -salt -k TollEsPAsswort -in Config-tasmota-0516-Tasmota-8.1.0.2.json.enc -out Restore.json
 ```
 
-## Speicherung im AWS S3
-... kommt als nächstes ...
+### Speicherung im AWS S3
+```shell
+#!/bin/bash
+##########
+# Config #
+##########
+MYPASSS="TollEsPAsswort"
+S3BUCKET="S3 Bucket Name"
+DECODECONFIG="/home/pi/sandbox/decode-config/decode-config.py"
+AWSCLIPROFILE="s3backups"
+
+#############
+# Variables #
+#############
+today=$(date +%F)
+
+#################
+# Fetch Configs #
+#################
+mkdir -p tasmota/${today}
+
+for ip in $(arp -a|grep tasmota| awk '{print $2}' | tr -d '(' |tr -d ')')
+do
+  python3 ${DECODECONFIG} -d ${ip} --backup-file tasmota/${today}/Config-@H-@f-@v --backup-type json
+done
+
+###################
+# Encrypt Configs #
+###################
+#
+# Decrypt: openssl aes-256-cbc -d -pbkdf2 -salt -k ${MYPASSS} -in encryptedfile -out Restore.json
+#
+for file in $(find tasmota/${today} -type f -name "Config-*.json")
+do
+  openssl enc -aes-256-cbc -pbkdf2 -salt -k ${MYPASSS} -in ${file}  -out ${file}.enc
+  rm ${file}
+done
+
+#############
+# S3 Upload #
+#############
+aws s3 --profile ${AWSCLIPROFILE} sync tasmota s3://${S3BUCKET}/tasmota
+```
+
+## InfluxDB Daten
+
+## Grafana Dashboards und Konfiguration
+
+## Raspberry Konfiguration
 
 ## Zusammenfassung
