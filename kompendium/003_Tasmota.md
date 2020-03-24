@@ -18,6 +18,32 @@ TBD: https://templates.blakadder.com/
 ## Tasmota OTA - Over The Air - Flash
 TBD: https://github.com/ct-Open-Source/tuya-convert
 
+## Backup der Tasmota Konfiguration
+Die Konfiguration kann man via http://IP des Geräts/dl laden oder mittels decode-config.
+
+>**decode-config**
+> Convert, backup and restore configuration data of devices flashed with Tasmota firmware.
+
+```shell
+git clone https://github.com/tasmota/decode-config
+cd decode-config
+./decode-config.py -d 192.168.20.76 --backup-file Config-@H-@f-@v --backup-type json
+ls Config-*
+Config-tasmota-7658-Tasmota-8.1.0.2.json
+```
+
+```shell
+for ip in `arp -a|grep tasmota| awk '{print $2}' | tr -d '(' |tr -d ')'`;
+do 
+  ./decode-config.py -d ${ip} --backup-file Config-@H-@f-@v --backup-type json;
+done
+
+ls Config-tasmota-*
+Config-tasmota-0516-Tasmota-8.1.0.2.json  Config-tasmota-BAF2DB-4827-BlitzWolf-SHP6-15A-7.1.1.json  Config-tasmota-BAFFD4-8148-BlitzWolf-SHP6-15A-7.1.1.json
+Config-tasmota-2356-Tasmota-8.1.0.2.json  Config-tasmota-BAF821-6177-BlitzWolf-SHP6-15A-7.1.1.json
+Config-tasmota-7658-Tasmota-8.1.0.2.json  Config-tasmota-BAFBCD-7117-BlitzWolf-SHP6-15A-7.1.1.json
+```
+
 ## Tasmota OTA Firmware Update
 Beim aktualisieren der Tasmota Firmware auf eine aktuellere Version muss man den kompletten [Update Pfad](https://tasmota.github.io/docs/#/Upgrading?id=migration-path) befolgen. Die Tasmota Firmware ist auch in verschienden Sprachunterstützungen verfügbar, ich bevorzuge die englische Variante.
 
@@ -51,25 +77,4 @@ do
 done
 ``` 
 
-
-## Backup der Tasmota Konfiguration
-Die Konfiguration kann man via http://IP des Geräts/dl laden oder mittels decode-config.
-
->**decode-config**
-> Convert, backup and restore configuration data of devices flashed with Tasmota firmware.
-
-```shell
-git clone https://github.com/tasmota/decode-config
-cd decode-config
-./decode-config.py -d 192.168.20.76 --backup-file Config-@H-@f-@v --backup-type json
-ls Config-*
-Config-tasmota-7658-Tasmota-8.1.0.2.json
-```
-
-```shell
-for ip in `arp -a|grep tasmota| awk '{print $2}' | tr -d '(' |tr -d ')'`; do ./decode-config.py -d ${ip} --backup-file Config-@H-@f-@v --backup-type json; done
-ls Config-tasmota-*
-Config-tasmota-0516-Tasmota-8.1.0.2.json  Config-tasmota-BAF2DB-4827-BlitzWolf-SHP6-15A-7.1.1.json  Config-tasmota-BAFFD4-8148-BlitzWolf-SHP6-15A-7.1.1.json
-Config-tasmota-2356-Tasmota-8.1.0.2.json  Config-tasmota-BAF821-6177-BlitzWolf-SHP6-15A-7.1.1.json
-Config-tasmota-7658-Tasmota-8.1.0.2.json  Config-tasmota-BAFBCD-7117-BlitzWolf-SHP6-15A-7.1.1.json
-```
+Bei dem beschriebene Upgrade Pfad wurde meine Konfiguration nicht beschädigt und war ohne weiteres zutun benutzbar.
