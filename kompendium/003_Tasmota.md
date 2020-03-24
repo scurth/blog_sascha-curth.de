@@ -72,8 +72,8 @@ Automatisches herunterladen
 ```shell
 for version in "7.2.0" "8.1.0" "8.2.0"
 do
-  curl https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota-minimal.bin -o tasmota-minimal-${version}.bin
-  curl https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota.bin -o tasmota-${version}.bin
+  curl -L https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota-minimal.bin -o tasmota-minimal-${version}.bin
+  curl -L https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota.bin -o tasmota-${version}.bin
 done
 ``` 
 
