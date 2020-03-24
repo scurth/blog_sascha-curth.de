@@ -6,7 +6,7 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 22.02.2020
-modified: 10.03.2020
+modified: 24.03.2020
 ---
 # Was ist Tasmota und warum sollte man diese Firmware nutzen
 Tasmota ist eine kostenlose alternative Firmware für Geräte die auf dem ESP8266 Chip basieren, das sind solche von Sonoff und vielen weiteren Herstellern. Tasmota befreit deine Geräte von undurchsichtiger Software und ermöglicht so die Geräte ohne Cloud Komponenten und Internetanbindung zu betreiben und dein Smarthome und Zuhause zu vereinfachen.
@@ -17,6 +17,40 @@ TBD: https://templates.blakadder.com/
 
 ## Tasmota OTA - Over The Air - Flash
 TBD: https://github.com/ct-Open-Source/tuya-convert
+
+## Tasmota OTA Firmware Update
+Beim aktualisieren der Tasmota Firmware auf eine aktuellere Version muss man den kompletten [Update Pfad](https://tasmota.github.io/docs/#/Upgrading?id=migration-path) befolgen. Die Tasmota Firmware ist auch in verschienden Sprachunterstützungen verfügbar, ich bevorzuge die englische Variante.
+
+- aktuelle Version und Zielvesion herausfinden - [Tasmota Github](https://github.com/arendst/Tasmota/releases)
+- alle Zwischenvarianten herunterladen, als "minimal" und als "richtiges" Image
+- Backup der aktuellen Konfiguration erzeugen
+- installation der "minimal" Variante, gefolgt von dem richtigen Versions Image
+
+Der Zwischenschritt über das minimal image ist notwendig, da der Speicher nicht ausreicht für den Upgrade und folgende Fehlermeldung resultiert. 
+
+```shell
+Upload fehlgeschlagen
+Upload-buffer-Vergleich weicht ab
+```
+
+Beispiel Update Pfad von 7.1.1 auf 8.2.0
+
+- [7.2.0-minimal](https://github.com/arendst/Tasmota/releases/download/v7.2.0/tasmota-minimal.bin)
+- [7.2.0](https://github.com/arendst/Tasmota/releases/download/v7.2.0/tasmota.bin)
+- [8.1.0-minimal](https://github.com/arendst/Tasmota/releases/download/v8.1.0/tasmota-minimal.bin)
+- [8.1.0](https://github.com/arendst/Tasmota/releases/download/v8.1.0/tasmota.bin)
+- [8.2.0-minimal](https://github.com/arendst/Tasmota/releases/download/v8.2.0/tasmota-minimal.bin)
+- [8.2.0](https://github.com/arendst/Tasmota/releases/download/v8.2.0/tasmota.bin)
+
+Automatisches herunterladen
+```shell
+for version in "7.2.0" "8.1.0" "8.2.0"
+do
+  curl https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota-minimal.bin -o tasmota-minimal-${version}.bin
+  curl https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota.bin -o tasmota-${version}.bin
+done
+``` 
+
 
 ## Backup der Tasmota Konfiguration
 Die Konfiguration kann man via http://IP des Geräts/dl laden oder mittels decode-config.
