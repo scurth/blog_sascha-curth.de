@@ -11,7 +11,7 @@ meta:
 
 Alle Inhalte sind auch auf <a href="https://github.com/scurth/blog_sascha-curth.de" target=_github>github.com</a> verfügbar und hierüber kann gerne diskutiert werden. Wem das zu Nerdy ist, der kann mich auch gerne via <a href="mailto:der-iot-rebell@sascha-curth.de?subject=IoT Rebell Blog">email</a> erreichen.
 
-## Umgesetzte Projekte zum Nachmachen und inspirieren
+## Umgesetzte Projekte zum Nachmachen und als Inspiration
 <projekte />
 
 ## Projekt Ideen für die Zukunft
@@ -24,13 +24,13 @@ Die folgende Liste sind potentielle neue Projektideen, sind aber gedanklich noch
 - OpenSource, lokales Videokonferenz System
 - popup auf allen familien handys, oder klingelknopf pro Bewohner
 
-### VictronEnergy - VRM
+### Envertec EVB202 Bridge
 
-- MQTT Daten auslesen, nach InfluxDB schreiben
-- Grafana Dashboard
+- Solarertragsdaten werden derzeit direkt an das envertec Portal geschickt
+- Proxy liest Dateen mit, schickt diese an den lokalen MQTT und leitet diese weiter ans Portal
 
-Links:
-- [victron energy](https://www.victronenergy.com/live/open_source:start)
+Links
+- [enverproxy.py](https://gitlab.eitelwein.net/MEitelwein/Enverbridge-Proxy/blob/master/enverproxy.py)
 
 ### NAS Server
 
