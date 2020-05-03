@@ -35,8 +35,7 @@ module.exports = {
      '@vuepress/last-updated',
      'vuepress-plugin-table-of-contents',
      '@vuepress/back-to-top',
-     'axios',
-     'sitemap', { hostname: 'https://www.sascha-curth.de' },
+     'sitemap', { hostname: ['https://www.sascha-curth.de'] },
   ],
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],

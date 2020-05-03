@@ -24,6 +24,10 @@ Die folgende Liste sind potentielle neue Projektideen, sind aber gedanklich noch
 - OpenSource, lokales Videokonferenz System
 - popup auf allen familien handys, oder klingelknopf pro Bewohner
 
+Links
+- [https://matrix.org/blog/2020/04/06/running-your-own-secure-communication-service-with-matrix-and-jitsi](matrix.org)
+- [https://github.com/jitsi/jitsi-meet/blob/master/doc/quick-install.md](Jitsi Quick Install)
+
 ### Envertec EVB202 Bridge
 
 - Solarertragsdaten werden derzeit direkt an das envertec Portal geschickt
@@ -64,7 +68,7 @@ IoT Geräte:
 Gast Netzwerk
 - WPA2, WPA3
 - Bandbreitenlimitierung pro Gerät
-- Passwort pro Gerät / ggfls oauth
+- Passwort pro Gerät / ggfls oauth oder [https://www.keycloak.org/](keycloak)
 
 ### interner OAuth Server
 
@@ -89,3 +93,19 @@ Gast Netzwerk
 
 Links:
 - [https://grocy.info/](Grocy.info)
+
+### MiFlora auf MQTT umstellen
+
+Links:
+- [https://github.com/ThomDietrich/miflora-mqtt-daemon](MiFlora MQTT)
+
+### Raspberry Server Cluster
+Mit zunehmender integration wird die Verfügbarkeit wichtiger, insbesondere wenn statt nur Metriken bereit zu stellen auch Dinge gesteuert werden sollen.
+
+- auth server im cluster modus
+- mosquitto
+- interne webabpplikationen redundant deployen
+- Grafana
+- WLAN AP / DHCP / DNS
+
+

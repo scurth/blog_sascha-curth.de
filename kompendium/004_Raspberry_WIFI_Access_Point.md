@@ -164,7 +164,7 @@ wlan0     IEEE 802.11  Mode:Master  Tx-Power=1 dBm
           Retry short limit:7   RTS thr:off   Fragment thr:off
           Power Management:on
 ```
-Um diese Änderung auch nach einem Reboot zu behalten kann ein "post-up" Befehl verwendet werden.
+Um diese Änderung auch nach einem Reboot zu behalten kann ein "post-up" Befehl verwendet werden. Zusätzlich wird mit "wireless-power off" die Energiesparfunktion deaktiviert, da dies in der Vergangenheit zu Verbindungsabbrüchen der geführt hat.
 
 /etc/network/interfaces
 ```shell
@@ -172,8 +172,57 @@ auto wlan0
 iface wlan0 inet static
             address 192.168.20.1
             netmask 255.255.255.0
+            wireless-power off
             post-up /sbin/iwconfig wlan0 txpower 1
 ```
+
+## Probleme
+WLAN Treiber crashed wenn mehr als 7 Geräte gleichzeitig verbunden sind. Betroffen ist nur ein rasperry 3 mit folgendem Softwarestand:
+
+- Kernel 4.19.97-v7+ #1294 SMP
+- firmware-brcm80211 1:20190114-1+rpt5
+- hostapd 2:2.7+git20190128+0c1e29f-6+deb10u1
+
+```shell
+[   28.538207] IPv6: ADDRCONF(NETDEV_CHANGE): docker0: link becomes ready
+[ 2970.661230] NET: Registered protocol family 38
+[ 2970.702921] cryptd: max_cpu_qlen set to 1000
+[74687.077732] brcmfmac: brcmf_sdio_hostmail: mailbox indicates firmware halted
+[74691.389296] brcmfmac: brcmf_sdio_bus_rxctl: resumed on timeout
+[74691.389536] brcmfmac: brcmf_sdio_checkdied: firmware trap in dongle
+[74693.949400] brcmfmac: brcmf_sdio_bus_rxctl: resumed on timeout
+[74693.949908] brcmfmac: brcmf_sdio_checkdied: firmware trap in dongle
+[74693.949923] brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -110
+[74717.229465] brcmfmac: brcmf_sdio_bus_rxctl: resumed on timeout
+[74717.229728] brcmfmac: brcmf_sdio_checkdied: firmware trap in dongle
+[74719.789620] brcmfmac: brcmf_sdio_bus_rxctl: resumed on timeout
+[74719.789847] brcmfmac: brcmf_sdio_checkdied: firmware trap in dongle
+[74719.789857] brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -110
+[74722.349484] brcmfmac: brcmf_sdio_bus_rxctl: resumed on timeout
+[74722.349725] brcmfmac: brcmf_sdio_checkdied: firmware trap in dongle
+[74724.909587] brcmfmac: brcmf_proto_bcdc_query_dcmd: brcmf_proto_bcdc_msg failed w/status -110
+[74724.909604] brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -110
+[74727.469521] brcmfmac: brcmf_proto_bcdc_query_dcmd: brcmf_proto_bcdc_msg failed w/status -110
+[74730.029540] brcmfmac: brcmf_proto_bcdc_query_dcmd: brcmf_proto_bcdc_msg failed w/status -110
+[74730.029548] brcmfmac: brcmf_cfg80211_get_station: GET STA INFO failed, -110
+```
+
+```shell
+arp -a -n|grep wlan0|wc -l
+7
+```
+
+Auf einem anderen raspberry, gleicher Modell, mit ähnlicher hostapd Konfiguration, funktioniert folgender Softwarestand problemlos:
+```shell
+arp -a -n|grep wlan0|wc -l
+30
+```
+
+- 4.14.97-v7+ #1197 SMP
+- firmware-brcm80211 1:20161130-3+rpt4
+- hostapd 2:2.4-1+deb9u1
+
+Da ich beide WLAN Konfigurationen ohnehin mit einem komplett neu überarbeitetem Konzept ersetzen möchte, habe ich die Nachforschungen erstmal abegrochen und arbeite an dem Ersatz.
 
 ## Lokale Services und Internet Zugang
 Ohne IP Forwarding und NAT Konfiguration können die WLAN/WiFi Teilnehmer sich nicht ins Internet verbinden, aber auf Dienste zugreifen, welche am wlan0 des RaspberryPi konfiguriert sind. 

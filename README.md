@@ -1,6 +1,7 @@
 ---
 pageClass: homepage
 home: true
+hostname: "https://www.sascha-curth.de/"
 heroImage: /iot.jpg
 heroText: Der IoT Rebell
 tagline: Internet of Things - So, wie es sein sollte
@@ -23,5 +24,4 @@ meta:
      content: 0
 sitemap:
   exclude: false
-  changefreq: monthly
----
+  changefreq: hourly

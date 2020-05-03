@@ -7,6 +7,22 @@ type: projekte
 lang: de-DE
 published: 27.02.2020
 modified: 10.03.2020
+date: 10.03.2020
+feed:
+  enable: true
+  title: Title used in feed
+  description: Description used in feed
+  image: /public/image.png
+  author:
+    -
+      name: Author
+      email: author@doamin.tld
+      link: http://doamin.tld
+  contributor:
+    -
+      name: Contributor
+      email: contributor@doamin.tld
+      link: http://doamin.tld
 ---
 # Luftentfeuchter Optimierung
 <TOC />
