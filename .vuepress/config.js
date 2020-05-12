@@ -16,6 +16,7 @@ module.exports = {
         '/kompendium/002_Miflora',
         '/kompendium/003_Tasmota',
         '/kompendium/004_Raspberry_WIFI_Access_Point',
+        '/kompendium/005_Netatmo_Presence',
         '/kompendium/099_Grafana',
       ],
       '/projekte/': [
