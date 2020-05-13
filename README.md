@@ -14,7 +14,7 @@ features:
   details: Sobald diese Sichtbarkeit erreicht worden ist, kann man mit der Optimierung in zwei Richtungen beginnen. Zum Einen die Infrastruktur und Geräte seinem persönlichen Bedarf anpassen, zum Anderen sich der eigentlichen Idee der vernetzen Geräte widmen und die Daten nutzen um Anpassungen wie beispielsweise, Beleuchtungszeiten oder Heizkreislaufeinstellungen, durchführen.
 - title: Betreiben
   details: Die erfassten Daten und Einstellungen müssen langfristig überwacht werden um Störungen aktiv gemeldet zu bekommen und da sich die Erde weiter dreht und persönliche Präferenzen und Anforderungen kontinuierlich weiterenwickeln, muss auch das persönliche IoT Ökosystem diesen Anforderungsänderungen folgen.
-footer: MIT Licensed | Copyright © 2020-present Sascha Curth
+footer: MIT Licensed | Copyright © 2020-present Sascha Curth 
 author: Sascha Curth
 lang: de-DE
 meta:
