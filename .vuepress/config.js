@@ -28,6 +28,8 @@ module.exports = {
       ],
       '/news/': [
         '/news/',
+        '/news/2020-03-07-Hue-Bridge-v1',
+        '/news/2020-05-12-Belkin-NetCam-End-of-Life',
       ],
     },
   },
