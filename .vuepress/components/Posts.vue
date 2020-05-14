@@ -2,10 +2,9 @@
   <div class="post-container">
     <router-link v-for="page in pages" :to="page.path">
       <div class="post-card">
-        <div class="page-detail">
           <img class="article-image" :src="page.frontmatter.introimage" />
+        <div class="page-detail">
           <div class="page-title">{{ page.title }}</div>
-          <div class="page-author">Author: {{ page.frontmatter.author }}</div>
           <div class="page-published" font-color="black">Erstellt: {{ page.frontmatter.published }}</div>
           <div class="page-modified">Letzte Änderung: {{ page.frontmatter.modified }}</div>
         </div>
@@ -36,33 +35,27 @@ export default {
   width: 100%;
 }
 .post-card {
-  width: 250px;
-  height: 180px;
-  margin: 1px;
-  border: 2px solid #ccc;
+  width: 700px;
+  height: 150px;
+  margin: 10px;
+  border: 1px solid #ccc;
   border-radius: 3px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
-  align-items: left;
+  align-items: center;
 }
 .article-image {
-  height: 80px;
+  width: 150px;
   margin: 10px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 .page-title {
-  font-size: 120%;
+  font-size: 150%;
   font-weight: bold;
 }
 .page-published {
-  font-size: 60%;
+  font-size: 80%;
 }
 .page-modified {
-  font-size: 60%;
-}
-.page-author {
-  font-size: 60%;
+  font-size: 80%;
 }
 </style>
