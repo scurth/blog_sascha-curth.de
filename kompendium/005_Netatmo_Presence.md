@@ -12,12 +12,12 @@ modified: 07.05.2020
 <TOC />
 
 # In einem Satz
-Die Netatmo WLAN Outdoor Kamera kann auch unabhängig von der Netatmo Cloud und dazu gehörigen App verwendet werden, ohne dabei Veränderungen an der Kamera vornehmen zu müssen.
+Die Netatmo WLAN Outdoor Kamera kann auch unabhängig von der Netatmo Cloud und der dazu gehörigen App verwendet werden, ohne dabei Veränderungen an der Kamera vornehmen zu müssen.
 
 ## Welche Funktionen bietet die Kamera
-Neben einer Bewegungsmelderfunktion zum automatischen Einschalten des Flutlichts, kann die Kamera zwischen Menschen, Tieren und Autos unterscheiden und entsprechend alarmieren und/oder aufzeichnen. Diese Aufzeichnung wird immer auf der lokalen SD-Karte gespeichert und kann zusätzlich auf einen FTP Server exportiert werden oder zu Dropbox. Sowohl das aktuelle Standbild als auch der Live Stream in unterschiedlichen Qualitätsstufen können über das lokale Netz abgerufen werden.
+Neben einer Bewegungsmelderfunktion zum automatischen Einschalten des Flutlichts, kann die Kamera zwischen Menschen, Tieren und Autos unterscheiden und entsprechend differenziert alarmieren und/oder aufzeichnen. Jede Aufzeichnung wird immer auf der lokalen SD-Karte gespeichert und kann zusätzlich auf einen FTP Server exportiert werden oder mit **einer** Dropbox synchronisiert werden. Sowohl das aktuelle Standbild als auch der Live Stream in unterschiedlichen Qualitätsstufen können direkt über das lokale Netz abgerufen werden.
 
-Der Zugriff via App erfolgt über einen VPN Tunnel zwischen Kamera und den Netatmo Servern. Dies ist komfortable bringt aber auch ein Sicherheitsrisiko mit, da der VPN Tunnel bi-direktional ist und somit zumindest theoretisch den Zugriff auf das gesamte lokale Netzwerk ermöglicht.
+Der Zugriff via App erfolgt über einen VPN Tunnel zwischen Kamera und den Netatmo Servern. Dies ist komfortable birgt aber auch ein Sicherheitsrisiko, da dieser VPN Tunnel bi-direktional ist und somit Netatmo zumindest theoretisch den Zugriff auf das gesamte lokale Netzwerk ermöglicht.
 
 ## Welche Geräte werden unterstützt
 
@@ -28,6 +28,31 @@ Der Zugriff via App erfolgt über einen VPN Tunnel zwischen Kamera und den Netat
 Es werden 2 Informationen benötigt:
 - IP Adresse der Kamera
 - Kamera spezifische SecurityID
+
+### Netatmo Presence Security ID ermitteln
+- kostenlosen [Entwickler Account](https://dev.netatmo.com/) erstellen
+- API Dokumentation [/gethomedata](https://dev.netatmo.com/apidocumentation/security#gethomedata)
+- "Try it out" Button
+- "Execute /GETHOMEDATA" Button
+
+In der "Server response" gibt es für jede registrierte Kamera eine VPN Tunnel Konfiguration "vpn_url". Die Secure-ID befindet sich nach der IP Adresse. Anhand der "id", was die MAC-Adresse der Kamera ist, kann man die lokale IP am heimischen DHCP server / Router herausfinden.
+
+```json
+"cameras": [
+{
+"id": "70:ee:50:XX:XX:XX",
+"type": "NOC",
+"status": "on",
+"vpn_url": "https://prodvpn-eu-6.netatmo.net/restricted/10.255.200.XXX/<SECURE-ID>/AUTHTOKEN,,",
+"is_local": true,
+"sd_status": "on",
+"alim_status": "on",
+"name": "XXX",
+"use_pin_code": false,
+"last_setup": 1524832046,
+"light_mode_status": "auto"
+},
+```
 
 Die Daten können mit einer Testanfrage überprüft werden:
 
@@ -68,16 +93,16 @@ curl "http://IP_Adresse/Secure_ID/command/changestatus?status=on"
 
 **Video Stream**
 
-http://IP_Adresse/Secure_ID/live/files/high/index.m3u8
+http://IP_Adresse/Secure_ID/live/index.m3u8
 
 **Bild Snapshot**
 
 http://IP_Adresse/Secure_ID/live/snapshot_720.jpg
 
 ## Verschlüsselte Übertragung
-Die Kamera Streams sind leider nur unverschlüsselt verfügbar und zusätzlich sollte die Secure-ID geheim gehalten werden. Im folgenden Beispiel wird eine statische html Seite erstellt, die keine schützenswerten Informationen enthält. Die referenzierten Resourcen werden dann mittels Nginx Reverse Proxy an die Kamera weitergeleitet. Dies bietet zustäzlich die Möglichkeit den Zugriff über den Nginx auch zusätzlich mit einer Authentifizierung abzusichern.
+Die Kamera Streams sind leider nur unverschlüsselt verfügbar und zusätzlich sollte die Secure-ID geheim gehalten werden. Im folgenden Beispiel wird eine statische html Seite erstellt, die keine schützenswerten Informationen enthält. Die referenzierten Resourcen werden dann mittels Nginx Reverse Proxy an die Kamera weitergeleitet. Dies bietet, neben verschlüsseltem https Transport, zustäzlich die Möglichkeit den Zugriff über den Nginx auch mit einer Authentifizierung abzusichern.
 
-Wird dieses Ngnix Setup z.b. auf einem Raspberry PI betrieben, welcher gleichzeitig als WLAN Accesspoint für die Kameras dient, ist zwar die Kommunikation vom Raspi zur Kamera unverschlüsselt (http), allerdings kann sichergestellt werden das WPA2 verwendet wird und gglfs über VLAN eine WIFI Client zu Client Kommunikation unterbunden werden.
+Wird dieses Ngnix Setup z.b. auf einem Raspberry PI betrieben, welcher gleichzeitig als WLAN Accesspoint für die Kameras dient, ist zwar die Kommunikation vom Raspi zur Kamera weiterhin unverschlüsselt (http), allerdings kann sichergestellt werden das WPA2 verwendet wird und gglfs über VLAN eine WIFI Client zu Client Kommunikation unterbunden werden.
 
 ```html
 <html>
