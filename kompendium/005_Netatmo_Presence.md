@@ -2,11 +2,9 @@
 title: Netatmo Presence
 description: Netatmo Presence
 introimage: "/images/netatmo_presence.jpg"
-author: Sascha Curth
 type: article
 lang: de-DE
 published: 07.05.2020
-modified: 07.05.2020
 ---
 # Netatmo Presence
 <TOC />

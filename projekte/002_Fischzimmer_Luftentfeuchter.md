@@ -2,11 +2,9 @@
 title: Luftentfeuchter Optimierung
 description: Datenbasierte Optimierung
 introimage: "/images/projekte/luftfeuchter-optimierung.jpg"
-author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 27.02.2020
-modified: 10.03.2020
 date: 10.03.2020
 feed:
   enable: true

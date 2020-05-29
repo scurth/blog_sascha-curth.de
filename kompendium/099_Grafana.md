@@ -6,7 +6,6 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 26.02.2020
-modified: 26.02.2020
 ---
 # Inhalt
 <TOC />

@@ -5,8 +5,10 @@
           <img class="article-image" :src="page.frontmatter.introimage" />
         <div class="page-detail">
           <div class="page-title">{{ page.title }}</div>
+          <div class="page-published">Lesezeit: {{Math.round(page.readingTime.minutes)}} Minuten / {{page.readingTime.words}} Wörter</div>
+          <div class="page-published">Author: {{ page.authors[0].username }}</div>
           <div class="page-published" font-color="black">Erstellt: {{ page.frontmatter.published }}</div>
-          <div class="page-modified">Letzte Änderung: {{ page.frontmatter.modified }}</div>
+          <div class="page-modified">Letzte Änderung: {{ page.lastUpdated }}</div>
         </div>
       </div>
     </router-link>

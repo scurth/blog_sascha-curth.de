@@ -2,11 +2,9 @@
 title: Miflora Pflanzensensor
 description: Daten abgreifen und sinnvoll speichern
 introimage: "/images/miflora-sensor.jpg"
-author: Sascha Curth
 type: article
 lang: de-DE
 published: 22.02.2020
-modified: 26.02.2020
 ---
 # Miflora Pflanzensensor
 <TOC />

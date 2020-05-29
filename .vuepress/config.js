@@ -38,7 +38,10 @@ module.exports = {
      '@vuepress/last-updated',
      'vuepress-plugin-table-of-contents',
      '@vuepress/back-to-top',
-     'sitemap', { hostname: ['https://www.sascha-curth.de'] },
+     'check-md', { pattern: '**/*.md' },
+     'vuepress-plugin-reading-time', { excludes: ['/about', '/tag/.*'] },
+     'authors',
+     'sitemap', { hostname: 'https://www.sascha-curth.de' },
   ],
   head: [
     ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],
@@ -63,7 +66,3 @@ module.exports = {
     ['meta', {name: "theme-color", content: "#ffffff"}],
   ],
 }
-
-
-
-

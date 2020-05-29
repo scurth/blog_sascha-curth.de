@@ -2,11 +2,9 @@
 title: Wemo NetCam End of Life
 description: Die Wemo NetCam End of Life
 introimage: "/images/news/Belkin-Wemo-Netcam.jpg"
-author: Sascha Curth
 type: news
 lang: de-DE
 published: 13.05.2020
-modified: 13.05.2020
 ---
 # Support Ende der Philips Hue Bridge v1
 <TOC />

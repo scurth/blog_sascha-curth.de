@@ -2,11 +2,9 @@
 title: Raspberry Pi 2/3/4 als WLAN/WiFi AccessPoint 
 description: Die Grundlage aller IoT Integrationen bildet ein sicheres, funktionsfähiges WLAN/WiFi und der RaspberryPi 2/3/4, in Verbindung mit Linux, bietet hierfür eine geeignet Grundlage.
 introimage: "/images/wifi.png"
-author: Sascha Curth
 type: article
 lang: de-DE
 published: 03.03.2020
-modified: 04.03.2020
 ---
 #  Raspberry Pi 2/3/4 als WLAN/WiFi AccessPoint
 <TOC />

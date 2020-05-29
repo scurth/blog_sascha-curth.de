@@ -2,11 +2,9 @@
 title: Einführung in den Themenbereich IoT
 description: Was soll das Ganze?
 introimage: "/images/blog_hero_image.jpg"
-author: Sascha Curth
 type: article
 lang: de-DE
 published: 22.02.2020
-modified: 22.02.2020
 ---
 # Einführung in den Themenbereich IoT
 

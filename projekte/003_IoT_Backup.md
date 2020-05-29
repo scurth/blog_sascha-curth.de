@@ -2,11 +2,9 @@
 title: Backup der IoT Geräte
 description: Auch IoT Geräte haben eine Konfiguration und sollte Teil der eingen Datensicherung sein
 introimage: "/images/projekte/data-recovery-3126989_1920.jpg"
-author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 10.03.2020
-modified: 12.03.2020
 ---
 # Backup der IoT Geräte
 <TOC />

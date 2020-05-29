@@ -2,11 +2,9 @@
 title: Das Garagentor via WLAN/WiFi steuern
 description: Garagentormotoren können einfach mit einem IoT Relais angesteuert werden
 introimage: "/images/projekte/garagedoor.jpg"
-author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 24.03.2020
-modified: 24.03.2020
 ---
 # Das Garagentor via WLAN/WiFi steuern
 <TOC />

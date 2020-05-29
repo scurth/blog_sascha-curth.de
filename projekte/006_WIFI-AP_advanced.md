@@ -2,11 +2,9 @@
 title: Heim WiFi mit nutzerbasierten Zugangsdaten
 description: Heim WiFi mit nutzerbasierten Zugangsdaten
 introimage: "/images/projekte/wireless-1289347_640.png"
-author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 03.05.2020
-modified: 03.05.2020
 ---
 # Heim WiFi mit nutzerbasierten Zugangsdaten
 <TOC />

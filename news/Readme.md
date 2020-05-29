@@ -7,7 +7,7 @@ meta:
  - name: IoT News
  - content: opensource tasmota influxdb grafana raspberry linux mqtt hue
 ---
-## Internet of Things (IoT) Neuigkeiten
+# Internet of Things (IoT) Neuigkeiten
 
 <news />
 

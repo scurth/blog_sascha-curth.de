@@ -8,7 +8,7 @@ meta:
  - content: opensource tasmota influxdb grafana raspberry linux mqtt
 sidebar: true
 ---
-## Umgesetzte Projekte zum Nachmachen und als Inspiration
+# Umgesetzte Projekte zum Nachmachen und als Inspiration
 
 <projekte />
 
@@ -25,11 +25,11 @@ Alle IoT Rebellen Seiten und Beiträge sind frei von Affiliate, Trackern, Werbun
 <img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1" />
 </form>
 
-## Projekt Ideen für die Zukunft
+# Projekt Ideen für die Zukunft
 
 Die folgende Liste sind potentielle neue Projektideen, sind aber gedanklich noch nicht ausgereift um umgesetzt werden zu können.
 
-### Video Türklingel
+## Video Türklingel
 
 - Raspberry
 - OpenSource, lokales Videokonferenz System
@@ -39,7 +39,7 @@ Links
 - [https://matrix.org/blog/2020/04/06/running-your-own-secure-communication-service-with-matrix-and-jitsi](matrix.org)
 - [https://github.com/jitsi/jitsi-meet/blob/master/doc/quick-install.md](Jitsi Quick Install)
 
-### Envertec EVB202 Bridge
+## Envertec EVB202 Bridge
 
 - Solarertragsdaten werden derzeit direkt an das envertec Portal geschickt
 - Proxy liest Dateen mit, schickt diese an den lokalen MQTT und leitet diese weiter ans Portal
@@ -47,7 +47,7 @@ Links
 Links
 - [enverproxy.py](https://gitlab.eitelwein.net/MEitelwein/Enverbridge-Proxy/blob/master/enverproxy.py)
 
-### NAS Server
+## NAS Server
 
 - SSD Platten
 - ZFS / BTRFS
@@ -55,7 +55,7 @@ Links
 - Backup Ziel für Timemachine
 - Backup Ziel für rsync / Linux
 
-### Kommunisten Backup
+## Kommunisten Backup
 
 Die Idee ist eine Offsite Backup Speicher für Freunde bereit zu stellen
 - aufbauend auf dem NAS Server
@@ -64,12 +64,12 @@ Die Idee ist eine Offsite Backup Speicher für Freunde bereit zu stellen
 - Nur die letzte Version wird gespeichert
 
 
-### VPN
+## VPN
 
 - OpenVPN einwahl in den eigenen Haushalt
 - IOS, Android und MacOS client
 
-### internes Netzwerk neu gestalten
+## internes Netzwerk neu gestalten
 
 IoT Geräte:
 - WPA2, VLAN Tagging für IOT Geräte mit iptables und Regelwerk pro Gerät
@@ -81,12 +81,12 @@ Gast Netzwerk
 - Bandbreitenlimitierung pro Gerät
 - Passwort pro Gerät / ggfls oauth oder [https://www.keycloak.org/](keycloak)
 
-### interner OAuth Server
+## interner OAuth Server
 
 - zur Absicherung von internen Web Apps
 - als WLAN Authorisierung
 
-### Freiwillige Selbstkontrolle für Kinder
+## Freiwillige Selbstkontrolle für Kinder
 
 - Erfassung der Datenkommunikationsdauer
 - jeden Tag, beim ersten verbinden anzeige der Top 5 (z.b. minecraft, youtube)
@@ -95,7 +95,7 @@ Gast Netzwerk
 - Freischaltung des Internetzugangs nachdem die jeweilige Differenz ausgerechnet wurde
 - Wochenbericht per mail mit Grafik für Schätzung vs Realität
 
-### Einkaufsliste / Inventar / Verbrauch
+## Einkaufsliste / Inventar / Verbrauch
 
 - Einkausliste für Familie
 - Inventar Management - min. Menge von zb. Spaghetti
@@ -105,12 +105,12 @@ Gast Netzwerk
 Links:
 - [https://grocy.info/](Grocy.info)
 
-### MiFlora auf MQTT umstellen
+## MiFlora auf MQTT umstellen
 
 Links:
 - [https://github.com/ThomDietrich/miflora-mqtt-daemon](MiFlora MQTT)
 
-### Raspberry Server Cluster
+## Raspberry Server Cluster
 Mit zunehmender integration wird die Verfügbarkeit wichtiger, insbesondere wenn statt nur Metriken bereit zu stellen auch Dinge gesteuert werden sollen.
 
 - auth server im cluster modus

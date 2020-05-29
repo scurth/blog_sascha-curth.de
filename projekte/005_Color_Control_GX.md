@@ -2,11 +2,9 @@
 title: Victron Energy VRM / CCGX Daten lokal auslesen
 description: Victron Energy VRM / Daten CCGX Daten lokal auslesen
 introimage: "/images/projekte/ccgx_600.gif"
-author: Sascha Curth
 type: projekte
 lang: de-DE
 published: 31.03.2020
-modified: 31.03.2020
 ---
 # Victron Energy VRM / CCGX Daten lokal auslesen
 <TOC />

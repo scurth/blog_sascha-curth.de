@@ -2,11 +2,9 @@
 title: Hue Bridge v1 abgekündigt
 description: Die Hue Bridge v1 wird nicht mehr vom Hersteller in zukünftigen Apps unterstützt
 introimage: "/images/news/philips-hue-bridge.jpg"
-author: Sascha Curth
 type: news
 lang: de-DE
 published: 09.03.2020
-modified: 09.03.2020
 ---
 # Support Ende der Philips Hue Bridge v1
 <TOC />
