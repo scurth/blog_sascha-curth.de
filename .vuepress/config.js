@@ -1,8 +1,14 @@
 //config.js
 module.exports = {
-  title: 'Der IoT Rebell',
-  description: 'IoT - So, wie es sein sollte',
+  locales: {
+    '/': {
+      lang: 'de-DE',
+      title: 'Der IoT Rebell',
+      description: 'IoT - So, wie es sein sollte 🥂',
+    }
+  },
   themeConfig: {
+    searchPlaceholder: 'Durchsuchen...',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'IoT News', link: '/news/index.html' },
@@ -10,6 +16,9 @@ module.exports = {
       { text: 'IoT Kompendium', link: '/kompendium/index.html' },
       { text: 'Glossar', link: '/glossary.html' },
     ],
+    //repoLabel: 'Mach mit!',
+    //repo: 'https://github.com/scurth/blog_sascha-curth.de',
+    logo: '/iot.jpg',
     sidebar: {
       '/kompendium/': [
         '/kompendium/',
