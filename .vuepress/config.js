@@ -8,6 +8,7 @@ module.exports = {
       { text: 'IoT News', link: '/news/index.html' },
       { text: 'IoT Projekte', link: '/projekte/index.html' },
       { text: 'IoT Kompendium', link: '/kompendium/index.html' },
+      { text: 'Glossar', link: '/glossary.html' },
     ],
     sidebar: {
       '/kompendium/': [
@@ -41,6 +42,7 @@ module.exports = {
      'check-md', { pattern: '**/*.md' },
      'vuepress-plugin-reading-time', { excludes: ['/about', '/tag/.*'] },
      'authors',
+     'vuepress-plugin-glossary',
      'sitemap', { hostname: 'https://www.sascha-curth.de' },
   ],
   head: [

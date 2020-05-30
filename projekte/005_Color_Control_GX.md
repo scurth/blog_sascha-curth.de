@@ -24,7 +24,7 @@ Meine heimische Solaranlage verfügt über einen elektronischen Wechselstrom Zä
 
 ## These
 
-Der CCGX verfügt über einen MQTT Broker und telegraf könnte sich auf die entsprechenden Topics anmelden und in eine InfluxDB schreiben lassen. Um die These zu testen und zu sehen ob die richtigen Daten bereitgestellt werden können fertige Docker Images verwendet werden. Eine detaillierte Anleitung ist auf [Github](https://github.com/victronenergy/venus-docker-grafana) zu finden, war innerhalb von Minuten eingerichtet und brachte genau die Daten zu Tage, welche ich erhofft hatte.
+Der CCGX verfügt über einen :MQTT: Broker und telegraf könnte sich auf die entsprechenden Topics anmelden und in eine InfluxDB schreiben lassen. Um die These zu testen und zu sehen ob die richtigen Daten bereitgestellt werden können fertige Docker Images verwendet werden. Eine detaillierte Anleitung ist auf [Github](https://github.com/victronenergy/venus-docker-grafana) zu finden, war innerhalb von Minuten eingerichtet und brachte genau die Daten zu Tage, welche ich erhofft hatte.
 
 ## Experiment
 
@@ -218,7 +218,7 @@ Um die bestehende Telegraf konfiguration nicht zu gefährden und da es mir bishe
 Während der Tests scheint es notwendig zu sein **persistent_session = false** zu setzen, da telegraf ansonsten beim Neustart die alte Session nur aufnimmt, und nicht die konfigurierten Topics an den broker übermittelt. Im Betrieb kann man das aber wieder auf **true** stellen, so dass bei einem Verbindungsabbruch die Daten nicht verloren gehen.
 
 Um den MQTT Broker aktiv zu halten, muss regelmäßig eine Art keep-alive gesendet werden. Hierzu verwende ich folgenden cronjob.
-```crontab
+```
 * * * * * /usr/bin/mosquitto_pub  -m '' -t 'R/XXXXXXXXXXX/system/0/Serial' -h 192.168.0.201
 ```
 

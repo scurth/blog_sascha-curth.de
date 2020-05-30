@@ -5,28 +5,12 @@ introimage: "/images/projekte/luftfeuchter-optimierung.jpg"
 type: projekte
 lang: de-DE
 published: 27.02.2020
-date: 10.03.2020
-feed:
-  enable: true
-  title: Title used in feed
-  description: Description used in feed
-  image: /public/image.png
-  author:
-    -
-      name: Author
-      email: author@doamin.tld
-      link: http://doamin.tld
-  contributor:
-    -
-      name: Contributor
-      email: contributor@doamin.tld
-      link: http://doamin.tld
 ---
 # Luftentfeuchter Optimierung
 <TOC />
 
 ## Problemstellung
-Im Aquaponik Bereich ist das Thema HVAC (Heating, Ventilation and Air Conditioning (dt. „Heizung, Lüftung, Klimatechnik“)), eines der größten Energieverbraucher und somit Kostentreiber. Meine Indoor Anlage benötigt zwingend eine aktive Luftentfeuchtung, welche ich mittels <a id="Comfree" title="Dies ist keine Kaufempfehlung">Comfee MDDF-20DEN7-WF"</a> sicherstelle. Bisher habe ich das Gerät 24h am Tag laufen lassen und die "smarte" Laufzeiteinstellung gewählt. Dabei wird bis zur definierten Luftfeuchtigkeit getrocknet und dann wartet da Gerät ab bis sich der Wert um ca 5-10% erhöht, bevor die nächste Trocknung gestartet wird.
+Im Indoor Aquaponik Bereich ist das Thema :HVAC:, eines der größten Energieverbraucher und somit Kostentreiber. Meine Indoor Anlage benötigt zwingend eine aktive Luftentfeuchtung, welche ich mittels <a id="Comfree" title="Dies ist keine Kaufempfehlung">Comfee MDDF-20DEN7-WF"</a> sicherstelle. Bisher habe ich das Gerät 24h am Tag laufen lassen und die "smarte" Laufzeiteinstellung gewählt. Dabei wird bis zur definierten Luftfeuchtigkeit getrocknet und dann wartet da Gerät ab bis sich der Wert um ca 5-10% erhöht, bevor die nächste Trocknung gestartet wird.
 
 Da ich Nachts auch die Zirkulationslüftung im Raum ausschalte, hat mein Sensor schon immer Nachts ca 5 bis 10 Prozentpunkte mehr angezeigt als tagsüber, mit laufendem Lüfter. Dies wird im folgendem Bild gut sichtbar.
 ![Luftfeuchtigkeit-vorher](/images/projekte/luftfeuchtigkeit-vorher.png)

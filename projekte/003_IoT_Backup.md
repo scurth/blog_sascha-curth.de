@@ -10,9 +10,9 @@ published: 10.03.2020
 <TOC />
 
 ## Problemstellung
-Mit der steigenden Anzahl an IoT Geräten, steigt auch das Risiko das einzelne Geräte kaputt gehen und ersetzt werden müssen. Dies kann durch Fehlbedienung, fehler beim Firmware Upgrade oder simpler Bugs in den dazu gehörigen Apps passieren. Je nach Aufgabe des Gerätes ist eine schnelle Wiederherstellung wünschenswert und besonders wenn man über einen gewissen Zeitraum die Einstellungen Stück für Stück an die eigenen Bedürfnisse angepasst hat, will man nicht wieder von vorne anfangen.
+Mit der steigenden Anzahl an :IoT: Geräten, steigt auch das Risiko das einzelne Geräte kaputt gehen und ersetzt werden müssen. Dies kann durch Fehlbedienung, Fehler beim Firmware Upgrade oder simpler Bugs in den dazu gehörigen Apps passieren. Je nach Aufgabe des Gerätes ist eine schnelle Wiederherstellung wünschenswert und besonders wenn man über einen gewissen Zeitraum die Einstellungen Stück für Stück an die eigenen Bedürfnisse angepasst hat, will man nicht wieder von vorne anfangen.
 
-Oft stellt sich die Frage, investiere ich meine Zeit lieber in ein ordentliches Konfigurationsmanagent oder in Backup? Ich persönlich versuche den goldenene Mittelweg, bei dem alle Konfigurationen als Backup gesichert werden und dort wo es sich anbietet setzt ich auf Konfigurationsmanagement.
+Oft stellt sich die Frage, investiere ich meine Zeit lieber in ein ordentliches Konfigurationsmanagent oder in Backup? Ich persönlich versuche den goldenene Mittelweg, bei dem alle Konfigurationen als Backup gesichert werden und dort wo es sich anbietet setzte ich auf Konfigurationsmanagement.
 
 Um sich der Thematik zu nähern, werden folgende Fragenschwerpunkte als roter Faden verwendet
 - Welche Geräte habe ich überhaupt
@@ -30,7 +30,7 @@ In einer anderen Projektbeschreibung habe ich bereits über mein Indoor Aquaponi
 - 4 Flower Care Sensoren
 
 ### Grobplanung
-Bei den Tasmota basierten Geräten erfolgt ein Auslesen der Konfiguration und eine anschliessende Speicherung. Da sich in der Sicherung meine WLAN/WIFI und MQTT Zugangsdaten befinden, sind die Backups schützenswert. Die Daten könnten vor einer Speicherung im GIT verschlüsselt werden, allerdings ist GIT nicht unbedingt für binär Daten ausgelegt. Als andere Option bietet sich Amazon S3 an, natürlich ebenfalls vorher verschlüsselt.
+Bei den Tasmota basierten Geräten erfolgt ein Auslesen der Konfiguration und eine anschliessende Speicherung. Da sich in der Sicherung meine WLAN/WIFI und :MQTT: Zugangsdaten befinden, sind die Backups schützenswert. Die Daten könnten vor einer Speicherung im GIT verschlüsselt werden, allerdings ist GIT nicht unbedingt für binär Daten ausgelegt. Als andere Option bietet sich Amazon S3 an, natürlich ebenfalls vorher verschlüsselt.
 
 Der Luftentfeuchter het als einzige Konfiguration die Timer Eintstellung von 09:00 bis 19:00 und Zielfeuchtigkeit von 65%. Das kann ich gerne der ganzen Welt mitteilen und somit meine Backup Notwendigkeit in diese Dokumentation auslagern. Allerdings ist dieses Gerät tatsächlich das einzige, welches noch direkt mit dem Internet verbunden ist und somit meinem Ziel der 100% Entkopplung im Wege steht. Beim deaktivieren der Cloudanbindung funktioniert der Timer leider nicht mehr und somit werde ich das Problem wohl später nochmal gezielt angehen müssen.
 
