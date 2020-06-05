@@ -55,8 +55,9 @@ module.exports = {
      'sitemap', { hostname: 'https://www.sascha-curth.de' },
   ],
   head: [
-    ['link', { rel: 'icon', href: '/favicon/favicon.ico' }],
-    ['link', { rel: 'shortcut icon', href: '/favicon/favicon.ico' }],
+    ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }],
+    ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['link', { rel: 'apple-touch-icon', href: '/favicon/apple-icon.png' }],
     ['link', { rel: 'apple-touch-icon', sizes: '57x57', href: '/favicon/apple-icon-57x57.png' }],
     ['link', { rel: 'apple-touch-icon', sizes: '60x60', href: '/favicon/apple-icon-60x60.png' }],
