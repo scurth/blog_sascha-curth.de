@@ -96,6 +96,10 @@ Ab diesem Moment sind die Daten in der InfluxDB und können mittels Grafana visu
 ## Daten via MQTT zur Verfügung stellen
 Alternativ zur direkten Speicherung in der InfluxDB bietet es sich an, die Daten via MQTT zur Verfügung zu stellen und dedizierte Überwacher bzw Aktoren einzurichten.
 
+Das folgende Projekt enthält eine sehr gute Dokumentation, wie man es einrichtet. Ich persönlich favorisiere es den daemon als service laufen zu lassen, aber die angebotene docker Variante kann ebenfalls sinnvoll sein.
+
+> [https://github.com/ThomDietrich/miflora-mqtt-daemon](https://github.com/ThomDietrich/miflora-mqtt-daemon)
+
 ## Firmware aktualisieren
 Derzeit nur mittels "Flower Care" App möglich.
 
