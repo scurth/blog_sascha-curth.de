@@ -31,6 +31,8 @@ module.exports = {
       ],
       '/projekte/': [
         '/projekte/',
+        '/projekte/007_VRM_victronenergy_DWD',
+        '/projekte/006_WIFI-AP_advanced',
 	'/projekte/005_Color_Control_GX',
 	'/projekte/004_Garagentor',
 	'/projekte/003_IoT_Backup',
