@@ -12,7 +12,7 @@ sidebar: true
 
 # Wie kann man hier mitmachen
 
-Alle Inhalte sind auch auf <a href="https://github.com/scurth/blog_sascha-curth.de" target=_github>github.com</a> verfügbar und hierüber kann gerne diskutiert werden. Wem das zu Nerdy ist, der kann mich auch gerne via <a href="mailto:der-iot-rebell@sascha-curth.de?subject=IoT Rebell Blog">email</a> erreichen.
+Alle Inhalte sind auch auf <a href="https://github.com/scurth/blog_sascha-curth.de" target=_github>github.com</a> verfügbar und hierüber kann gerne diskutiert werden. Wem das zu Nerdy ist, der kann mich auch gerne via <a href="mailto:der-iot-rebell@sascha-curth.de?subject=IoT Rebell Blog">email</a> erreichen oder in der Telegram Gruppe ["IoT Doktor"](https://t.me/IoT_Doktor) Fragen stellen oder anderen Nutzern helfen.
 
 Alle IoT Rebellen Seiten und Beiträge sind frei von Affiliate, Trackern, Werbung und sind zu 100% privat finanziert. Diese Unabhängikeit ist wichtig für das Ziel die Hoheit über die eignene Daten und Geräte zu erlangen und zu behalten. Wenn der Inhalt geholfen hat eine eigene Entscheidungen zu beeinflussen oder ein konkretes Problem gelöst hat, würde ich mich sehr über Feedback freuen. Eine finanzielle Unterstützung ist ebenfalls in Form einer Spende möglich.
 

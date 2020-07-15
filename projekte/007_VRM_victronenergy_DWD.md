@@ -1,7 +1,7 @@
 ---
-title: Victron Energy VRM und DWD Integration
+title: Victron Energy VRM und DWD Wetterwarnungen Integration 
 description: Victron Energy VRM und Deutsche Wetterdienst (DWD) Warnungen Integration
-introimage: "/images/projekte/ccgx_600.gif"
+introimage: "/images/projekte/flash-862620_640.jpg"
 type: projekte
 lang: de-DE
 published: 15.063.2020
