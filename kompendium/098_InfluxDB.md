@@ -27,10 +27,9 @@ Danach läuft der InfluxDB Server auf dem Port 8086.
 ## InfluxDB Installation mittels Docker
 
 ## Datensicherung
-```
+```shell
 service influxdb stop
-cd /var/lib/influxdb
-rsync -av ../influxdb/ /var/tmp/influxbck
+rsync -av /var/lib/influxdb /var/tmp/influxbck
 service influxdb start
 ```
 
