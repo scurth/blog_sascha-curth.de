@@ -27,7 +27,8 @@ module.exports = {
         '/kompendium/003_Tasmota',
         '/kompendium/004_Raspberry_WIFI_Access_Point',
         '/kompendium/005_Netatmo_Presence',
-        '/kompendium/099_Grafana',
+        '/kompendium/098_InfluxDB',
+        '/kompendium/099_Grafana'
       ],
       '/projekte/': [
         '/projekte/',
