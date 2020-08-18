@@ -45,6 +45,7 @@ module.exports = {
         '/news/2020-07-15-Telegram-Gruppe',
         '/news/2020-03-07-Hue-Bridge-v1',
         '/news/2020-05-12-Belkin-NetCam-End-of-Life',
+        '/news/2020-08-18-Raspberry_und_Tinkerforge',
       ],
     },
   },
