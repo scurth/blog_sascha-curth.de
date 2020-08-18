@@ -41,6 +41,58 @@ Danach läuft Grafana auf dem Port 3000 und ist mittels browser erreichbar.
 
 ## Versions Upgrade
 
+## Telegraf als Service anlegen
+Da man pro Telegraf Daemon nur eine InfluxDB Datenbank angeben kann, ist es empfehlenswert die unterschiedlichen MQTT Themen auf verschiedene Telegraf Instanzen zu verteilen. Beispiel:
+```
+ls -l /etc/systemd/system/telegraf-*
+-rw-r--r-- 1 root root 457 Jun 11 21:03 /etc/systemd/system/telegraf-miflora.service
+-rw-r--r-- 1 root root 461 Jul 16 14:21 /etc/systemd/system/telegraf-tinkerforge.service
+-rw-r--r-- 1 root root 453 Mar 30 20:30 /etc/systemd/system/telegraf-vrm.service
+
+grep -i ExecStart telegraf-*
+telegraf-miflora.service:ExecStart=/usr/bin/telegraf -config /etc/telegraf/telegraf_miflora.conf $TELEGRAF_OPTS
+telegraf-tinkerforge.service:ExecStart=/usr/bin/telegraf -config /etc/telegraf/telegraf_tinkerforge.conf $TELEGRAF_OPTS
+telegraf-vrm.service:ExecStart=/usr/bin/telegraf -config /etc/telegraf/telegraf_vrm.conf $TELEGRAF_OPTS
+
+```
+
+Jeder Service kann nun eine eigene InfluxDB als Backend verwenden, z.b.:
+```init
+[global_tags]
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  logtarget = "file"
+  logfile = "/var/log/telegraf/telegraf-tinkerforge.log"
+  hostname = ""
+  omit_hostname = false
+[[outputs.influxdb]]
+  urls = ["http://127.0.0.1:8086"]
+  database = "tinkerforge"
+[[inputs.mqtt_consumer]]
+   servers = [
+     "tcp://127.0.0.1:1883"
+   ]
+   persistent_session = false
+   client_id = "telegraf-tinkerforge"
+   topics = [
+     "tinkerforge/callback/uv_light_v2_bricklet/GPX/uvi",
+     "tinkerforge/callback/uv_light_v2_bricklet/GPX/uva",
+     "tinkerforge/callback/uv_light_v2_bricklet/GPX/uvb",
+     "tinkerforge/callback/outdoor_weather_bricklet/Es6/station_data",
+     "tinkerforge/callback/air_quality_bricklet/Jyf/all_values",
+     "tinkerforge/callback/industrial_dual_0_20ma_v2_bricklet/JhA/current"
+   ]
+   data_format = "json"
+```
+
+
 ## Alarm einrichten am Beispiel von Telegram
 Um Telegram als Alarm Kanal zu nuzten sind folgende Schritte notwendig
 - Telegram Account einrichten

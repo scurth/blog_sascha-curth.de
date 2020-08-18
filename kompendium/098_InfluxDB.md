@@ -35,6 +35,32 @@ service influxdb start
 
 ## Versions Upgrade
 
+## Tipps & Tricks
+
+### Daten Zeitstempel in lesbarer Form
+
+Setzten von "precision rfc3339":
+```shell
+> show measurements
+name: measurements
+name
+----
+mqtt_consumer
+> select * from mqtt_consumer limit 1
+name: mqtt_consumer
+time                air_pressure channel current gust_speed host        humidity iaq_index identifier rain temperature topic                                                          uva uvb uvi wind_speed
+----                ------------ ------- ------- ---------- ----        -------- --------- ---------- ---- ----------- -----                                                          --- --- --- ----------
+1580413809435723910                              17         fisch-raspi 70                 224        342  69          tinkerforge/callback/outdoor_weather_bricklet/Es6/station_data             10
+> 
+
+> precision rfc3339
+> select * from mqtt_consumer limit 1
+name: mqtt_consumer
+time                          air_pressure channel current gust_speed host        humidity iaq_index identifier rain temperature topic                                                          uva uvb uvi wind_speed
+----                          ------------ ------- ------- ---------- ----        -------- --------- ---------- ---- ----------- -----                                                          --- --- --- ----------
+2020-01-30T19:50:09.43572391Z                              17         fisch-raspi 70                 224        342  69          tinkerforge/callback/outdoor_weather_brickle
+```
+
 ## Wartung und Tuning
 
 ### Index Daten im TSI Format speichern
