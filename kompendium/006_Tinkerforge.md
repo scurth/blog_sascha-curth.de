@@ -33,8 +33,16 @@ Es gibt einen Industrie Standard, bei dem ein Sensor unter Spannung gesetzt wird
 
 ### Wasserfüllstand
 Komponenten:
+- [Tinkerforge Isolator Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Isolator.html)
 - [Tinkerforge Industrial Dual 0-20mA Bricklet 2.0](https://www.tinkerforge.com/de/doc/Hardware/Bricklets/Industrial_Dual_020mA.html)
 - [DC24V 4-20mA Edelstahl Füllstandssensor Wasserstandssensor](https://amzn.to/3ay3zYd)
+- 24V Gleichstrom Netzteil
+
+Das ganze ist wiefolgt aufgebaut
+
+>RaspberryPi mit Tinkerforge HAT -> Isolator Bricklet -> Industrial Dual Bricklet -> 2 Wasserstandssensoren
+
+>24V Netzteil -> Industrial Dual Bricklet
 
 Produktbild:
 ![Edelstahl_Füllstandssensor_Wasserstandssensor](/images/DC24V_4-20mA_Edelstahl_Füllstandssensor_Wasserstandssensor.jpg)
@@ -77,7 +85,9 @@ Tinkerforge MQTT Init Datei, enthält zum einen die Konfiguration der einzelnen 
 Wenn es funktioniert, kann man die Messwerte im MQTT Bus finden und von dort aus z.b. in [Grafana](https://www.sascha-curth.de/kompendium/099_Grafana.html) darstellen.
 ```shell
 mosquitto_sub -t 'tinkerforge/#' -v
+tinkerforge/callback/industrial_dual_0_20ma_v2_bricklet/XXX/current {"current": 5070054, "channel": 1}
+tinkerforge/callback/industrial_dual_0_20ma_v2_bricklet/XXX/current {"current": 5338598, "channel": 0}
 ```
 
 ## Daten in die InfluxDB schreiben
-siehe: [Telegraf interner Link](http://localhost:8080/kompendium/099_Grafana.html#telegraf-als-service-anlegen)
+siehe: [Telegraf interner Link](/kompendium/099_Grafana.html#telegraf-als-service-anlegen)
