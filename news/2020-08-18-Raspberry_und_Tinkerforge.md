@@ -1,7 +1,7 @@
 ---
-title: Raspbarian Kernel Update & Tinkerforge HAT
+title: Raspbian Kernel Update & Tinkerforge HAT
 description: Der brickd startet nach Kernel Upgrade auf 5.4 nicht mehr
-introimage: "/images/news/telegram-chat-group-join.png"
+introimage: "/images/tinkerforge.jpg"
 type: news
 lang: de-DE
 published: 18.08.2020
@@ -10,10 +10,10 @@ published: 18.08.2020
 <TOC />
 
 ##  In einem Satz
-Das Raspberian OS wird vom Kernel 4.9 auf 5.4 aktualisert und damit funktioniert der Raspberry HAT nicht mehr, wenn die Firmware kleine 2.0.2 ist.
+Das Raspberry OS / Raspbian wird vom Kernel 4.9 auf 5.4 aktualisert und damit funktioniert der Raspberry HAT nicht mehr, wenn die Firmware kleiner 2.0.2 ist.
 
 ## Kontext
-Linux entwickelt sich weiter und Kernel Upgrades sind ein notwendiger Teil. Nach dem Kernel Upgrade startete der Tinkerforge Brickd nicht mehr und es gab folgende Fehlermeldung.
+Linux entwickelt sich weiter und Kernel Upgrades sind ein notwendiger Teil. Nach dem Kernel Upgrade startet der Tinkerforge Brickd (Version 2.4.1) nicht mehr und meldet folgendes:
 
 ```shell
 2020-08-18 11:17:26.944215 <E> <gpio_sysfs.c:129> Could not open '/sys/class/gpio/gpio7/direction': ENOENT (2)
@@ -27,8 +27,10 @@ Linux entwickelt sich weiter und Kernel Upgrades sind ein notwendiger Teil. Nach
 2020-08-18 11:17:26.945328 <I> <main_linux.c:538> Brick Daemon 2.4.1 stopped
 ```
 
+Offensichtlich geht der neue Kernel anders mit den GPIOs um und die installerte Firmware 2.0.1 des Raspberry HAT kann damit nicht umgehen.
+
 ## Lösung
-Eine SD Karte mit dem default Raspian installieren, welche noch mit Kernel 4.9 ausgeliefert wird. Nachdem das Image auf die Karte geschrieben ist, noch einmal mounten und eine leere Datei namens "ssh" in den /boot legen. Dadurch wird beim ersten Bootvorgang gleich der SSH Daemon initialisiert.
+Eine SD Karte mit dem default Raspian installieren, welche noch mit Kernel 4.9 ausgeliefert wird. Nachdem das Image auf die Karte geschrieben ist, noch einmal mounten und eine leere Datei namens "ssh" nach /boot legen. Dadurch wird beim ersten Bootvorgang gleich der SSH Daemon initialisiert.
 
 Unter MacOS ist die SD Karte unter /Volumes eingebunden:
 
