@@ -22,7 +22,7 @@ Wenn es um das Thema Überwachungskamera geht ist die Frage des Vertrauens beson
 
 ## These
 
-Die verwendetet Software "motion" kann im Falle eines Ereignisses utomatisch eine Aufnahme starten. Zusätzlich gibt es die Möglichkeit einen Datenbankeintrag zu erstellen und dann entsprechend über ein cronjob auf diese Ereignisse zu reagieren. Das ist mir jedoch zu sehr 1980er und daher verwende ich die eingebaute Methode um je nach Ereignis, z.b. on_picture_save, on_movie_start, etc, ein Programm mit diversen Parametern zu starten, welches die informationen als JSON String an meinen MQTT-Bus sendet. Von dort aus kann ich auf die Ergeignisse auf verschiedenste Arten reagieren.
+Die verwendetet Software "motion" kann im Falle eines Ereignisses automatisch eine Aufnahme starten. Zusätzlich gibt es die Möglichkeit einen Datenbankeintrag zu erstellen und dann entsprechend über ein cronjob auf diese Ereignisse zu reagieren. Das ist mir jedoch zu sehr 1980er und daher verwende ich die eingebaute Methode um je nach Ereignis, z.b. on_picture_save, on_movie_start, etc, ein Programm mit diversen Parametern zu starten, welches die Informationen als JSON String an meinen MQTT-Bus sendet. Von dort aus kann ich auf die Ergeignisse auf verschiedenste Arten reagieren.
 
 ## Experiment
 
@@ -35,7 +35,8 @@ apt-get install motion
 Die Konfiguration wird entsprechend angepasst und erstmal getestet, das eine Aufnahme erfolgt und die Video Einstellungen so sinnvoll sind.
 
 /etc/motion/motion.conf
-```
+
+```bash
 daemon on
 process_id_file /var/run/motion/motion.pid
 setup_mode off
@@ -133,7 +134,7 @@ quiet on
 
 Hierzu bedienen wir uns der eingebauten script Unterstützung und mosquitto_pub für das Senden der JSON Strings. Die Konfiguration wird einfach an die /etc/motion/motion.conf angefügt und anschliessend mittels "service motion restart" aktiviert.
 
-```
+```bash
 on_picture_save /usr/bin/mosquitto_pub -t "fishberry/cam/%t/picture_save" -m "{\"filename\": \"%f\"}"
 on_motion_detected /usr/bin/mosquitto_pub -t "fishberry/cam/%t/motion_detected" -m "{\"pixel\": %D,\"noise\": %N, \"motionwidth\": %i, \"motionheight\": %J, \"xcoord\": %K, \"ycoord\": %L }"
 on_movie_start /usr/bin/mosquitto_pub -t "fishberry/cam/%t/movie_start" -m "{\"filename\": \"%f\"}"
@@ -144,31 +145,31 @@ on_camera_found /usr/bin/mosquitto_pub -t "fishberry/cam/%t/camera_found" -m "1"
 
 An dieser Stelle sollte nun im Falle einer Bewegungserkennung auf dem MQTT Bus eine Nachricht wie diese zu sehen sein.
 
-```script
+```shell
 mosquitto_sub -v -t 'fishberry/#'
 fishberry/cam/0/picture_save {"filename": "/home/pi/cam/01-20201114211113-04.jpg"}
 ```
 
 ### Telegram ChatBot / Gruppe erstellen
 
-Um Nachrichten an das TElegram Netzwerk zu senden, muss man sich authentifizieren. Um das spätere Testen zu vereinfacher, empfehle ich die Telegram App zusätzlich zum Handy auch auf dem Computer zu installieren, da man so einfach Daten kopieren kann.
+Um Nachrichten an das Telegram Netzwerk zu senden, muss man sich authentifizieren. Um das spätere Testen zu vereinfacher, empfehle ich die Telegram App zusätzlich zum Handy auch auf dem Computer zu installieren, da man so einfach Daten kopieren kann.
 
-Jetzt mit der Telegram App (Computer oder Handy), den BotFather öffnene (https://telegram.me/BotFather)[https://telegram.me/BotFather].
+Jetzt mit der Telegram App (Computer oder Handy), den BotFather öffnen [https://telegram.me/BotFather](https://telegram.me/BotFather).
 
 - /mybots: Wenn man schon Bots eingereichtet hat, kann man hiermit den API Token auslesen
 - /newbot: hiermit legt man einen neuen an
 
-Jetzt haben wir den notwendigen API key um Nachrichten verschicken zu können. Diesen API key muss man geheim halten, da sonst jemand Drittes unter unserem Namen Nachrichten verschicken könnte.
+Jetzt haben wir den notwendigen API Token um Nachrichten verschicken zu können. Diesen API Token muss man geheim halten, da sonst jemand Drittes unter unserem Namen Nachrichten verschicken könnte.
 
 Als nächstes legt man eine Gruppe an und lädt den angelegten Bot zu der Gruppe ein.
 
-Um im nächsten Schritt eine Nachricht an diese Gruppe zu verschicken, müssen wir noch die ID dieser Grupper herausfinden. Dazu muss hinter "bot" der API Token eingefügt werden.
+Um nun eine Nachricht an diese Gruppe zu verschicken, müssen wir noch die ID dieser Gruppe herausfinden.
 
 ```shell
 https://api.telegram.org/bot<YourBOTToken>/getUpdates
 {"ok":true,"result":[]}
 ```
-Da bisher noch keine Nachrichten ausgetauscht worden sind, ist die Liste für diesen Bot leer. Wenn man nun in der Telegram eine "test" Nachrricht schickt, sieht der Ergebnis so aus
+Da bisher noch keine Nachrichten ausgetauscht worden sind, ist die Liste für diesen Bot leer. Wenn man nun in der Telegram Gruppe eine "test" Nachricht schickt, sieht der Ergebnis so aus
 
 ```shell
 curl https://api.telegram.org/bot<YourBOTToken>/getUpdates| json_pp 
@@ -209,7 +210,7 @@ Diese chat ID "12354656xxx" brauchen wir neben dem API Token im nächsten Schrit
 
 Nun schreiben wir ein kleines python script, welches am MQTT auf eine "picture_save" Nachricht lauert und das Schnappschussbild an die Telegram Gruppe sendet.
 
-````python
+```python
 #!/usr/bin/python3
 
 import paho.mqtt.client as mqtt
@@ -249,11 +250,12 @@ def main(argv=None):
 
 if __name__ == "__main__":
     main()
+
 ```
 
 Um nicht immer vor der Kamera rumhampeln zu müssen, kann man von nun an mit einem beliebigen Bild testen und eine MQTT Nachricht schicken.
 
-```
+```shell
 mosquitto_pub -t 'fishberry/cam/0/picture_save' -m '{"filename": "/home/pi/cam/01-20201114211113-04.jpg"}'
 ```
 
@@ -265,8 +267,11 @@ Nachdem die Kamera ordentlich ausgerichtet war und die Schwellwerte eingestellt 
 
 Da ich die "on_motion_detected" Ereignisse ebenfalls an den MQTT Bus schicken, könnte ich mit Grafana eine Art Aktivitäten Protokoll erstellen und so zeitlich mit anderen Metriken korrelieren. Das Event sieht so in etwa aus:
 
-```script
+```shell
 fishberry/cam/0/motion_detected {"pixel": 15267,"noise": 13, "motionwidth": 60, "motionheight": 404, "xcoord": 124, "ycoord": 538 }
 ```
 
-Zusätzlich kann man die Telegram Bot auch für die zweiseitige Kommunikation nutzen und beispielsweise Kommandos wie "snapshot" schicken um ein aktuelles Bild anzufordern oder "movie" um das gerade aufgezeichnete Video zu erhalten.
+Zusätzlich kann man den Telegram Bot auch für die zweiseitige Kommunikation nutzen und beispielsweise Kommandos wie "snapshot" schicken um ein aktuelles Bild anzufordern oder "movie" um das gerade aufgezeichnete Video zu erhalten. Natürlich müssen API Token und ChatID aus dem Programm Code entfernt und noch sicher ein paar andere Verschönderungen durchgeführt werden.
+
+Icd werde das Script entsprechend erweitern, wie immer unter [github.com/scurth](github.com/scurth) als open-source veröffentlichen.
+
