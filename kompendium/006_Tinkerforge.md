@@ -10,10 +10,10 @@ published: 18.08.2020
 <TOC />
 
 # In einem Satz
-Tinkerforge bietet Sensoren und Aktoren für nahezu jeden Anwendungfall, welche sich leicht in ein Linux basiertes Open-Source Ecosystem integrieren lässt.
+Tinkerforge bietet Sensoren und Aktoren für nahezu jeden Anwendungfall, welche sich leicht in ein Linux basiertes Open-Source Ecosystem integrieren lassen.
 
 ## Überblick
-Tinkerforge benötigt eine "Master" Brick, welcher via USB mit einem Linux Rechner verbunden wird. An diesen Master Brick werden die Bricklets angeschlossen werden. Es gibt einige Alternativen, die später betrachtet werden. Um die Daten auszulesen, muss der "brickd" daemon verwendet werden. Diese bietet ein API und kann zusätzlich mittels brickviewer betrachtet werden.
+Tinkerforge benötigt eine "Master" Brick, welcher via USB mit einem Linux Rechner verbunden wird. An diesen Master Brick werden die Bricklets angeschlossen werden. Um die Daten auszulesen, muss der "brickd" daemon verwendet werden. Diese bietet ein API und kann auch mittels brickviewer betrachtet werden.
 
 ## Daten via MQTT zur Verfügung stellen
 Um die Daten vom brickd abzgreifen und via MQTT bereit zu stellen, gibt es eine kostenlose open-source Lösung, welche direkt von Tinkerforge bereit gestellt wird. [MQTT - API Bindings](https://www.tinkerforge.com/de/doc/Software/API_Bindings_MQTT.html)
@@ -23,15 +23,15 @@ Nach der Installation muss eine JSON Konfiguration bereit gestellt werden, um fe
 /usr/bin/tinkerforge_mqtt --show-payload --init-file /etc/tinkerforge_mqtt/init.json
 ```
 
-## 4-20mA Industrie-Standard
-Es gibt einen Industrie Standard, bei dem ein Sensor unter Spannung gesetzt wird und abhängig von dem Sensor zustand wird ein Strom im Bereich vom 4 bis 20 mA geliefert, welcher dann ausgewertet werden kann.
+### 4-20mA Industrie-Standard
+Es gibt einen Industrie Standard, bei dem ein Sensor unter Spannung gesetzt wird und abhängig von dem Sensorzustand wird ein Strom im Bereich vom 4 bis 20 mA geliefert, welcher dann ausgewertet werden kann.
 
 [Tinkerforge Industrial Dual 0-20mA Bricklet 2.0](https://www.tinkerforge.com/de/doc/Hardware/Bricklets/Industrial_Dual_020mA_V2.html)
 
 > Mit dem Industrial Dual 0-20mA Bricklet 2.0 können Bricks Ströme von 0 bis 22,5mA gemessen werden.
 > Das Bricklet kann genutzt werden um bis zu zwei IEC 60381-1 Typ 2 und Typ 3 Sensoren auszulesen.
 
-### Wasserfüllstand
+#### Wasserfüllstand
 Komponenten:
 - [Tinkerforge Isolator Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Isolator.html)
 - [Tinkerforge Industrial Dual 0-20mA Bricklet 2.0](https://www.tinkerforge.com/de/doc/Hardware/Bricklets/Industrial_Dual_020mA.html)
@@ -40,9 +40,9 @@ Komponenten:
 
 Das ganze ist wiefolgt aufgebaut
 
->RaspberryPi mit Tinkerforge HAT -> Isolator Bricklet -> Industrial Dual Bricklet -> 2 Wasserstandssensoren
+RaspberryPi mit Tinkerforge HAT -> Isolator Bricklet -> Industrial Dual Bricklet -> 2 Wasserstandssensoren
 
->24V Netzteil -> Industrial Dual Bricklet
+24V Netzteil -> Industrial Dual Bricklet
 
 Produktbild:
 ![Edelstahl_Füllstandssensor_Wasserstandssensor](/images/DC24V_4-20mA_Edelstahl_Füllstandssensor_Wasserstandssensor.jpg)

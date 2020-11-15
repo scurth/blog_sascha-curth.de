@@ -4,7 +4,7 @@ description: Victron Energy VRM und Deutsche Wetterdienst (DWD) Warnungen Integr
 introimage: "/images/projekte/flash-862620_640.jpg"
 type: projekte
 lang: de-DE
-published: 15.063.2020
+published: 15.06.2020
 ---
 # {{ $frontmatter.title }}
 ![L1](/images/projekte/flash-862620_640.jpg)

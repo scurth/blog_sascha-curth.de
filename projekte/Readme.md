@@ -105,11 +105,6 @@ Gast Netzwerk
 Links:
 - [https://grocy.info/](Grocy.info)
 
-## MiFlora auf MQTT umstellen
-
-Links:
-- [https://github.com/ThomDietrich/miflora-mqtt-daemon](MiFlora MQTT)
-
 ## Raspberry Server Cluster
 Mit zunehmender integration wird die Verfügbarkeit wichtiger, insbesondere wenn statt nur Metriken bereit zu stellen auch Dinge gesteuert werden sollen.
 
