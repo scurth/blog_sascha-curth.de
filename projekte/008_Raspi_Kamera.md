@@ -273,5 +273,5 @@ fishberry/cam/0/motion_detected {"pixel": 15267,"noise": 13, "motionwidth": 60, 
 
 Zusätzlich kann man den Telegram Bot auch für die zweiseitige Kommunikation nutzen und beispielsweise Kommandos wie "snapshot" schicken um ein aktuelles Bild anzufordern oder "movie" um das gerade aufgezeichnete Video zu erhalten. Natürlich müssen API Token und ChatID aus dem Programm Code entfernt und noch sicher ein paar andere Verschönderungen durchgeführt werden.
 
-Icd werde das Script entsprechend erweitern, wie immer unter [https://www.github.com/scurth](https://www.github.com/scurth) als open-source veröffentlichen.
+Ich werde das Script entsprechend erweitern, wie immer unter [https://www.github.com/scurth](https://www.github.com/scurth) als open-source veröffentlichen.
 
