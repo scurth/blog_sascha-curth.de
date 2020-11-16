@@ -33,6 +33,7 @@ module.exports = {
       ],
       '/projekte/': [
         '/projekte/',
+	'/projekte/008_Raspi_Kamera',
         '/projekte/007_VRM_victronenergy_DWD',
         '/projekte/006_WIFI-AP_advanced',
 	'/projekte/005_Color_Control_GX',
