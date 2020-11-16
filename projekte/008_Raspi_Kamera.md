@@ -294,6 +294,44 @@ def main(argv=None):
 
 Mit der Programmlogik kann man nun z.b. "/cam_snap" in den Chat schreiben, was dazu führt das die besagte URL vom python Prozess aufgerufen wird und motion einen Schnappschuss erzeugt. Wie bisher wird diese Aktion dann mittels mosquitto_pub an den MQTT gemeldet und das Bild entsprechend gesendet.
 
+### Kamera Status abfragen
+
+Die Bewegungserkennung zu pausieren macht durchaus manchmal Sinn, aber man muss auch den Status abfragen können. Dazu wird einfach der Befehlssatz erweitert.
+
+```python
+...
+        elif msg['text'] == '/cam_status':
+            r =requests.get('http://127.0.0.1:8080/0/detection/status')
+            bot.sendMessage(chat_id, r.text)
+...
+```
+
+Die Ausgabe erfolgt standardmäßig mit HTML tags und sieht wiefolgt aus
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Motion 4.1.1</title></head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<body>
+<a href=/0/detection>&lt;&ndash; back</a><br><br><b>Camera 0</b> Detection status ACTIVE
+</body>
+</html>
+```
+
+Um das ganze für den Anwendungsfall besser leserlich zu gestalten, kann man die Ausgabe auf das raw Format umstellen.
+
+/etc/motion/motion.conf
+```shell
+...
+webcontrol_html_output off
+...
+```
+
+```shell
+Camera 0 Detection status ACTIVE
+```
+
 ## Das Ergebnis
 
 Nachdem die Kamera ordentlich ausgerichtet war und die Schwellwerte eingestellt waren, bekomme ich nun eine Momentaufnahme als Nachricht via Telegram. In dieser Telegram Gruppe sind dann auch die weiteren Familienmitglieder und alle entsprechend informiert. Alles in Allem, kein riesen Aufwand und ein Ergebnis das sich im wahrsten Sinne des Wortes sehen lassen kann.
