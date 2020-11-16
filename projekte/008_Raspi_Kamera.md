@@ -240,7 +240,6 @@ def main(argv=None):
     bot_chatID = "987654321"
     bot = telepot.Bot(bot_token)
 
-
     global client
     client = mqtt.Client("picture_save_listener")  # Create instance of client with client ID “digi_mqtt_test”
     client.on_connect = on_connect  # Define callback function for successful connection
@@ -259,6 +258,42 @@ Um nicht immer vor der Kamera rumhampeln zu müssen, kann man von nun an mit ein
 mosquitto_pub -t 'fishberry/cam/0/picture_save' -m '{"filename": "/home/pi/cam/01-20201114211113-04.jpg"}'
 ```
 
+### Telegram Bot Rückkanal / 2 Wege Kommunikation
+
+Was ist wenn ich via Telegram App gerne einen aktuellen Schnappschuß anfordern möchte? Dazu muss das python Skript etwas angepasst werden.
+
+```python
+...
+from telepot.loop import MessageLoop
+import requests
+...
+def handle(msg):
+    content_type, chat_type, chat_id = telepot.glance(msg)
+    print(content_type, chat_type, chat_id)
+
+    if content_type == 'text':
+        if msg['text'] == '/cam_snap':
+            r =requests.get('http://127.0.0.1:8080/0/action/snapshot')
+        elif msg['text'] == '/cam_pause':
+            r =requests.get('http://127.0.0.1:8080/0/detection/pause')
+        elif msg['text'] == '/cam_start':
+            r =requests.get('http://127.0.0.1:8080/0/detection/start')
+
+def main(argv=None):
+    global bot_token
+    global bot_chatID
+    global bot
+
+    bot_token = "12345678:ABCDEFGHT...."
+    bot_chatID = "987654321"
+    bot = telepot.Bot(bot_token)
+
+    MessageLoop(bot, handle).run_as_thread()
+...
+```
+
+Mit der Programmlogik kann man nun z.b. "/cam_snap" in den Chat schreiben, was dazu führt das die besagte URL vom python Prozess aufgerufen wird und motion einen Schnappschuss erzeugt. Wie bisher wird diese Aktion dann mittels mosquitto_pub an den MQTT gemeldet und das Bild entsprechend gesendet.
+
 ## Das Ergebnis
 
 Nachdem die Kamera ordentlich ausgerichtet war und die Schwellwerte eingestellt waren, bekomme ich nun eine Momentaufnahme als Nachricht via Telegram. In dieser Telegram Gruppe sind dann auch die weiteren Familienmitglieder und alle entsprechend informiert. Alles in Allem, kein riesen Aufwand und ein Ergebnis das sich im wahrsten Sinne des Wortes sehen lassen kann.
@@ -271,7 +306,7 @@ Da ich die "on_motion_detected" Ereignisse ebenfalls an den MQTT Bus schicken, k
 fishberry/cam/0/motion_detected {"pixel": 15267,"noise": 13, "motionwidth": 60, "motionheight": 404, "xcoord": 124, "ycoord": 538 }
 ```
 
-Zusätzlich kann man den Telegram Bot auch für die zweiseitige Kommunikation nutzen und beispielsweise Kommandos wie "snapshot" schicken um ein aktuelles Bild anzufordern oder "movie" um das gerade aufgezeichnete Video zu erhalten. Natürlich müssen API Token und ChatID aus dem Programm Code entfernt und noch sicher ein paar andere Verschönderungen durchgeführt werden.
+Natürlich müssen API Token und ChatID aus dem Programm Code entfernt und noch sicher ein paar andere Verschönerungen durchgeführt werden.
 
 Icd werde das Script entsprechend erweitern, wie immer unter [https://www.github.com/scurth](https://www.github.com/scurth) als open-source veröffentlichen.
 
