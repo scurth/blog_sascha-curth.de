@@ -332,9 +332,71 @@ webcontrol_html_output off
 Camera 0 Detection status ACTIVE
 ```
 
+### Telgram CustomKeyboard
+
+Statt die Kommandos einzutippen, wie zb. /cam_snap, wäre es doch noch besser wenn es einen Button gäbe mit dieser Funktion.
+
+Dazu verändern wir die on_chat_message so, dass sobald irgendwas angefragt wird eine Antwort geschickt wird die nur die unterstützten Funktionen enthält. Wenn man auf einen solchen Button klickt, wird eine "callback_query" geschickt.
+
+```python
+def on_chat_message(msg):
+    content_type, chat_type, chat_id = telepot.glance(msg)
+    print(content_type, chat_type, chat_id)
+
+    helptext = "Verfügbare Kommandos"
+    
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                   [ InlineKeyboardButton(text='📸 Cam snapshot', callback_data='cam_snap'),
+                     InlineKeyboardButton(text='❓ Cam status', callback_data='cam_status')
+                   ],
+                   [ InlineKeyboardButton(text='📼 Cam an', callback_data='cam_start'),
+                     InlineKeyboardButton(text='📴 Cam aus', callback_data='cam_pause')
+                   ],
+               ])
+
+    bot.sendMessage(chat_id, helptext, reply_markup=keyboard)
+```
+
+Die main() Funktion muss daher nun zwischen normalem Chat und der Callback_query unterscheiden.
+
+```python
+...
+ MessageLoop(bot, {'chat': on_chat_message,
+                   'callback_query': on_callback_query}).run_as_thread()
+...
+```
+
+Das Mapping könnte dann so aussehen:
+
+```python
+def on_callback_query(msg):
+    global global_temperature
+    global global_wass_temperature
+
+    antwort='Irgendwas ist schief gelaufen.'
+    query_id, from_id, query_data = telepot.glance(msg, flavor='callback_query')
+    print('Callback Query:', query_id, from_id, query_data)
+
+    if query_data == 'cam_snap':
+        r =requests.get('http://127.0.0.1:8080/0/action/snapshot')
+        antwort=r.text
+    elif query_data == 'cam_pause':
+        r =requests.get('http://127.0.0.1:8080/0/detection/pause')
+        antwort=r.text
+    elif query_data == 'cam_start':
+        r =requests.get('http://127.0.0.1:8080/0/detection/start')
+        antwort=r.text
+    elif query_data == 'cam_status':
+        r =requests.get('http://127.0.0.1:8080/0/detection/status')
+        antwort=r.text
+
+    bot.answerCallbackQuery(query_id, text=antwort, show_alert=0)
+```
+
+
 ## Das Ergebnis
 
-Nachdem die Kamera ordentlich ausgerichtet war und die Schwellwerte eingestellt waren, bekomme ich nun eine Momentaufnahme als Nachricht via Telegram. In dieser Telegram Gruppe sind dann auch die weiteren Familienmitglieder und alle entsprechend informiert. Alles in Allem, kein riesen Aufwand und ein Ergebnis das sich im wahrsten Sinne des Wortes sehen lassen kann.
+Nachdem die Kamera ordentlich ausgerichtet war und die Schwellwerte eingestellt waren, bekomme ich nun eine Momentaufnahme als Nachricht via Telegram. In dieser Telegram Gruppe sind dann auch die weiteren Familienmitglieder und alle entsprechend informiert. Alles in Allem, kein riesen Aufwand und ein Ergebnis das sich im wahrsten Sinne des Wortes sehen lassen kann. Insbesondere die Telegram Integration und die vereinfachte Benutzung mittels der Buttons bereitet Freude ohne die Sicherheit zu gefährden.
 
 ## Wie gehts weiter
 
