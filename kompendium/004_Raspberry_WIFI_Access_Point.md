@@ -222,6 +222,40 @@ arp -a -n|grep wlan0|wc -l
 
 Da ich beide WLAN Konfigurationen ohnehin mit einem komplett neu überarbeitetem Konzept ersetzen möchte, habe ich die Nachforschungen erstmal abegrochen und arbeite an dem Ersatz.
 
+## Client Spezifischer WLAN Schlüssel
+Gerade wenn man mehrere IoT Geräte betreibt, ist es ratsam jedem Gerät eine eignes WLAN Passwort zu geben. Ansonsten wird es extrem nervig wenn man mal "das" WLAN Passwort andern will oder muss. Da der Netzwerkschlüssel immer im Klartext auf dem jeweiligem Gerät gespeichert wird, sollte der Schlüssel gelöscht werden wenn man ein Gerät z.b. aus Garantiegründen zurück schicken muss.
+
+Am einfachsten löst man diese Problem, indem man der hostapd.conf folgenden Parameter konfiguriert:
+```shell
+...
+wpa_psk_file=/etc/hostapd/psk
+...
+```
+
+In dieser Datei wird dann pro Zeile ein MAC-Adresse, gefolgt von dem Klartext Schlüssel eingetragen. Als letzte Zeile kann dann z.b. ein Passwort vergeben werden, welches man als Gäste WLAN Passwort verteilt und regelmäßig ändert.
+
+```shell
+cat /etc/hostapd/psk
+24:62:ab:48:f5:05 nilAp7fladfok
+D8:F1:5B:F1:B4:5A Rof9gloofcit
+00:00:00:00:00:00 im6wrocHoksh
+```
+
 ## Lokale Services und Internet Zugang
 Ohne IP Forwarding und NAT Konfiguration können die WLAN/WiFi Teilnehmer sich nicht ins Internet verbinden, aber auf Dienste zugreifen, welche am wlan0 des RaspberryPi konfiguriert sind. 
 
+Wenn man das Forwarding zum testen aktivieren will, geht das so:
+```shell
+echo "1" > /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+
+Debian basierte Systeme wird das IP Forwarding wiefolgt dauerhaft konfiguriert:
+
+/etc/sysctl.conf:
+```shell
+# Uncomment the next line to enable packet forwarding for IPv4
+net.ipv4.ip_forward=1
+# Uncomment the next line to enable packet forwarding for IPv6
+#net.ipv6.conf.all.forwarding=1
+```
