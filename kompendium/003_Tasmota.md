@@ -61,14 +61,14 @@ Beispiel Update Pfad von 7.1.1 auf 8.2.0
 
 - [7.2.0-minimal](https://github.com/arendst/Tasmota/releases/download/v7.2.0/tasmota-minimal.bin)
 - [7.2.0](https://github.com/arendst/Tasmota/releases/download/v7.2.0/tasmota.bin)
-- [8.1.0-minimal](https://github.com/arendst/Tasmota/releases/download/v8.1.0/tasmota-minimal.bin)
-- [8.1.0](https://github.com/arendst/Tasmota/releases/download/v8.1.0/tasmota.bin)
-- [8.2.0-minimal](https://github.com/arendst/Tasmota/releases/download/v8.2.0/tasmota-minimal.bin)
-- [8.2.0](https://github.com/arendst/Tasmota/releases/download/v8.2.0/tasmota.bin)
+- [8.5.1-minimal](https://github.com/arendst/Tasmota/releases/download/v8.5.1/tasmota-minimal.bin)
+- [8.5.1](https://github.com/arendst/Tasmota/releases/download/v8.5.1/tasmota.bin)
+- [9.1.0-minimal](https://github.com/arendst/Tasmota/releases/download/v9.1.0/tasmota-minimal.bin)
+- [9.1.0](https://github.com/arendst/Tasmota/releases/download/v9.1.0/tasmota.bin)
 
 Automatisches herunterladen
 ```shell
-for version in "7.2.0" "8.1.0" "8.2.0"
+for version in "7.2.0" "8.5.1" "9.1.0"
 do
   curl -L https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota-minimal.bin -o tasmota-minimal-${version}.bin
   curl -L https://github.com/arendst/Tasmota/releases/download/v${version}/tasmota.bin -o tasmota-${version}.bin
