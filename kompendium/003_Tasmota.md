@@ -76,3 +76,23 @@ done
 ``` 
 
 Bei dem beschriebene Upgrade Pfad wurde meine Konfiguration nicht beschädigt und war ohne weiteres zutun benutzbar.
+
+## Tasmota Reset
+
+Es kann vorkommen, das sich eine Tasmota Steckdose aufhängt und sich nicht mehr bedienen lässt. Um diese wieder zum Leben zu erwecken kann man die sogenannte "Fast Power Cycle Device Recovery" Prozedur durchführen. Hierbei wird die Steckdose für mind. 30 Sekunden vom Strom getrennt und anschliessend für max. 10 Sekunden verbunden und wieder getrennt. Dieser Schritt muss 6 mal wiederholt werden und beim 7. Mal lässt man den Strom verbunden. Danach wird automatisch der Access Point gestartet und man kann das Gerät wieder neu konfigurieren. Die gleiche Prozedur kann auch genutzt werden, wenn sich die WLAN SSID oder das Passwort verändert haben und das Gerät nicht automatisch im AP Modus startet.
+
+Um es zu vereinfachen, kann man auch eine zweite Tasmota Steckdose nehmen, die defekte dort hineinstecken und auf der funktionstüchtigen über die Web Console folgende Kommandos reinkopieren:
+
+```
+Backlog Power1 off; Delay 350;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on; Delay 50; Power1 off; Delay 50;
+Power1 on;
+```
+
+Über den Parameter "Backlog" werden die nachfolgenden Kommandos automatisch im Hintergrund ausgeführt. Der Delay Parameter 350 bedeutet 35 Sekunden warten. Den kompletten Block kopieren und mit einem Mal einfügen.
+
