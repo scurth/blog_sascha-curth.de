@@ -4,7 +4,7 @@ home: true
 hostname: "https://www.sascha-curth.de/"
 heroImage: /iot.jpg
 heroText: Der IoT Rebell
-tagline: Internet of Things - So, wie es sein sollte
+tagline: Gemeinsam erschaffen wir ein transparentes und sicheres Ökosystem für das Internet der Dinge.
 actionText: Zu den Projekten →
 actionLink: /projekte/index.html
 features:

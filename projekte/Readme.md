@@ -36,8 +36,8 @@ Die folgende Liste sind potentielle neue Projektideen, sind aber gedanklich noch
 - popup auf allen familien handys, oder klingelknopf pro Bewohner
 
 Links
-- [https://matrix.org/blog/2020/04/06/running-your-own-secure-communication-service-with-matrix-and-jitsi](matrix.org)
-- [https://github.com/jitsi/jitsi-meet/blob/master/doc/quick-install.md](Jitsi Quick Install)
+- [matrix.org](https://matrix.org/blog/2020/04/06/running-your-own-secure-communication-service-with-matrix-and-jitsi)
+- [Jitsi Quick install](https://github.com/jitsi/jitsi-meet/blob/master/doc/quick-install.md)
 
 ## Envertec EVB202 Bridge
 
