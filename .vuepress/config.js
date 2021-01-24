@@ -33,6 +33,7 @@ module.exports = {
       ],
       '/projekte/': [
         '/projekte/',
+	'/projekte/010_perfektes_netzwerk_2021',
 	'/projekte/008_Raspi_Kamera',
         '/projekte/007_VRM_victronenergy_DWD',
         '/projekte/006_WIFI-AP_advanced',

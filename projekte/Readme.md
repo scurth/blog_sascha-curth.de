@@ -79,7 +79,7 @@ IoT Geräte:
 Gast Netzwerk
 - WPA2, WPA3
 - Bandbreitenlimitierung pro Gerät
-- Passwort pro Gerät / ggfls oauth oder [https://www.keycloak.org/](keycloak)
+- Passwort pro Gerät / ggfls oauth oder [keycloak](https://www.keycloak.org/)
 
 ## interner OAuth Server
 
@@ -103,7 +103,7 @@ Gast Netzwerk
 - Barcode scan bei Verbrauch?
 
 Links:
-- [https://grocy.info/](Grocy.info)
+- [Grocy.info](https://grocy.info/)
 
 ## Raspberry Server Cluster
 Mit zunehmender integration wird die Verfügbarkeit wichtiger, insbesondere wenn statt nur Metriken bereit zu stellen auch Dinge gesteuert werden sollen.
