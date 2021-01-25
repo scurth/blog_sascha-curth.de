@@ -764,7 +764,7 @@ Mein Haus hat endlich auf jeder Etage einen Top Empfang, der Durchsatz ist deutl
 
 ## Wie gehts weiter
 
-Da dieses Projekt ziemlich groß geworden ist und sehr lang habe ich mich entschieden, für folgende Themen einen extra Artikel anzulegen:
+Da dieses Projekt ziemlich groß und lang geworden ist, habe ich mich entschieden für folgende Themen einen extra Artikel anzulegen:
 
 - dual internet uplink / failover
 - iptables Absicherung
