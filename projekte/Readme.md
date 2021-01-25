@@ -69,18 +69,6 @@ Die Idee ist eine Offsite Backup Speicher für Freunde bereit zu stellen
 - OpenVPN einwahl in den eigenen Haushalt
 - IOS, Android und MacOS client
 
-## internes Netzwerk neu gestalten
-
-IoT Geräte:
-- WPA2, VLAN Tagging für IOT Geräte mit iptables und Regelwerk pro Gerät
-- MacAdress Filter
-- Static DHCP
-
-Gast Netzwerk
-- WPA2, WPA3
-- Bandbreitenlimitierung pro Gerät
-- Passwort pro Gerät / ggfls oauth oder [keycloak](https://www.keycloak.org/)
-
 ## interner OAuth Server
 
 - zur Absicherung von internen Web Apps

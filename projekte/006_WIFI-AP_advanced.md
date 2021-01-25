@@ -9,6 +9,15 @@ published: 03.05.2020
 # Heim WiFi mit nutzerbasierten Zugangsdaten
 <TOC />
 
+---
+**HINWEIS 25.01.2021**
+
+Ich verwende kein EAP mehr, sondern pre-shared-keys (PSK), pro Endgerät bzw für das Gäste WLAN einen PSK für mehrer Clients.
+
+Neues Projekt: [Das (fast) perfekte Heimnetzwerk für das Jahr 2021](https://www.sascha-curth.de/projekte/010_perfektes_netzwerk_2021.html)
+
+---
+
 ## Problemstellung
 Ein WiFi Netzwerk mit einem geteilten Standard Passwort funktioniert, allerdings ist das wechseln des Passworts ein erheblicher Aufwand. Wenn beispielsweise ein Schalter defekt ist und zurück geschickt werden muss, müsste idealerweise das heimische PAsswort geändert werden, da man nicht wissen kann ob der Hersteller die Konfiguration auslesen kann. Das würde jedoch eine Arbeit nach sich ziehen da diese Änderung auf allen Geräten die noch im Haushalt sind durchgeführt werden muss.
 

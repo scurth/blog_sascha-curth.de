@@ -302,7 +302,7 @@ apt-get install -y isc-dhcp-server
 
 In der /etc/dhcp/dhcpd.conf wird nun für jeden virtuellen Accesspoint eine subnetz Deklaration erstellt.
 
-```ini
+```properties
 ...
 # Admin WLAN
 subnet 192.168.42.0 netmask 255.255.255.0 {
@@ -389,7 +389,7 @@ allow-query { 127.0.0.1; 192.168.0.0/16; 172.16.0.0/16;  10.0.0.0/8;};
 Durch die Verwendung verschiedener Subnetze, kann man im DHCP leider keine feste IP Adresse pro Host vergeben. Daher habe ich mich entschieden einen automatischen DNS Eintrag erstellen zu lassen sobald sich ein Gerät erfolgreich verbunden und eine IP Adresse zugewiesen bekommen hat.
 
 In der ISC-DHCP /etc/dhcp/dhcpd.conf
-```config
+```properties
 ...
 ddns-updates on;
 ddns-update-style interim;
@@ -409,7 +409,7 @@ zone 168.192.in-addr.arpa {
 
 Die /etc/bind/keys.conf enthält den notwendigen authorizations Schlüssel für bind9
 
-```config
+```properties
 key home.sascha-curth.de. {
     algorithm HMAC-SHA512;
     secret "KrassGeheimerSchlüssel==";
@@ -424,14 +424,14 @@ kuvOs81k+Uy7rC6GdlMdLRHfmvRDFv503xblD/GWlDLhvxbo9h5gqw==
 ```
 
 Die bind /etc/bind/named.conf wird erweitert:
-```config
+```properties
 ...
 include "/etc/bind/keys.conf";
 ...
 ```
 
 Jetzt wird noch die DNS Zonenkonfiguration /etc/bind/named.conf.home.sascha-curth.de angelegt:
-```config
+```properties
 zone "home.sascha-curth.de" IN { 
     type master;
     file "/etc/bind/dyndns/db.home.sascha-curth.de";
@@ -484,8 +484,293 @@ host 192.168.40.11
 ```
 
 ### PXE / Netzwerk Boot der Raspberry Pi 3
-...kommt demnächst
+
+Zur perfekten WLAN Versorgung des gesamten Hauses, habe ich mich entschieden auf jede Etage einen Raspberry 3 zu stationieren. Dieser wird mit dem gleichen USB WLAN Adapter ausgetattet und ist über Ethernet/eth0 am gleichen Switch wie der Haupt Raspi. Diese Erweiterungs Raspis bekommen keine SD-Karte oder sonstiges lokales Boot Medium, sondern werden über PXE / NFS betrieben.
+
+---
+**NOTIZ**
+
+PXE geht *nicht* über WLAN/WiFI, sondern ausschliesslich über Ethernet. 
+
+---
+
+Der Boot Prozess sie wiefolgt aus:
+
+- Rasperry Stromversorgung aktivieren
+- Raspberry wartet auf Ethernet Link
+- sendet DHCP request und erwartet in der Antwort u.a. die TFTP Server Option
+- Verbindung zum TFTP Server aufbauen und bootcode.bin herunterladen
+- danach restliche /boot Dateien via TFTP herunterladen, incl cmdline.txt
+- in der cmdline.txt wird das nfsroot beschrieben, das dann vom Raspberry eingebunden wird
+- fertig gebootet.
+
+#### PXE/USB Boot Modus aktivieren
+Die Raspberry 3 konnten ursprünglich nur von SD-Karte booten. Wenn man jedoch die aktuelle Firmware einmal installiert hat, kann man wie folgt prüfen ob es bereits richtig eingestellt ist. Sollte USB boot schon gehen, kann man sich den Test sparen.
+
+```shell
+vcgencmd otp_dump | grep 17
+17:3020000a
+```
+
+Sollte hier ein anderer Wert stehen, einfach die /boot/config.txt um folgende Zeile erweitern und rebooten:
+
+```ini
+program_usb_boot_mode=1
+```
+
+Diese Einstellung ist nur einmal pro Gerät notwendig und dauerhaft.
+
+#### DHCP und TFTP
+Bei mir sind die Raspberry über den switch an eth2 mit dem Hauptrasberry (homeberry) verbunden
+/etc/dhcp/dhcpd.conf erweitern
+```properties
+subnet 10.0.1.0 netmask 255.255.255.0 {
+  range 10.0.1.10 10.0.1.250;
+  option subnet-mask 255.255.255.0;
+  option routers 10.0.1.1;
+  ddns-domainname "home.sascha-curth.de";
+  option domain-search "home.sascha-curth.de";
+  option domain-name-servers 192.168.42.1;
+  option ntp-servers 10.0.1.1;
+  default-lease-time 7200;
+  max-lease-time 7200;
+}
+
+host apberry01 { fixed-address 10.0.1.101; hardware ethernet b8:27:eb:7a:cd:98; next-server 10.0.1.1; option tftp-server-name "10.0.1.1"; }
+host apberry02 { fixed-address 10.0.1.102; hardware ethernet b8:27:eb:3f:01:c2; next-server 10.0.1.1; option tftp-server-name "10.0.1.1"; }
+```
+
+Als nächstes erfolgt die Installation und Konfiguration des TFTP Servers.
+
+```shell
+apt-get install -y tftpd-hpa
+```
+
+/etc/default/tftpd-hpa 
+```properties
+# /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/srv/tftp"
+# eth2 gbit switch
+TFTP_ADDRESS="10.0.1.1:69"
+TFTP_OPTIONS="--secure --ipv4 -vvv"
+```
+
+```shell
+mkdir -p /srv/tftp
+systemctl enable tftpd-hpa.service
+systemctl start tftpd-hpa.service
+
+ps -ef|grep tftp
+/usr/sbin/in.tftpd --listen --user tftp --address 10.0.1.1:69 --secure --ipv4 -vvv /srv/tftp
+```
+
+Haupt Raspi, der als tfpt next-server definiert ist:
+```shell
+tail -f /var/log/syslog | grep tftpd
+
+Jan 18 19:28:30 homeberry in.tftpd[1043]: RRQ from 10.0.1.101 filename bootcode.bin
+Jan 18 19:28:30 homeberry in.tftpd[1044]: RRQ from 10.0.1.101 filename bootsig.bin
+Jan 18 19:28:30 homeberry in.tftpd[1044]: sending NAK (1, File not found) to 10.0.1.101
+Jan 18 19:28:30 homeberry in.tftpd[1046]: RRQ from 10.0.1.101 filename 2a7acd98/start.elf
+```
+
+Nach dem die "bootcode.bin" herunter geladen wurde, wird versucht die restlichen boot Dateien zu laden. Hierbei generiert jeder PXE boot client einen unique identifier, in diesem Beispiel *2a7acd98*. Diesen String müssen wir uns merken und brauchen den im nächsten Schritt, in dem wir einen entsprechenden Ornder anglegen.
+
+#### TFTP boot Verzeichnis bereitstellen
+
+Auf [raspberry.org](https://www.raspberrypi.org/software/operating-systems/) findet man den Downlowd Link zum aktuelle RaspiOS/Raspbian. Für meinen Anwendungszweck empfiehlt sich das Lite image, das die Desktop Komponenten unnötiger Ballast wären.
+
+```shell
+cd /srv
+wget https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip
+unzip ../2021-01-11-raspios-buster-armhf-lite.zip
+
+fdisk -lu 2021-01-11-raspios-buster-armhf-lite.img
+Disk 2021-01-11-raspios-buster-armhf-lite.img: 1.8 GiB, 1862270976 bytes, 3637248 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0xe8af6eb2
+
+Device                                    Boot  Start     End Sectors  Size Id Type
+2021-01-11-raspios-buster-armhf-lite.img1        8192  532479  524288  256M  c W95 FAT32 (LBA)
+2021-01-11-raspios-buster-armhf-lite.img2      532480 3637247 3104768  1.5G 83 Linux
+```
+
+Für den nächsten Schritt benötigen wir nur die boot Partition, welche bei 8192 beginnt und hat eine Gesamtgröße von 256M. Da das Image eine Sector Größe von 512 bytes hat, müssen wir das kurz umrechen.
+
+```shell
+echo "512 * 8192"|bc -l
+4194304
+
+mkdir /srv/image_boot
+mount -o loop,offset=272629760 2021-01-11-raspios-buster-armhf-lite.img /srv/image_boot
+```
+
+Der Inhalt wird nun in den TFTP Ordner synchronisiert und die cmdline.txt entsprechend angepasst. Der Ordner Name ist dynamisch pro PXE Client, und kann über das Logfile wie im vorherigen Schritt beschrieben herausgefunden werden.
+
+```shell
+mkdir /srv/tftp/2a7acd98
+rsync -avz /srv/image_boot/ /srv/tftp/2a7acd98
+
+cat /srv/tftp/2a7acd98/cmdline.txt 
+root=/dev/nfs nfsroot=192.168.41.1:/srv/nfs/apberry01,vers=4.1,proto=tcp rw ip=dhcp rootwait elevator=deadline
+```
+
+#### NFS root Verzeichnis bereitstellen
+
+Jeder PXE Client bindet sein Datei System via NFS ein, welches schreibbar sein muss.
+
+```shell
+apt-get install -y nfs-kernel-server
+
+cat /etc/exports 
+/srv/nfs/apberry01 10.0.1.101/32(rw,sync,no_root_squash,no_subtree_check)
+/srv/nfs/apberry02 10.0.1.102/32(rw,sync,no_root_squash,no_subtree_check)
+/etc/hostapd/keys 10.0.1.101/32(ro,sync,no_root_squash,no_subtree_check) 10.0.1.102/32(ro,sync,no_root_squash,no_subtree_check)
+```
+
+Als nächstes wird das RaspiOS Lite Image in den entprechenden Ordner kopiert.
+
+```shell
+mkdir /srv/image_root
+mount -o loop,offset=272629760 2021-01-11-raspios-buster-armhf-lite.img /srv/image_root
+
+mkdir -p /srv/nfs/apberry01
+mkdir -p /srv/nfs/apberry02
+rsync -azv /srv/image_root/ /srv/nfs/apberry01
+rsync -azv /srv/image_root/ /srv/nfs/apberry02
+
+mkdir -p /srv/nfs/apberry01/boot
+mkdir -p /srv/nfs/apberry02/boot
+```
+
+Jetzt könnte man den Raspberry bereits starten, aber es gibt noch einige Dinge die man gleich konfigurieren kann. Am einfachsten geht es mit folgendem script.
+
+apberry01.sh
+```shell
+#!/bin/bash
+
+CHROOTDIR=/srv/nfs/apberry01
+
+# SSH Daemon automitsch beim ersten boot starten
+touch ${CHROOTDIR}/boot/ssh
+
+# Hostnamen setzen
+sed -i -e 's/raspberrypi/apberry01/g' ${CHROOTDIR}/etc/hosts
+sed -i -e 's/raspberrypi/apberry01/g' ${CHROOTDIR}/etc/hostname
+
+# Default Root Partitionsdefinition entfernen
+cat <<EOF > ${CHROOTDIR}/etc/fstab
+proc            /proc           proc    defaults          0       0
+EOF
+
+# Notwendige Paket installieren
+chroot ${CHROOTDIR} /bin/bash -x <<'EOF'
+systemctl disable resize2fs_once.service
+apt-get update && apt-get upgrade -y
+dpkg-reconfigure debconf -f noninteractive -p critical
+DEBIAN_FRONTEND=noninteractive apt-get install -yq isc-dhcp-relay hostapd dnsutils tcpdump
+
+EOF
+
+cat <<FILEEND > ${CHROOTDIR}/etc/default/isc-dhcp-relay
+# Defaults for isc-dhcp-relay initscript
+# sourced by /etc/init.d/isc-dhcp-relay
+# installed at /etc/default/isc-dhcp-relay by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# What servers should the DHCP relay forward requests to?
+SERVERS="10.0.1.1"
+
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+INTERFACES="eth0 wlan1 wlan1_0 wlan1_1 wlan1_2"
+
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS="-4"
+FILEEND
+
+
+cp /etc/hostapd/hostapd.conf_apberry01 ${CHROOTDIR}/etc/hostapd/hostapd.conf
+mkdir -p ${CHROOTDIR}/etc/hostapd/keys
+
+grep '^nohook wpa_supplicant$' ${CHROOTDIR}/etc/dhcpcd.conf || echo 'nohook wpa_supplicant' >>  ${CHROOTDIR}/etc/dhcpcd.conf
+
+cat <<EOF > ${CHROOTDIR}/usr/local/bin/wlan.sh
+#!/bin/bash
+killall wpa_supplicant
+killall dhcrelay
+ifconfig wlan1 192.168.142.1
+ifconfig wlan1_0 192.168.143.1
+ifconfig wlan1_1 192.168.144.1
+ifconfig wlan1_2 192.168.145.1
+start-stop-daemon --start --quiet --pidfile /var/run/dhcrelay.pid --exec /usr/sbin/dhcrelay -- -a -4 -iu eth0 -i wlan1 -i wlan1_0 -i wlan1_1 -i wlan1_2 10.0.1.1
+EOF
+chmod +x ${CHROOTDIR}/usr/local/bin/wlan.sh
+
+cat <<EOF > ${CHROOTDIR}/etc/systemd/system/multi-user.target.wants/hostapd.service
+[Unit]
+Description=Advanced IEEE 802.11 AP and IEEE 802.1X/WPA/WPA2/EAP Authenticator
+After=network.target
+Before=isc-dhcp-server.service
+
+[Service]
+Type=forking
+PIDFile=/run/hostapd.pid
+Restart=on-failure
+RestartSec=2
+Environment=DAEMON_CONF=/etc/hostapd/hostapd.conf
+EnvironmentFile=-/etc/default/hostapd
+ExecStart=/usr/sbin/hostapd -B -P /run/hostapd.pid -B $DAEMON_OPTS ${DAEMON_CONF}
+ExecStartPost=/usr/local/bin/wlan.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+## disable ipv6
+cat <<EOF >>${CHROOTDIR}/etc/sysctl.conf
+net.ipv6.conf.all.disable_ipv6=1
+net.ipv6.conf.default.disable_ipv6=1
+net.ipv6.conf.lo.disable_ipv6=1
+net.ipv6.conf.eth0.disable_ipv6 = 1
+net.ipv4.ip_forward = 1
+EOF
+```
+
+Und fertig...jetzt sollte der neue Raspberry via PXE booten ...
+
+## Netzwerk Layout und Routing
+
+Jeder Access Point benötigt ein eigenes Netz pro WLAN, auch wenn es unter der gleichen SSID, mit den gleichen PSK angeboten wird.
+
+Beispiel:
+Admin WLAN
+- homeberry 192.168.42.0/24
+- apberry01 192.168.142.0/24
+- apberry02 192.168.242.0/24
+
+Wenn man sich auf dem apberry01 anmeldet, leitet der lokale dhcp-relay die Anfrage an den homeberry weiter. Wenn der jetzt dem Client die 192.168.41.x zuweisen würde, würde die Antwort nicht über das Ethernet an den apberry01 weitergeleitet werden, sonder er würde versuchen es über das WLAN Netzwerk zu senden. Da der apberry01 in dem Fall, jedoch nur einen Accesspoint anbietet und nicht selber Teil des Netzwerkes ist, würde die Antwort dort nie ankommen...stichwort asynchrones routing. Das ist im Normalfall jedoch kein Problem, da man selten weiss welche IP Adresse man hat, der dynamische DNS Eintrag aktuell gehalten wird und man so zusätzlich recht einfach ermitteln kann, mit welchem Accesspoint man gerade verbunden ist. Die einzige negative Einschränkung die sich hieraus ergibt, ist die Tatsache, dass man keine statischen IPs vergeben kann, ausser man stellt sicher das man sich immer über den gleichen Accesspoint verbindet.
 
 #  Das Ergebnis
 
+Mein Haus hat endlich auf jeder Etage einen Top Empfang, der Durchsatz ist deutlich besser, da die WLAN Accesspoints via Ethernet angeschlossen sind und für die verschiedenen WLAN Client Bedürfnisse kann ich die notwendige Seperation durchführen.
+
 ## Wie gehts weiter
+
+Da dieses Projekt ziemlich groß geworden ist und sehr lang habe ich mich entschieden, für folgende Themen einen extra Artikel anzulegen:
+
+- dual internet uplink / failover
+- iptables Absicherung
+- QR Code generieren für das Gäste WLAN
+- automatischer reload der hostapd daemons wenn sich ein PSK geändert hat
+- WLAN Feldstärke Messung via WLAN Steckdosen
+- ...
+
+Wie immer, eine Sache ordentlich erledigt und schon hat man hundert neue Ideen was man auf der neuen Grundlage noch alles machen kann.
