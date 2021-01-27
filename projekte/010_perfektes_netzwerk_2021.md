@@ -1,13 +1,14 @@
 ---
 title: Das (fast) perfekte Heimnetzwerk für das Jahr 2021
-description: In diesem Artikel zeige ich wie man mit opensource Komponenten ein sicheres, performantes und erweiterbares Netzwerk aufbaut.
+description: In diesem Artikel zeige ich wie man mit openSource Komponenten ein sicheres, performantes und erweiterbares Netzwerk aufbaut.
 introimage: "/images/projekte/security-2688911_640.jpg"
 type: projekte
 lang: de-DE
 published: 20.01.2021
 ---
 # {{ $frontmatter.title }}
-![L1](/images/projekte/security-2688911_640.jpg)
+![L1]( /images/projekte/security-2688911_640.jpg )
+
 <TOC />
 
 
@@ -15,9 +16,9 @@ published: 20.01.2021
 
 Ein verlässliches, sicheres und performantes Heimnetzwerk ist die Grundlage nicht nur aller IoT Geräte, sondern auch des normalen Lebens heutzutage. Insbesondere Home Office und Home Schooling bringen hohe Anforderungen. Während es im kommerziellen Bereich recht gute Geräte gibt, mit denen man diese Anforderungen abdecken kann, sind die Geräte für Endwanwender oft nur bedingt geeignet.
 
-Während der letzten Monate arbeiten meine Frau und ich von zuhause, mit entsprechend vielen Videokonferenzen und zusätzlich benötigen unsere Kinder zur gleichen Zeit Internet Zugang. Ein Ausfall des Internetzugangs ist entsprechend nervig. Weder MacOS, Linux, noch Windows sind per se sicher oder unsicher. Es ist mir wichtig, sicherzustellen, dass die Arbeitsrechner weder auf irgendwelche internen Geräte zugreifen können, noch irgendein internes Gerät einen Arbeitsrechner erreichen kann. Ich denke niemand will auf Arbeit erklären müssen, dass z.b.ein Virus / Trojaner aus dem eigenen Netzwerk den Arbeitsrechner befallen hat und anschliessend irgendwelche Firmendaten verschlüsselt oder vernichtet wurden.
+Während der letzten Monate arbeiten meine Frau und ich von zuhause, mit entsprechend vielen Videokonferenzen und zusätzlich benötigen unsere Kinder zur gleichen Zeit Internetzugang. Ein Ausfall des Internetzugangs ist entsprechend nervig. Weder MacOS, Linux, noch Windows sind per se sicher oder unsicher. Es ist mir wichtig, sicherzustellen, dass die fremd-adminstrierten Arbeitsrechner weder auf irgendwelche internen Geräte zugreifen können, noch irgendein internes Gerät einen Arbeitsrechner erreichen kann. Ich denke niemand will auf Arbeit erklären müssen, dass z.b.ein Virus / Trojaner aus dem eigenen Netzwerk den Arbeitsrechner befallen hat und anschliessend irgendwelche Firmendaten verschlüsselt oder vernichtet wurden.
 
-Da meine Internetanbindung ein Privat und kein Geschäftskunden Tarif ist, ist die Verfügbarkeitsgarantie von Vodafone entsprechend. Im Falle eines Ausfalls, möchte ich den Internetzugang über ein LTE Modem transparent zur Verfügung stellen. Hier ist das Volumen pro Monat allerdings begrenzt und dementsprechend soll diese Verbindung nur im Ernstfall genutzt werden und bestimmte Geräte, wie z.b. der Fernseher nicht darüber ins Internet gehen.
+Da meine Internetanbindung ein Privat und kein Geschäftskunden Tarif ist, ist die Verfügbarkeitsgarantie von Vodafone entsprechend. Im Falle eines Ausfalls, möchte ich den Internetzugang über ein LTE Modem transparent zur Verfügung stellen. Hier ist das Volumen pro Monat allerdings begrenzt und dementsprechend soll diese Verbindung nur im Ernstfall genutzt werden und bestimmte Geräte, wie z.b. der Fernseher, nicht darüber ins Internet gehen.
 
 ## Ausgangslage
 
@@ -54,7 +55,7 @@ Diese Geräte sind das größte Risiko für die Sicherheit, da unbegrenzter Zugr
 ### Bosch Home Connect
 Diese Geräte sind ein interessanter Sonderfall, da sie sich zum Internet verbinden müssen, aber gleichzeitig für die Einrichtung in der Home Connect App auch das Handy erreichen müssen. Das Handy mit der entsprechenden App muss sich dabei im gleichen Subnetz befinden.
 
-- Individuelle Zugangsdaten pro Gerät
+- gleiche Zugangsdaten für alle HomeConnect Geräte
 - Zugriff auf das Internet
 - Zugriff auf IPs im gleichen Subnetz
 - kein Zugriff auf andere interne Resourcen
@@ -66,16 +67,16 @@ Diverse Geräte sind über Netzwerkkabel an meine Switche angebunden und ich hab
 
 ## Hardware
 
-### Haupt-Raspberry
+### Haupt-Raspberry (homeberry)
 
 - Raspberry Pi 4 / 8GB RAM
-- 120 GB SSD
+- 120 GB SSD + USB 3.0 Adapter
 - Ralink Technology, Corp. RT5370 Wireless Adapter
 - DELOCK 62966 Netzwerkadapter, USB 3.0, Gigabit Ethernet, 4 x RJ45
 - ICY BOX IB-HUB1703-QC3 7-fach USB 3.0 Industrie Hub mit Netzteil
 - Netgear LB2120-100PES 4G LTE Modem
 
-### 2 x WLAN Erweiterung
+### 2 x WLAN Erweiterung (apberry01 & apberry02)
 
 - Raspberry 3 / 1GB RAM, Netzteil
 - Ralink Technology, Corp. RT5370 Wireless Adapter
@@ -125,7 +126,7 @@ apberry02 wlan1_2 Bosch : RaLink RT5370 für die Bereitstellung der WLAN Accessp
 
 ### Auswahl des WLAN Adapters
 
-Neben der generellen Unterstützung durch Linux / Hostapd ist es wichtig, das der Chipsatz folgende Dinge unterstützt:
+Neben der generellen Unterstützung durch Linux / Hostapd ist es wichtig, dass der Chipsatz folgende Dinge unterstützt:
 
 - Accesspoint Modus
 - configuring vdev MAC-addr on create.
@@ -155,7 +156,7 @@ iw phy1 info| grep "AP"
 
 Zusammengeführt: IEEE 802.11 a/b/g/n/ac.
 
-Generell arbeiten die meisten IoT Geräte im 2.4GHz Bereich und unterstützen üblicherweise b/g/n.
+Generell arbeiten die meisten IoT Geräte im 2.4GHz Bereich und unterstützen üblicherweise b/g/n, sehr selten wird auch das 5GHz Netz unterstützt.
 
 Weitere Details zu den Standards findet man auf [wikipedia](https://de.wikipedia.org/wiki/IEEE_802.11)
 
@@ -166,23 +167,23 @@ Wenn man mit dem hostapd mehrere virtuelle Accesspoints betreibt, können bestim
 - WLAN Standard / Frequenz
 - Funkkanal
 
-Die Entscheidung ob Teilnehmer eines WLANs (virtueller Accesspoint) mit anderen im gleichen kommunizieren können, wird über ap_isolate=0 oder ap_isolate=1 konfiguriert. Wenn man z.b. Geräten die Kommunikation erlaubt, kann man *nicht* via iptables danach irgendwelche Einschränkungen einstellen. Aller eingehender Netzwerkverkehr wird dann durch den hostapd daemon direkt um "userland" weitergeleitet. Teilnehmer von 2 verschiedenen WLAN Netzwerken hingegen können mittels iptables moderiert werden.
+Die Entscheidung ob Teilnehmer eines WLANs (virtueller Accesspoint) mit anderen im gleichen kommunizieren können, wird über ap_isolate=0 oder ap_isolate=1 konfiguriert. Wenn man z.b. Geräten die Kommunikation erlaubt, kann man **nicht** via iptables danach irgendwelche Einschränkungen einstellen. Aller eingehender Netzwerkverkehr wird dann durch den hostapd daemon direkt um "userland" weitergeleitet. Teilnehmer von 2 verschiedenen WLAN Netzwerken hingegen können mittels iptables moderiert werden.
 
 ### WiFi / WLAN Roaming
 
-Das Thema klingt komple, ist jedoch relativ einfach. Man kann mehrere Acceess Points betrieben, mit der gleichen SSID / Netzwerknamen. Wenn alle die gleiche Authentifizierung erfordern, wird das WLAN Endgerät einfach den AccessPoint mit dem stärksten Signal wählen. Im Haushalt sind die WLAN Teilnehmer meist nicht super mobil und nutzen das Internet meist von einem festen Ort. Wenn man beispielsweise das Handy ausschaltet, trennt es die WLAN Verbindung und sobald man es entsperrt, wird nach dem stärksten Signal gesucht und verbunden. Allerdings muss man hier zur Vermeidung von asynchronem Routing entsprechende Subnetze verwenden - das Thema behandeln wir noch im Detail. 
+Das Thema klingt komplex, ist jedoch relativ einfach. Man kann generell mehrere Access Points betrieben, mit der gleichen SSID / Netzwerknamen. Wenn alle die gleiche Authentifizierung erfordern, wird das WLAN Endgerät einfach den AccessPoint mit dem stärksten Signal wählen. Im Haushalt sind die WLAN Teilnehmer meist nicht super mobil und nutzen das Internet meist von einem festen Ort. Wenn man beispielsweise das Handy ausschaltet, trennt es die WLAN Verbindung und sobald man es entsperrt, wird nach dem stärksten Signal gesucht und verbunden. Allerdings muss man hier zur Vermeidung von asynchronem Routing entsprechende Subnetze verwenden - das Thema behandeln wir noch im Detail. 
 
 ## Die Umsetzung
 
 ### hostapd
-Der hostapd ind Verbindung mit z.b. der RaLink RT5370 hat die Möglichkeit mehrere virtuell Accesspoints zu erzeugen. Hierzu ist es notwendig das jeder virtueller Accesspoint eine eigene MAC-Adresse bekommt. Hierzu nimmt man am besten die orginal MAC des WLAN Adapters, ändert die letzte Stelle auf "1" und zählt dann für jede weitere BSSID um eins hoch. Wichtig dabei ist, das es nicht nur logisch um eins erhöht wird, zb. "59 + 1 = 5A", sondern die letzte Zahl muss um einen Zähler erhöht werden.
+Der hostapd in Verbindung mit z.b. der RaLink RT5370 hat die Möglichkeit mehrere virtuell Accesspoints zu erzeugen. Hierzu ist es notwendig das jeder virtueller Accesspoint eine eigene MAC-Adresse bekommt. Hierzu nimmt man am besten die orginal MAC des WLAN Adapters, ändert die letzte Stelle auf "1" und zählt dann für jedes weitere WLAN Netz (BSSID) um eins hoch. Wichtig dabei ist, das es nicht nur logisch um eins erhöht wird, zb. HEX "59 + 1 = 5A", sondern die letzte Zahl muss um einen Zahl erhöht werden.
 
 ```shell
 ifconfig wlan1 |grep ether
 ether 00:ba:35:e2:11:c8  txqueuelen 1000  (Ethernet)
 ```
 
-Um das Problem zu lösen, wird die Haupt bssid auf "00:ba:35:e2:11:c1" gesetzt. Es reicht aus das in der Konfiguration zu mache, da der hostapd beim Start die MAC-Adresse entsprechend konfiguriert. Leider kann man hier den neuen virtuelle wlan_X Interfaces keine IP Adresse zuweisen. Auch die wpa_supplicant Konfiguration hat nicht funktioniert, so das ich mich für folgende Lösung entscheiden habe.
+Hier wird die Haupt BSSID auf "00:ba:35:e2:11:c1" gesetzt. Der hostapd wird dann beim Start die MAC-Adresse der WLAN Schnittstelle entsprechend konfiguriert. Leider kann man hier den neuen virtuelle wlan_X Interfaces nicht direkt eine IP Adresse zuweisen. Auch die wpa_supplicant Konfiguration funktioniert nicht, so dass ich mich für folgende Lösung entscheiden habe.
 
 /lib/systemd/system/hostapd.service
 ```ini
@@ -201,7 +202,7 @@ ifconfig wlan1_2 192.168.45.1
 systemctl restart isc-dhcp-server.service 
 ```
 
-Der letzte Eintrag ist auch notwendig, das der dhcp server leider nur beim Start überprüft welche IPs verfügbar sind und die besagten Interfaces und IPs ja erst bei dem hostapd Service erzeugt werden.
+Der letzte Eintrag ist auch notwendig, da der dhcp server leider nur beim Start überprüft welche IPs verfügbar sind und die besagten Interfaces und IPs ja erst bei dem hostapd Service erzeugt werden.
 
 /etc/hostapd/hostapd.conf
 ```ini
@@ -211,8 +212,8 @@ bssid=00:ba:35:e2:11:c1
 # auf 1, da sonst der country code nicht gesendet wird
 ieee80211d=1
 country_code=DE
-# 11 Keller, 1 OG, 6 EG
-channel=11
+# Funkkanäle 1 Keller, 6 EG, 11 OG
+channel=1
 ctrl_interface=/var/run/hostapd
 ctrl_interface_group=0
 hw_mode=g
@@ -274,24 +275,24 @@ wpa_pairwise=CCMP
 rsn_pairwise=CCMP
 ```
 
-In den verschiedenen /etc/hostapd/keys/psk Dateien kann entweder pro MAC ein spezifisches Passwort vergeben werden oder wie im Beispiel gezeigt am Ende auch ein wildcard Passwort. Wichtig ist es, den Wildcard Match als letzten Eintrag zu haben, da beim Verbindungsaufbau die erste Mac, die dem Muster entspricht verwendet wird.
+In den verschiedenen /etc/hostapd/keys/psk_X Dateien kann entweder pro MAC ein spezifisches Passwort vergeben werden oder wie im Beispiel gezeigt am Ende auch ein wildcard Passwort. Wichtig ist es, den Wildcard Match als letzten Eintrag zu haben, da beim Verbindungsaufbau die erste MAC, die dem Muster entspricht verwendet wird.
 
 ```ini
 08:a6:bc:75:77:18 fHo7tPai76AiaQGlnr4=
 00:00:00:00:00:00 HrLfBQFoP38ttiDkmFc=
 ```
 
-Dadurch ist es möglich, z.b. jedem IoT Gerät einen eigenen WLAN Schlüssel zu geben ohne beim Sperren gleich alle ändern zu müssen. Das Gleiche gilt für das Gäste WLAN, in dem man beispielsweise Rechner von der Arbeit haben will die einen eigenen Schlüssel bekommen und für normale Gäste ändert man den Schlüssel hin und wieder. Manche Hersteller versuchen dem Kunden zu helfen, indem sie das Passwort in der App speichern und wenn man ein weiteres Gerät hinzufügt, wird diese Passwort übertragen. 
+Dadurch ist es möglich, z.b. jedem IoT Gerät einen eigenen WLAN Schlüssel zu geben ohne beim Sperren gleich alle ändern zu müssen. Insbesondere wenn man mehr als 10 WLAN Steckdosen hat, kann das eine tagesfüllende Aufgabe sein. Das Gleiche gilt für das Gäste WLAN, in dem man beispielsweise die Rechner von der Arbeit haben will. Diese bekommen einen eigenen, individuellen Schlüssel und für normale Gäste ändert man den Schlüssel regelmäßig. 
 
-So zum Beispiel Amazons Alexa, bei dem alle Alexa Geräte sich den selben WLAN Schlüssel teilen müssen. Klingt vielleicht komfortabel, aber wenn man sich klarmacht, das hierzu der Schlüssel in der App gespeichert und vermutlich sogar zu Amazon übertragen wird, wird schnell klar das man hier nicht mehr von Sicherheit reden kann. Andere Hersteller agieren ähnlich und auch wenn alle Hardware Hersteller die größt mögliche Sorgfalt walten lassen, ist es nicht unmöglich das die Passwörter + WLAN SSID + ggfls GPS Koordinaten oder Adressen geleakt werden. Warum viele Gerätehersteller die Adresse wissen wollen ist auch eine gute Frage.
+Manche Hersteller versuchen dem Kunden zu helfen, indem sie das Passwort in der App speichern und wenn man ein weiteres Gerät hinzufügt, wird dieses Passwort übertragen. So zum Beispiel Amazons Alexa, bei dem alle Alexa Geräte sich den selben WLAN Schlüssel teilen müssen. Klingt vielleicht komfortabel, aber wenn man sich klarmacht, das hierzu der Schlüssel in der App gespeichert und vermutlich sogar zu Amazon übertragen wird, wird schnell klar das man hier nicht mehr von Sicherheit reden kann. Andere Hersteller agieren ähnlich und auch wenn alle Hardware Hersteller die größt mögliche Sorgfalt walten lassen, ist es nicht unmöglich, dass die Passwörter + WLAN SSID + ggfls GPS Koordinaten oder Adressen geleakt werden. Warum viele Gerätehersteller GPS oder die Adresse wissen wollen ist auch eine gute Frage.
 
-In meinem Beispiel könnte ein Angreifer die MAC Adresse fälschen, das gestohlene Passwort verwenden und wäre dann in einem WLAN, welches keinen Zugriff auf interne Geräte oder andere WLAN Teilnehmer zulässt, sondern könnte "nur" ins Internet gehen. Dieser Angriffsvektor ist nicht schön, aber für mich OK und in einem anderen Projekt werde ich das Monitoring näher beleuchten.
+In meinem Beispiel könnte ein Angreifer die MAC Adresse fälschen, das gestohlene Passwort verwenden und wäre dann in einem WLAN, welches jedoch keinen Zugriff auf interne Geräte oder andere WLAN Teilnehmer zulässt, sondern könnte "nur" ins Internet gehen. Dieser Angriffsvektor ist nicht schön, aber für mich OK und in einem anderen Projekt werde ich das Monitoring näher beleuchten.
 
-Am besten rebooted man das System, um sicherzugstellen, das alle konfigurationen wie gewünscht persistiert sind. Danach sollte man die neuen WLAN Accesspoints bereits sehen und sich verbinden können. Allerdings wird man noch keine IP Adresse erhalten, da der DHCP nocht nicht konfiguriert ist.
+Am besten rebooted man an der Stelle das System, um sicherzugstellen, das alle Konfigurationen wie gewünscht persistiert sind. Danach sollte man die neuen WLAN Accesspoints bereits sehen und sich verbinden können. Allerdings wird man noch keine IP Adresse erhalten, da der DHCP nocht nicht konfiguriert ist.
 
 ### DHCP Server
 
-Auf Grund der technischen Ausgereiftheit und des Funktionsumfangs, verwende ich lieber den ISC DHCP als den neuerdings recht häufig verwendeten dnsmasq, welche dns und dhcp in einem vereint.
+Auf Grund der technischen Ausgereiftheit und des Funktionsumfangs, verwende ich gerne den ISC DHCP und nicht dnsmasq, welche dns und dhcp in einem vereint.
 
 ```shell
 systemctl stop dnsmasq.service 
@@ -300,7 +301,7 @@ systemctl disable dnsmasq.service
 apt-get install -y isc-dhcp-server
 ```
 
-In der /etc/dhcp/dhcpd.conf wird nun für jeden virtuellen Accesspoint eine subnetz Deklaration erstellt.
+In der /etc/dhcp/dhcpd.conf wird nun für jeden virtuellen Accesspoint eine Subnetz Deklaration erstellt.
 
 ```properties
 ...
@@ -330,12 +331,14 @@ Für das Gäste Netzwerk habe ich die dyndns Einträge deaktiviert und da diese 
 ### Der eigene DNS Server
 
 Um nicht alle Clients mit externen DNS Servern reden zu lassen wird ein bind9 auf dem Haupt Raspi (homeberry) installiert.
+
 ```shell
 apt-get install bind9
 systemctl restart bind9.service 
 ```
 
-Die Funktion des DNS Servers kann man z.b. wiefolgt testen
+Die Funktion des DNS Servers kann man wiefolgt testen
+
 ```shell
 dig a www.google.de @127.0.0.1
 
@@ -490,7 +493,7 @@ Zur perfekten WLAN Versorgung des gesamten Hauses, habe ich mich entschieden auf
 ---
 **NOTIZ**
 
-PXE geht *nicht* über WLAN/WiFI, sondern ausschliesslich über Ethernet. 
+PXE geht **nicht** über WLAN/WiFI, sondern ausschliesslich über Ethernet. 
 
 ---
 
@@ -521,7 +524,8 @@ program_usb_boot_mode=1
 Diese Einstellung ist nur einmal pro Gerät notwendig und dauerhaft.
 
 #### DHCP und TFTP
-Bei mir sind die Raspberry über den switch an eth2 mit dem Hauptrasberry (homeberry) verbunden
+Bei mir sind die Raspberry über den switch an eth2 mit dem Hauptrasberry (homeberry) verbunden, welches sich im 10.0.1.0/24 Subnetz befindet.
+
 /etc/dhcp/dhcpd.conf erweitern
 ```properties
 subnet 10.0.1.0 netmask 255.255.255.0 {
@@ -576,16 +580,16 @@ Jan 18 19:28:30 homeberry in.tftpd[1044]: sending NAK (1, File not found) to 10.
 Jan 18 19:28:30 homeberry in.tftpd[1046]: RRQ from 10.0.1.101 filename 2a7acd98/start.elf
 ```
 
-Nach dem die "bootcode.bin" herunter geladen wurde, wird versucht die restlichen boot Dateien zu laden. Hierbei generiert jeder PXE boot client einen unique identifier, in diesem Beispiel *2a7acd98*. Diesen String müssen wir uns merken und brauchen den im nächsten Schritt, in dem wir einen entsprechenden Ornder anglegen.
+Nach dem die "bootcode.bin" herunter geladen wurde, wird versucht die restlichen boot Dateien zu laden. Hierbei generiert jeder PXE boot client einen unique identifier, in diesem Beispiel **2a7acd98**. Diesen String müssen wir uns merken und brauchen den im nächsten Schritt, in dem wir einen entsprechenden Ornder anglegen.
 
 #### TFTP boot Verzeichnis bereitstellen
 
-Auf [raspberry.org](https://www.raspberrypi.org/software/operating-systems/) findet man den Downlowd Link zum aktuelle RaspiOS/Raspbian. Für meinen Anwendungszweck empfiehlt sich das Lite image, das die Desktop Komponenten unnötiger Ballast wären.
+Auf [raspberry.org](https://www.raspberrypi.org/software/operating-systems/) findet man den Downlowd Link zum aktuelle RaspiOS/Raspbian. Für meinen Anwendungszweck empfiehlt sich das Lite image, da die Desktop Komponenten unnötiger Ballast wären.
 
 ```shell
 cd /srv
 wget https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip
-unzip ../2021-01-11-raspios-buster-armhf-lite.zip
+unzip 2021-01-11-raspios-buster-armhf-lite.zip
 
 fdisk -lu 2021-01-11-raspios-buster-armhf-lite.img
 Disk 2021-01-11-raspios-buster-armhf-lite.img: 1.8 GiB, 1862270976 bytes, 3637248 sectors
@@ -607,13 +611,13 @@ echo "512 * 8192"|bc -l
 4194304
 
 mkdir /srv/image_boot
-mount -o loop,offset=272629760 2021-01-11-raspios-buster-armhf-lite.img /srv/image_boot
+mount -o loop,offset=4194304,sizelimit=256M 2021-01-11-raspios-buster-armhf-lite.img /srv/image_boot
 ```
 
 Der Inhalt wird nun in den TFTP Ordner synchronisiert und die cmdline.txt entsprechend angepasst. Der Ordner Name ist dynamisch pro PXE Client, und kann über das Logfile wie im vorherigen Schritt beschrieben herausgefunden werden.
 
 ```shell
-mkdir /srv/tftp/2a7acd98
+mkdir -p /srv/tftp/2a7acd98
 rsync -avz /srv/image_boot/ /srv/tftp/2a7acd98
 
 cat /srv/tftp/2a7acd98/cmdline.txt 
@@ -756,12 +760,14 @@ Admin WLAN
 - apberry01 192.168.142.0/24
 - apberry02 192.168.242.0/24
 
-Wenn man sich auf dem apberry01 anmeldet, leitet der lokale dhcp-relay die Anfrage an den homeberry weiter. Wenn der jetzt dem Client die 192.168.41.x zuweisen würde, würde die Antwort nicht über das Ethernet an den apberry01 weitergeleitet werden, sonder er würde versuchen es über das WLAN Netzwerk zu senden. Da der apberry01 in dem Fall, jedoch nur einen Accesspoint anbietet und nicht selber Teil des Netzwerkes ist, würde die Antwort dort nie ankommen...stichwort asynchrones routing. Das ist im Normalfall jedoch kein Problem, da man selten weiss welche IP Adresse man hat, der dynamische DNS Eintrag aktuell gehalten wird und man so zusätzlich recht einfach ermitteln kann, mit welchem Accesspoint man gerade verbunden ist. Die einzige negative Einschränkung die sich hieraus ergibt, ist die Tatsache, dass man keine statischen IPs vergeben kann, ausser man stellt sicher das man sich immer über den gleichen Accesspoint verbindet.
+Wenn man sich auf dem apberry01 anmeldet, leitet der lokale dhcp-relay die Anfrage an den homeberry weiter. Wenn der jetzt dem Client die 192.168.41.x zuweisen würde, würde die Antwort nicht über das Ethernet an den apberry01 weitergeleitet werden, sondern er würde versuchen es über das WLAN Netzwerk (192.168.42.0) zu senden. Da der apberry01 in dem Fall, jedoch nur einen Accesspoint anbietet und nicht selber Teil des WLAN Netzwerkes ist, würde die Antwort dort nie ankommen...Stichwort asynchrones routing. Das ist im Normalfall jedoch kein Problem, da man selten weiss welche IP Adresse man hat, der dynamische DNS Eintrag aktuell gehalten wird und man so zusätzlich recht einfach ermitteln kann, mit welchem Accesspoint man gerade verbunden ist. Die einzige negative Einschränkung die sich hieraus ergibt, ist die Tatsache, dass man keine statischen IPs vergeben kann, ausser man stellt sicher, dass man sich immer über den gleichen Accesspoint verbindet.
 
 #  Das Ergebnis
 
-Mein Haus hat endlich auf jeder Etage einen Top Empfang, der Durchsatz ist deutlich besser, da die WLAN Accesspoints via Ethernet angeschlossen sind und für die verschiedenen WLAN Client Bedürfnisse kann ich die notwendige Seperation durchführen.
+Mein Haus hat endlich auf jeder Etage einen Top Empfang, der Durchsatz ist deutlich besser, da die WLAN Accesspoints via Ethernet angeschlossen sind und für die verschiedenen WLAN Client Bedürfnisse kann ich die notwendige Seperation durchführen. Die gesamte Umstellung hat locker 2 Wochen gedauert und die größten Schwierigkeiten ergaben sich in der hostapd Konfiguration, da hier die Dokumentation deutliches Verbesserungspotential hat. Den einen apberry konnte ich sogar in der Unterverteilung einbauen, so dass der nicht irgendwo rumsteht.
 
+![apberry_offen](/images/projekte/IMG_4255.JPG)
+![apberry_zu](/images/projekte/IMG_4256.JPG)
 ## Wie gehts weiter
 
 Da dieses Projekt ziemlich groß und lang geworden ist, habe ich mich entschieden für folgende Themen einen extra Artikel anzulegen:

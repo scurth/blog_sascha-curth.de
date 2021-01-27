@@ -143,7 +143,7 @@ Wird dieses Ngnix Setup z.b. auf einem Raspberry PI betrieben, welcher gleichzei
 ```
 
 Die dazu passende Nginx Konfiguration
-```config
+```ini
 ...
        location /cam-nord/m3u8 {
             proxy_pass http://IP_Adresse/Secure_ID/live/index.m3u8;

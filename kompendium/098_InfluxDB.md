@@ -17,12 +17,26 @@ Die InfluxDB ist eine ideale Datenbank um Sensordaten zu speichern und auszuwert
 ### InfluxDB
 
 ## Quick & Dirty
-```shell
+```shel
+wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+echo "deb https://repos.influxdata.com/debian buster stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+
 sudo apt-get install influxdb
 sudo /bin/systemctl enable influxdb
 sudo service influxdb restart
 ```
 Danach läuft der InfluxDB Server auf dem Port 8086.
+
+Sicherheitshalber sollte man die influxdb nur auf dem localhost lauschen lassen.
+
+```ini
+...
+bind-address = "127.0.0.1:8088"
+...
+[http]
+  bind-address = "127.0.0.1:8088"
+...
+```
 
 ## InfluxDB Installation mittels Docker
 
