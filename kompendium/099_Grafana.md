@@ -6,6 +6,9 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 26.02.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Inhalt
 <TOC />
@@ -60,7 +63,7 @@ telegraf-vrm.service:ExecStart=/usr/bin/telegraf -config /etc/telegraf/telegraf_
 ```
 
 Jeder Service kann nun eine eigene InfluxDB als Backend verwenden, z.b.:
-```init
+```ini
 [global_tags]
 [agent]
   interval = "10s"

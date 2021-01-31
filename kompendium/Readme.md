@@ -6,6 +6,9 @@ meta:
  - name: IoT Kompendium
  - content: opensource tasmota influxdb grafana raspberry linux mqtt
 sidebar: true
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Alle Kompendium Einheiten
 <posts />

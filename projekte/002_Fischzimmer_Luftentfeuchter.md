@@ -5,6 +5,9 @@ introimage: "/images/projekte/luftfeuchter-optimierung.jpg"
 type: projekte
 lang: de-DE
 published: 27.02.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Luftentfeuchter Optimierung
 <TOC />

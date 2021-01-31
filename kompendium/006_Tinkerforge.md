@@ -5,6 +5,9 @@ introimage: "/images/tinkerforge.jpg"
 type: article
 lang: de-DE
 published: 18.08.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Tinkerforge Sensoren
 <TOC />

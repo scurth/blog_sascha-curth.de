@@ -5,6 +5,9 @@ introimage: "/images/projekte/heimkamera.jpg"
 type: projekte
 lang: de-DE
 published: 15.11.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # {{ $frontmatter.title }}
 ![L1](/images/projekte/heimkamera.jpg)

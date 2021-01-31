@@ -5,6 +5,9 @@ introimage: "/images/wifi.png"
 type: article
 lang: de-DE
 published: 03.03.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 #  Raspberry Pi 2/3/4 als WLAN/WiFi AccessPoint
 <TOC />

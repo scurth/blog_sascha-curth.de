@@ -5,6 +5,9 @@ introimage: "/images/blog_hero_image.jpg"
 type: article
 lang: de-DE
 published: 22.02.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Einführung in den Themenbereich IoT
 

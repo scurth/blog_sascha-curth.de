@@ -6,6 +6,9 @@ author: Sascha Curth
 type: article
 lang: de-DE
 published: 16.07.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Inhalt
 <TOC />
@@ -17,7 +20,7 @@ Die InfluxDB ist eine ideale Datenbank um Sensordaten zu speichern und auszuwert
 ### InfluxDB
 
 ## Quick & Dirty
-```shel
+```shell
 wget -qO- https://repos.influxdata.com/influxdb.key | sudo apt-key add -
 echo "deb https://repos.influxdata.com/debian buster stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
 

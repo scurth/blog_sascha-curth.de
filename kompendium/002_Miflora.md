@@ -5,6 +5,9 @@ introimage: "/images/miflora-sensor.jpg"
 type: article
 lang: de-DE
 published: 22.02.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Miflora Pflanzensensor
 <TOC />

@@ -5,6 +5,9 @@ introimage: "/images/news/philips-hue-bridge.jpg"
 type: news
 lang: de-DE
 published: 09.03.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Support Ende der Philips Hue Bridge v1
 <TOC />

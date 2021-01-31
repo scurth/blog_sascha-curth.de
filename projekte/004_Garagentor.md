@@ -5,6 +5,9 @@ introimage: "/images/projekte/garagedoor.jpg"
 type: projekte
 lang: de-DE
 published: 24.03.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Das Garagentor via WLAN/WiFi steuern
 <TOC />

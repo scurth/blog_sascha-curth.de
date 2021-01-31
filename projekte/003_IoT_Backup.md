@@ -5,6 +5,9 @@ introimage: "/images/projekte/data-recovery-3126989_1920.jpg"
 type: projekte
 lang: de-DE
 published: 10.03.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Backup der IoT Geräte
 <TOC />

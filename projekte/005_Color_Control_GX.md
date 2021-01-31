@@ -5,6 +5,9 @@ introimage: "/images/projekte/ccgx_600.gif"
 type: projekte
 lang: de-DE
 published: 31.03.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Victron Energy VRM / CCGX Daten lokal auslesen
 <TOC />

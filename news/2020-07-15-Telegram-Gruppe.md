@@ -5,6 +5,9 @@ introimage: "/images/news/telegram-chat-group-join.png"
 type: news
 lang: de-DE
 published: 15.07.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # {{ $frontmatter.title }}
 <TOC />

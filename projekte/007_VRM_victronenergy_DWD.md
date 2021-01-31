@@ -5,6 +5,9 @@ introimage: "/images/projekte/flash-862620_640.jpg"
 type: projekte
 lang: de-DE
 published: 15.06.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # {{ $frontmatter.title }}
 ![L1](/images/projekte/flash-862620_640.jpg)

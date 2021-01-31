@@ -5,6 +5,9 @@ introimage: "/images/netatmo_presence.jpg"
 type: article
 lang: de-DE
 published: 07.05.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Netatmo Presence
 <TOC />

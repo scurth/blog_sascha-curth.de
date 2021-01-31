@@ -24,4 +24,4 @@ meta:
      content: 0
 sitemap:
   exclude: false
-  changefreq: hourly
+  changefreq: monthly

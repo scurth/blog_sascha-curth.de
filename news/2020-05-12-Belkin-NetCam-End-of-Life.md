@@ -5,6 +5,9 @@ introimage: "/images/news/Belkin-Wemo-Netcam.jpg"
 type: news
 lang: de-DE
 published: 13.05.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Support Ende der Philips Hue Bridge v1
 <TOC />

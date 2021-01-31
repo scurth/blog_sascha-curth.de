@@ -51,17 +51,22 @@ module.exports = {
       ],
     },
   },
-  plugins: [ 
-     'social-share', { networks: ['twitter', 'facebook', 'reddit', 'telegram'] },
-     '@vuepress/last-updated',
-     'vuepress-plugin-table-of-contents',
-     '@vuepress/back-to-top',
-     'check-md', { pattern: '**/*.md' },
-     'vuepress-plugin-reading-time', { excludes: ['/about', '/tag/.*'] },
-     'authors',
-     'vuepress-plugin-glossary',
-     'sitemap', { hostname: 'https://www.sascha-curth.de' },
-  ],
+  plugins: {
+     'social-share': { networks: ['twitter', 'facebook', 'reddit', 'telegram'] },
+     '@vuepress/last-updated': {},
+     'vuepress-plugin-table-of-contents': {},
+     '@vuepress/back-to-top': {},
+     'check-md': { pattern: '**/*.md' },
+     'vuepress-plugin-reading-time': { excludes: ['/about', '/tag/.*'] },
+     'authors': {},
+     'vuepress-plugin-glossary': {},
+     'sitemap': {
+         hostname: 'https://www.sascha-curth.de', 
+	 dateFormatter: val => {
+          return new Date().toISOString()
+        }
+     },
+  },
   head: [
     ['link', { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }],
     ['link', { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }],

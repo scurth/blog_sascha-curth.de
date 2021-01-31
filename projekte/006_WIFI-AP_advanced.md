@@ -5,6 +5,9 @@ introimage: "/images/projekte/wireless-1289347_640.png"
 type: projekte
 lang: de-DE
 published: 03.05.2020
+sitemap:
+  exclude: false
+  changefreq: monthly
 ---
 # Heim WiFi mit nutzerbasierten Zugangsdaten
 <TOC />
