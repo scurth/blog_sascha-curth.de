@@ -52,7 +52,6 @@ module.exports = {
     },
   },
   plugins: {
-     'social-share': { networks: ['twitter', 'facebook', 'reddit', 'telegram'] },
      '@vuepress/last-updated': {},
      'vuepress-plugin-table-of-contents': {},
      '@vuepress/back-to-top': {},
